@@ -53,6 +53,8 @@
 		<div class="three columns sidebar">
 			<nav>
 			<ul>
+				<li><a href="index.html">Overview</a></li>
+				<hr />
 				{% include menu.html %}
 			</ul>
 			</nav>
@@ -60,9 +62,7 @@
 		<div class="thirteen columns content ">
 			{{ content }}
 		</div>
-		<div class="thirteen columns offset-by-three">
-			Site design modified from <a href="http://www.getskeleton.com">skeleton</a> by <a href="http://bryer.org">Jason Bryer</a>. 
-		</div>
+		{% include footer.html %}
 	</div><!-- container -->
 
 

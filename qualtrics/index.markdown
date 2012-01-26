@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: qualtrics
 title: qualtrics
 subtitle: An R package for interfacing with the Qualtrics.com survey system
 ---
