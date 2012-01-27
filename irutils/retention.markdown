@@ -4,6 +4,6 @@ title: irutils
 subtitle: Utilities for Institutional Research
 ---
 
-### Overview
-The `irutils` package provides utilities for Institutional Researchers.
+### Retention & Completion Rates
+
 
