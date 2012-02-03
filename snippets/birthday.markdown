@@ -6,5 +6,7 @@ subtitle: Little bits of R code...
 
 ### Given a room with n people in it, what is the probability any two will have the same birthday? 
 
+![BirthdayProblem](BirthdayProblem.png)
+
 <script src="https://gist.github.com/1712710.js?file=BirthdayProblem.R"></script>
 
