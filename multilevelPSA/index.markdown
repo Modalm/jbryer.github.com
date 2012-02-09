@@ -9,3 +9,6 @@ The `multilevelPSA` R package provides functions for estimating and visualizing 
 		require(devtools)
 		install_github('multilevelPSA', 'jbryer')
 		
+![PISA Mathematics](pisa.math.mlpsa.png)
+Figure 1. [Multilevel PSA Assessment Plot: PISA Mathematics for Private and Public Schools](pisa.math.mlpsa.pdf)
+
