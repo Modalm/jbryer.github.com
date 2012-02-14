@@ -13,10 +13,11 @@ To install the latest development version using `devtools`, type following in R:
 		require(devtools)
 		install_github('makeR', 'jbryer')
 
-There are two demos that demonstrate the many of the features of the `makeR` package.
+There are three demos that demonstrate the many of the features of the `makeR` package.
 
 		require(makeR)
 		demo('rbloggers')
 		demo('stocks')
+		demo('makeR-knitr')
 
-
+See also the package vignette, [makeR: An R Package for Managing Document Building and Versioning](https://github.com/jbryer/makeR/blob/master/inst/doc/makeR.pdf?raw=true)
