@@ -15,7 +15,9 @@ The `multilevelPSA` R package provides functions for estimating and visualizing 
 Figure 1. [Multilevel PSA Assessment Plot: PISA Mathematics for Private and Public Schools](pisaMath.pdf)
 
 ![PISA Mathematics Difference Plot](pisaMathDiff.png)
+
 Figure 2. [Multilevel PSA Difference Plot: PISA Mathematics for Private and Public Schools](pisaMathDiff.pdf)
 
 ![PISA Conditional Inference Tree Plot](pisaTreeHeat.png)
+
 Figure 3. [Multilevel PSA Conditional Inference Trees Heat Plot](pisaTreeHeat.pdf)
