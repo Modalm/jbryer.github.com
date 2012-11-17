@@ -14,6 +14,10 @@ pygments:    false
 markdown:    maruku
 permalink:   date
 
+name: Jason.Bryer.org Blog
+description: Blog about R, educational psychology, software, and other musings
+url: http://bryer.org
+
 maruku:
   use_tex:    false
   use_divs:   false

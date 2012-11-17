@@ -1,0 +1,32 @@
+--- 
+layout: post
+title: Backing Up
+published: true
+meta: 
+  _edit_last: "1"
+  _wiki_page: "0"
+  _wiki_page_toc: "0"
+tags: []
+
+type: post
+status: publish
+---
+Over the past few months it has become very clear that many of my family and friends are not adequately prepared for a computer failure. Part of being prepared is having a good backup system and then sticking to it. However, though backup seems like a seemingly simple concept, the complexities involved become quickly apparent. Perhaps the most problematic is the <em>sticking to it</em>. That is, it is good to have a backup plan but if you don't keep up on your backups, then why bother making a plan? There is a simple adage to keep in mind whenever you create or save some data (i.e. photo, video, document, etc.): <strong>If the file is not in two places, it does not exist!</strong> I will briefly explain some of the tools I have either used or know about that can assist in creating and following through on a backup plan.
+
+<em>Your first layer of backup</em>
+
+Probably the most common reason you will need to use your backup is due to a hard drive failure. Therefore, it is probably a good idea to have a complete system backup so that you can quickly recover after replacing the failed drive. For Mac users, I recommend using <a href="http://www.apple.com/macosx/what-is-macosx/time-machine.html" target="_blank">Time Machine</a> with an external hard drive.This will create incremental backups whenever the drive is attached. If you have more then one computer in the house, then it is probably worth investing in a <a href="http://www.apple.com/timecapsule/" target="_blank">Time Capsule</a>. This will allow backups to occur over wifi. The hard drive in my wife's laptop died  a year ago which spurred a much needed upgrade anyways. When we brought the new laptop home, the Mac setup wizard asked if we would like to restore from a backup, we said yes, it found the Time Capsule on the network and about an hour later, she had a new laptop that looked and behaved just like the one that died (albeit a lot faster).
+
+Sorry Windows users, but I'm not sure if there is a similar system. Once upon a time when I owned Windows computers I would use <a href="http://www.symantec.com/norton/ghost" target="_blank">Norton Ghost</a>, however I cannot attest to its usefulness now. If someone knows a better tool, let me know (Mac users: <a href="http://www.bombich.com/index.html" target="_blank">Carbon Copy Cloner</a> is also very good and works somewhat like Norton Ghost).
+
+Alternatively, you can always manually backup your files using the Finder on Mac or Explorer on Windows. I generally don't recommend this as then you are now relying on remembering to perform a backup then it just happening automatically.
+
+For your home backup, I think that Western Digital My Books are very good for the price. They are external USB drives that will work with Time Machine or any other backup software. However, if you are serious about keeping your data safe (read: FAMILY PHOTOS), then I would recommend a <a href="http://www.drobo.com/" target="_blank">Drobo</a>. Admittedly quite a bit more expensive, but these external hard drive enclosures hold up to four hard drives. I recommend starting with two 1 TB hard drives (you need at least two drives to start). What a Drobo does is spread your data over multiple drives so that if one fails, your data is still safe. If a drive were to fail, a light on the front of the Drobo turns red, you replace that drive with a new one, and all is good. Moreover, the Drobo can grow with you as you acquire more data. If you start with two 1TB drives, you will actually have 1TB usable (since the other 1TB is used for protection). Once you begin to fill that 1TB, simply add a third drive, say another 1TB drive, and instantly you have 2TB of storage. Moreover, say you have four 1TB drives (resulting in 3TB of usable storage) and you have reached it's capacity, you can then remove one drive and replace it with a larger drive (2TB are soon to be available) therefore increasing the capacity of the Drobo.
+
+<em>Your really important files</em>
+
+I am currently working on a dissertation. As you can imagine, I'm very concerned about the safety of these files as I work on them. One of my favorite services now is <a href="http://getdropbox.com" target="_blank">Dropbox</a>. After installing a small utility on your Mac or Windows computer, you pick a directory that will sync with the Dropbox service. What then happens is anytime a file changes in that directory (or subdirectories), that file is copied to the Dropbox service (assuming you are connected to the internet). Moreover, Dropbox will keep a copy of all revisions for the last 30 days. Additionally, Dropbox has a sharing feature so that you can share a directory with any number of other users. After setting up the share, any changes you make are sent automatically to other users. This has proven to be an  invaluable tool for collaborating with colleagues on various projects. This service is free for up to 2GB of storage, $50/year for 25GB, and $100/year for $50GB.
+
+<em>Offsite Backup</em>
+
+In general, I think that two copies in not enough. More specifically, I will keep two copies in my home (i.e. my computer and one backup) and one somewhere else. For a while I was carrying a hard drive to work once a month. This way, if the worst happened (e.g. house burnt down) I would only loose about a months worth of data. However, there are two very good and relatively cheap alternatives available that allow you to backup unlimited data online. <a href="https://www.backblaze.com/">Backblaze</a> ($5/month or $50/year) and <a href="http://www.carbonite.com/">Carbonine</a> ($55/year) are both available for both Mac and Windows. The only disadvantage of these services is that the initial backup may take quite some time to complete. For example, I'm currently using Backblaze (a Google search for 'backblaze coupon code' will find you a 10% coupon) and it took about a week for my laptop to backup. I'm currently backing up all my photos (over 500GB worth!) and it has been working for about a month now. However, once the initial backup completes, it is relatively quick for updates and/or new files to be backed up.

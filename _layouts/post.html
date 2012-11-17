@@ -1,3 +1,7 @@
+---
+article-class: post
+---
+
 <!DOCTYPE html>
 <!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
 <!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
@@ -54,19 +58,19 @@
 		<div class="three columns sidebar">
 			<nav>
 			<ul>
-				<li><a href="index.html">Overview</a></li>
-				<li><a href="likert.html">Likert Items</a></li>
-				<li><a href="database.html">Database Access</a></li>
-				<li><a href="retention.html">Retention</a></li>
-				<div style="border-bottom: 1px solid #CFCFCF; margin: 10px;"></div>
 				{% include menu.html %}
 			</ul>
 			</nav>
 		</div>
 		<div class="thirteen columns content ">
+			<date datetime="{{ page.date | date: "%Y-%m-%d" }}" pubdate>
+			  <span class="month">{{ page.date | date: "%B" }}</span>
+			  <span class="day">{{ page.date | date: "%d" }},</span>
+			  <span class="year">{{ page.date | date: "%Y" }}</span>
+			</date>
 			{{ content }}
 		</div>
-		{%include footer.html %}
+		{% include footer.html %}
 	</div><!-- container -->
 
 
@@ -74,7 +78,7 @@
 	<!-- JS
 	================================================== -->
 	<script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-	<script src="javascripts/tabs.js"></script>
+	<script src="/javascripts/tabs.js"></script>
 
 <!-- End Document
 ================================================== -->

@@ -1,0 +1,17 @@
+--- 
+layout: post
+title: Managing a Local R Repository
+published: true
+meta: 
+  _edit_last: "1"
+tags: R R-Bloggers
+type: post
+status: publish
+---
+I will be teaching a workshop on R and LaTeX at <a href="http://www.neair.org/">NEAIR</a> in just under a month. One of the issues I will encounter is a lack of Internet access. I also work with restricted data from <a href="http://nces.ed.gov/">NCES</a> which requires the computer to be secured including no network access. As such, I need to manage software from removable media. I have written some functions that will create a local repository, update a local repository, and install packages from the local repository. These are included as part of a new R package irutils that I am developing in support for the workshop and accompanying document/book, <em>Introduction to R an LaTeX for Institutional Research</em>. The irutils is being hosted on Github but the R script file can be retrieved directly here: <a href="https://github.com/jbryer/irutils/blob/master/R/LocalRepos.R">https://github.com/jbryer/irutils/blob/master/R/LocalRepos.R</a>. Here are the functions available (note that the createLocalRepos function can take a long time to run as it will download approximately 2GB of data for source alone):
+<ul>
+	<li>createLocalRepos(local.repos = "~/MyLocalCran", type="source")</li>
+	<li>updateLocalRepos(local.repos = "~/MyLocalCran", type="source")</li>
+	<li>local.available.packages(local.repos = "~/MyLocalCran", type="source")</li>
+	<li>local.install.packages(c('devtools', 'ggplot2'), local.repos = "~/MyLocalCran", type="source")</li>
+</ul>
