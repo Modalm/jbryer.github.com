@@ -5,14 +5,14 @@ title: Blog
 
 <ul id="posts" class="index">
   {% for post in site.posts %}
-    <li>
-      <a href="{{ post.url }}">{{ post.title | xml_escape }}</a>
+    <p>
+      <strong><a href="{{ post.url }}">{{ post.title | xml_escape }}</a></strong>
       <span>
-      	<time datetime="{{ post.date | date: "%Y-%m-%d" }}">
+      	<em><time datetime="{{ post.date | date: "%Y-%m-%d" }}">
       		{{ post.date | date: "%B %d, %Y" }}
-      	</time>
+      	</time></em>
       </span>
 	  <br />{{ post.content | strip_html | truncatewords: 50 }} <a href="{{ post.url }}">continue reading...</a>
-    </li>
+    </p>
   {% endfor %}
 </ul>
