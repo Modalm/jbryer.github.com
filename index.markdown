@@ -11,3 +11,5 @@ This website provides documentation for R packages maintained by [Jason Bryer](j
 * [`irutils`](irutils) An R package containing a collection of useful functions for Institutional Researchers including retention and completing estmiates, visualizing likert items, and database access.
 * [`ipeds`](/ipeds) An R package to interface with the Integraded Postsecondary Education Data System.
 * [`qualtrics`](/qualtrics) An R package to interface with the [Qualtrics.com](http://qualtrics.com) survey system.
+* `sqlutils` An R package to manage a library of SQL queries.
+* `likert` An R package to analyze and visualize Likert based items.
