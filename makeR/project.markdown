@@ -18,12 +18,12 @@ The `makeR` project uses an object oriented framework where all interaction occu
 
 The following example from the `rbloggers` demo demonstrates how to create a new project.
 
-		myProject = Project(name="RBloggers", projectDir=projectDir,
-				properties=list(email=email, passwd=passwd))
+	myProject = Project(name="RBloggers", projectDir=projectDir,
+			properties=list(email=email, passwd=passwd))
 
 Subsequent R sessions require only specifying the `projectDir` parameter.
 
-		myProject = Project(projectDir=projectDir)
+	myProject = Project(projectDir=projectDir)
 
 #### Attributes
 

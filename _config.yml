@@ -16,7 +16,7 @@ permalink:   date
 
 name: Jason.Bryer.org Blog
 description: Blog about R, educational psychology, software, and other musings
-url: http://bryer.org
+url: http://jason.bryer.org
 
 maruku:
   use_tex:    false

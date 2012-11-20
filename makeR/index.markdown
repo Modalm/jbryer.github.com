@@ -10,18 +10,18 @@ subtitle: An R package for managing document templates and versions
 
 The `makeR` package can be installed from [CRAN](http://cran.r-project.org/web/packages/makeR/).
 
-		install.packages('makeR', repos='http://cran.r-project.org')
+	install.packages('makeR', repos='http://cran.r-project.org')
 
 Or to install the latest development version using the `devtools` package, type following in R:
 
-		require(devtools)
-		install_github('makeR', 'jbryer')
+	require(devtools)
+	install_github('makeR', 'jbryer')
 
 There are three demos that demonstrate the many of the features of the `makeR` package.
 
-		require(makeR)
-		demo('rbloggers')
-		demo('stocks')
-		demo('makeR-knitr')
+	require(makeR)
+	demo('rbloggers')
+	demo('stocks')
+	demo('makeR-knitr')
 
 See also the package vignette, [makeR: An R Package for Managing Document Building and Versioning](https://github.com/jbryer/makeR/blob/master/inst/doc/makeR.pdf?raw=true)
