@@ -69,6 +69,7 @@ comments: true
 			  <span class="day">{{ page.date | date: "%d" }},</span>
 			  <span class="year">{{ page.date | date: "%Y" }}</span>
 			</date>
+			<br/>Categorized as: {{ page.tags | join: ', ' }}
 			</em><br/><br/>
 			{{ content }}
 			

@@ -36,3 +36,5 @@ The primary focus of this website is to provide documentation for R packages I m
 * [`irutils`](/irutils) An R package containing a collection of useful functions for Institutional Researchers.
 * `geocode` An R package to geocode IP addresses using GeoIP's database and street addresses using Google or Yahoo.
 * `ruca` An R package to get [Rural-Urban Commuting Area](http://depts.washington.edu/uwruca/index.php) (RUCA) Codes from zip codes.
+* `naep` An R package to interface with the National Assessment of Educational Progress (NAEP) restricted use databases. This includes access any analyzing data using the replicate weights and multiple plausible values.
+
