@@ -6,6 +6,7 @@ tags: R R-Bloggers
 type: post
 status: publish
 ---
+
 There are several graphics available for visualizing missing data including the [`VIM`](http://cran.r-project.org/web/packages/VIM/index.html) package. However, I wanted a plot specifically for looking at the nature of missingness across variables and a clustering variable of interest to support data preparation in multilevel propensity score models (see the [`multilevelPSA`](http://jbryer.github.com/multilevelPSA) package). The following examples uses data from the Programme of International Student Assessment (PISA; see [`pisa`](http://jbryer.github.com/pisa) package).
 
 The required packages can be downloaded from github. Note that the `pisa` package is approximately 75mb.

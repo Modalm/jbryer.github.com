@@ -1,6 +1,7 @@
 ---
 layout: default
-title: About Me
+title: About
+subtitle: Who is Jason and what is this site about?
 ---
 
 <img src='/images/me.gif' align='left' style="padding:5px;">

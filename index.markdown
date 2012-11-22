@@ -1,6 +1,6 @@
 ---
 layout: default
-title: jason.bryer.org
+title: Jason.Bryer.org
 subtitle: R Packages and Resources by Jason Bryer
 ---
 
@@ -23,7 +23,7 @@ __________
 
 ### Table of Contents ###
 
-The primary focus of this website is to provide documentation for R packages maintained by [Jason Bryer](jason@bryer.org). These include:
+The primary focus of this website is to provide documentation for R packages I maintain. These include:
 
 * [`makeR`](/makeR) An R package for managing document building, versioning, and templating.
 * [`multilevelPSA`](/multilevelPSA) An R package for estimating and visualizing multilelel propensity score models.
@@ -35,3 +35,4 @@ The primary focus of this website is to provide documentation for R packages mai
 * [`likert`](/likert) An R package to analyze and visualize Likert based items.
 * [`irutils`](/irutils) An R package containing a collection of useful functions for Institutional Researchers.
 * `geocode` An R package to geocode IP addresses using GeoIP's database and street addresses using Google or Yahoo.
+* `ruca` An R package to get [Rural-Urban Commuting Area](http://depts.washington.edu/uwruca/index.php) (RUCA) Codes from zip codes.

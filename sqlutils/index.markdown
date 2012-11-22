@@ -6,6 +6,10 @@ subtitle: An R package for managing a library of database queries
 
 ### Overview
 
+For many Institutional Research offices the institutions student information system (SIS) is the most common source of data. Since virtually all SIS systems are backed by a database, extracting data requires extracting data using queries. Typically the language used to extract data is called structured query language (SQL) regardless if the database is provided by Oracle, Microsoft, or an open source options such as MySQL and PostgreSQL. There are a number of functions in this package that will faciliate extracting data from these databases directly into R.
+
+The database access functions provide an interface to a directory of SQL scripts. SQL scripts are simply a plain text file containing the query. 
+
 The `sqlutils` package provides a set of utility functions to help manage a library of structured query language (SQL) files. The package can be installed from Github using the `devtools` package.
 
 	require(devtools)
