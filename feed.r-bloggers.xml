@@ -7,7 +7,7 @@ layout: none
 		<title>{{ site.name }} - R</title>
 		<description>Posts categorized as 'R-Bloggers'</description>
 		<link>{{ site.url }}</link>
-		<atom:link href="{{ site.url }}/feed.r.xml" rel="self" type="application/rss+xml" />
+		<atom:link href="{{ site.url }}/feed.r-bloggers.xml" rel="self" type="application/rss+xml" />
 		{% for post in site.tags.R-Bloggers limit:10 %}
 			<item>
 				<title>{{ post.title }}</title>
