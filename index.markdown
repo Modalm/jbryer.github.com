@@ -13,7 +13,7 @@ subtitle: R Packages and Resources by Jason Bryer
     		{{ post.date | date: "%B %d, %Y" }}
     	</time></em>
     </span>
-  <br />{{ post.content | strip_html | truncatewords: 50 }} <a href="{{ post.url }}">continue reading...</a>
+  <br />{{ post.content | more: "excerpt" | strip_html | truncatewords: 50 }} <a href="{{ post.url }}">continue reading...</a>
   </p>
 {% endfor %}
 
