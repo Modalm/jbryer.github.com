@@ -14,7 +14,7 @@ layout: none
     <email>jason@bryer.org</email>
   </author>
  
-  {% for post in site.posts %}
+  {% for post in site.tags.R limit:10 %}
   <entry>
     <id>http://jason.bryer.org{{ post.id }}</id>
     <link type="text/html" rel="alternate" href="http://jason.bryer.org{{ post.url }}"/>
