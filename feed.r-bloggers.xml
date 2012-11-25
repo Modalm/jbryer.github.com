@@ -2,20 +2,30 @@
 layout: none
 ---
 <?xml version="1.0"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-	<channel>
-		<title>{{ site.name }} - R</title>
-		<description>Posts categorized as 'R-Bloggers'</description>
-		<link>{{ site.url }}</link>
-		<atom:link href="{{ site.url }}/feed.r-bloggers.xml" rel="self" type="application/rss+xml" />
-		{% for post in site.tags.R-Bloggers limit:10 %}
-			<item>
-				<title>{{ post.title | xml_escape  }}</title>
-				<description>{{ post.content | split:"<!--more-->" | first }} &lt;a href='{{ site.url }}{{ post.url }}'&gt;Read full post...&lt;/a&gt;</description>
-				<pubDate>{{ post.date | date: "%a, %d %b %Y %H:%M:%S %z" }}</pubDate>
-				<link>{{ site.url }}{{ post.url }}</link>
-				<guid isPermaLink="true">{{ site.url }}{{ post.url }}</guid>
-			</item>
-		{% endfor %}
-	</channel>
-</rss>
+<feed xmlns="http://www.w3.org/2005/Atom">
+ 
+  <title>{{ site.name }} - R</title>
+  <link href="http://jason.bryer.org/"/>
+  <link type="application/atom+xml" rel="self" href="http://jason.bryer.org/feed.r-bloggers.xml"/>
+  <updated>{{ site.time | date_to_xmlschema }}</updated>
+  <id>http://jason.bryer.org/</id>
+  <author>
+    <name>Jason Bryer</name>
+    <email>jason@bryer.org</email>
+  </author>
+ 
+  {% for post in site.posts %}
+  <entry>
+    <id>http://jason.bryer.org{{ post.id }}</id>
+    <link type="text/html" rel="alternate" href="http://jason.bryer.org{{ post.url }}"/>
+    <title>{{ post.title }}</title>
+    <published>{{ post.date | date_to_xmlschema }}</published>
+    <updated>{{ post.date | date_to_xmlschema }}</updated>
+    <author>
+      <name>Jason Bryer</name>
+      <uri>http://jason.bryer.org/</uri>
+    </author>
+    <content type="html">{{ post.content | split:"<!--more-->" | first }} &lt;a href='{{ site.url }}{{ post.url }}'&gt;Read full post...&lt;/a&gt;</content>
+  </entry>
+  {% endfor %} 
+</feed>
