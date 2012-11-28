@@ -23,6 +23,8 @@ __________
 
 ### Table of Contents ###
 
+I will be teaching [EPSY 887 Computational Statistics](https://github.com/jbryer/CompStats) with Dr. Pruzek at the University at Albany during the Spring 2013 semester. Be sure to check out the [course description](https://github.com/jbryer/CompStats), [syllabus](https://github.com/jbryer/CompStats/tree/master/Syllabus), and [wiki](https://github.com/jbryer/CompStats/wiki) for more information.
+
 The primary focus of this website is to provide documentation for R packages I maintain. These include:
 
 * [`makeR`](/makeR) An R package for managing document building, versioning, and templating.
