@@ -1,5 +1,5 @@
 ---
-layout: ipeds
+layout: default
 title: ipeds
 subtitle: Integrated Postsecondary Education Data System
 ---

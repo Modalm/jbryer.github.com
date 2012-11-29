@@ -1,7 +1,8 @@
 ---
-layout: multilevelPSA
+layout: default
 title: multilevelPSA
 subtitle: Multilevel Propensity Score Analysis
+submenu: multilevelPSA
 ---
 
 ### Presentation

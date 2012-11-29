@@ -1,7 +1,8 @@
 ---
-layout: retention	
+layout: default	
 title: retention
 subtitle: An R package for estimating and visualizing retention and completion rates for postsecondary institutions.
+submenu: retention
 ---
 
 ### Overview

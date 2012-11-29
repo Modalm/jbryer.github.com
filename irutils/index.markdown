@@ -1,5 +1,5 @@
 ---
-layout: irutils
+layout: default
 title: irutils
 subtitle: Utilities for Institutional Research
 ---

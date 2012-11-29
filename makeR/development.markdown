@@ -1,7 +1,8 @@
 ---
-layout: makeR
+layout: default
 title: makeR
 subtitle: An R package for managing document templates and versions
+submenu: makeR
 ---
 
 ### Development

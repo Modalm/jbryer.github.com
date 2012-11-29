@@ -1,7 +1,8 @@
 ---
-layout: multilevelPSA
+layout: default
 title: multilevelPSA
 subtitle: Multilevel Propensity Score Analysis
+submenu: multilevelPSA
 ---
 
 Bryer, J.M., & Pruzek, R.M. (2011). Abstract: An international comparison of private and public schools using multilevel propensity score methods and graphics. *Multivariate Behavioral Research*. *46*,6, 1010-1011.

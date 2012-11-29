@@ -1,7 +1,8 @@
 ---
-layout: pisa	
+layout: default	
 title: pisa
 subtitle: An R data package for the Programme of International Student Assessment (PISA)
+submenu: pisa
 ---
 
 ### Overview

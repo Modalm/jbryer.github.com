@@ -39,6 +39,7 @@ ____
 
 * [UAlbany Educational Psychology & Methodology](http://albany.edu/educational_psychology)
 
+____
 #### Propensity Score Analysis
 * [Software for implementing matching methods and propensity scores](http://www.biostat.jhsph.edu/~estuart/propensityscoresoftware.html)
 

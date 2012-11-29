@@ -1,7 +1,8 @@
 ---
-layout: sqlutils
+layout: default
 title: sqlutils
 subtitle: An R package for managing a library of database queries
+submenu: sqlutils
 ---
 
 ### Overview
