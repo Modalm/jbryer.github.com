@@ -30,8 +30,15 @@ ____
 * [Hadley Wickham](http://had.co.nz/) - Author and creator of ggplot2, among other great R package.
 * [Andrew Gelman](http://andrewgelman.com/)
 * [Edward Tufte](http://www.edwardtufte.com/tufte/)
+* [Elizabeth Stuart](http://www.biostat.jhsph.edu/~estuart/)
+* [Jennifer Hill](http://steinhardt.nyu.edu/faculty_bios/view/Jennifer_Hill)
+* [Robert Devaney](http://math.bu.edu/people/bob/)
 
 ____
 #### Miscellaneous
 
 * [UAlbany Educational Psychology & Methodology](http://albany.edu/educational_psychology)
+
+#### Propensity Score Analysis
+* [Software for implementing matching methods and propensity scores](http://www.biostat.jhsph.edu/~estuart/propensityscoresoftware.html)
+
