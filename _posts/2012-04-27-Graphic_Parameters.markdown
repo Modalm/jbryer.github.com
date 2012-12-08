@@ -35,7 +35,7 @@ Following up on [John Mount's post](http://www.win-vector.com/blog/2012/04/how-t
 			axis.ticks=theme_blank(), legend.position='none')
 	ggsave('symbols.png')
 
-<img src='/images/symbols-894x1024.png' width='90%'>
+<img src='http://jason.bryer.org/images/symbols-894x1024.png' width='90%'>
 
 ##### Line types
 
@@ -46,7 +46,7 @@ Following up on [John Mount's post](http://www.win-vector.com/blog/2012/04/how-t
 	ggsave('linetypes.png', width=6.5, height=2)
 
 
-<img src='/images/linetypes1-1024x315.png' width='90%'>
+<img src='http://jason.bryer.org/images/linetypes1-1024x315.png' width='90%'>
 
 ##### Colors
 	df = data.frame(x=rep(1:26, 26), y=rep(1:26, each=26))
@@ -68,7 +68,7 @@ Following up on [John Mount's post](http://www.win-vector.com/blog/2012/04/how-t
 			 axis.text.y=theme_blank(), axis.ticks=theme_blank(), legend.position='none')
 	ggsave('colors.png')
 
-<img src='/images/colors1-894x1024.png' width='90%'>
+<img src='http://jason.bryer.org/images/colors1-894x1024.png' width='90%'>
 
 This last one is only the first 100 elements in colors(). Use the script file to generate the remaining plots if you like.
 
@@ -80,5 +80,5 @@ This last one is only the first 100 elements in colors(). Use the script file to
 		opts(axis.text.x=theme_blank(), axis.ticks=theme_blank(), plot.margin=unit(c(0,0,0,0), "cm"),
 			 axis.text.y=theme_blank(), axis.ticks=theme_blank(), legend.position='none')
 
-![Colors](/images/colors100-384x1024.png)
+![Colors](http://jason.bryer.org/images/colors100-384x1024.png)
 

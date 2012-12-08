@@ -29,4 +29,4 @@ And finally, to create the graphic use the `plot.missing` command.
 
 	> plot.missing(student[,c(4:48)], student$CNT)
 
-![Missing Plot for 2009 PISA](/images/pisa-missing.png)
+![Missing Plot for 2009 PISA](http://jason.bryer.org/images/pisa-missing.png)

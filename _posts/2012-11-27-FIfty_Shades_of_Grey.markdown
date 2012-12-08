@@ -21,4 +21,4 @@ My wife went out to her book group tonight and their book of the month was *50 S
 		scale_fill_identity() + scale_color_identity() + ylab(NULL) + xlab(NULL) + 
 		theme(axis.ticks=element_blank(), axis.text=element_blank())
 
-![Fifty Shades of Grey in R](/images/FiftyShadesOfGrey.png)
+![Fifty Shades of Grey in R](http://jason.bryer.org/images/FiftyShadesOfGrey.png)

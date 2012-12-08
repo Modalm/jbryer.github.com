@@ -13,7 +13,7 @@ Dialog box with two variables.
 
 	> vals <- varEntryDialog(vars=c('Variable1', 'Variable2'))
 
-![](/images/VariableUI1.jpg)
+![](http://jason.bryer.org/images/VariableUI1.jpg)
 
 	> str(vals)
 	List of 2
@@ -24,7 +24,7 @@ Dialog box with two variables, custom labels, and converts one to an integer.
 
 	> vals <- varEntryDialog(vars=c('Var1', 'Var2'), labels=c('Enter an integer:', 'Enter a string:'), fun=c(as.integer, as.character))
 	
-![](/images/VariableUI2.jpg)
+![](http://jason.bryer.org/images/VariableUI2.jpg)
 
 	> str(vals)
 	List of 2
@@ -43,11 +43,11 @@ Dialog box with validation.
 	     }
 	 } ))
 
-![](/images/VariableUI3.jpg)
+![](http://jason.bryer.org/images/VariableUI3.jpg)
 
-![](/images/VariableUI4.jpg)
+![](http://jason.bryer.org/images/VariableUI4.jpg)
 
-![](/images/VariableUI5.jpg)
+![](http://jason.bryer.org/images/VariableUI5.jpg)
 
 	> str(vals)
 	List of 1
@@ -61,7 +61,7 @@ User inputs a comma separated list that is split into a character vector.
 	         return(strsplit(x, split=','))
 	 }))
 
-![](/images/VariableUI6.jpg)
+![](http://jason.bryer.org/images/VariableUI6.jpg)
 
 	> vals$Var1
 	[[1]]

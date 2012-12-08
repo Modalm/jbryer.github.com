@@ -49,7 +49,7 @@ I have been working on a new package <a href="https://github.com/jbryer/makeR">m
 	cal$Var1 = as.Date(cal$Var1)
 	calendarHeat(cal$Var1, cal$Freq, color="r2b", varname="Number of Posts on R-Bloggers.com")
 
-![img](/images/RBloggersCalendar.png)
+![img](http://jason.bryer.org/images/RBloggersCalendar.png)
 
 ##### Create a word cloud
 
@@ -60,7 +60,7 @@ I have been working on a new package <a href="https://github.com/jbryer/makeR">m
 	ctab = ctab[-which(ctab$ctab == 'Uncategorized'),]
 	wordcloud(ctab$ctab, ctab$Freq, min.freq=10)
 
-![img](/images/RBloggersWordCloud.png)
+![img](http://jason.bryer.org/images/RBloggersWordCloud.png)
 
 ######The getRSSFeed function. Note that this function is included in the [`makeR`](http://jason.bryer.org/makeR) package.
 

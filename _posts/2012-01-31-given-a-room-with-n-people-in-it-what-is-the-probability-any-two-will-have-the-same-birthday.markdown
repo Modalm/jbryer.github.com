@@ -10,7 +10,7 @@ status: publish
 ---
 Revisiting a fun puzzle I remember first encountering as an undergraduate. Nice example of creating a plot in R using ggplot2. I also plot the probability of someone in the room having the same birthday as you.
 
-![img](/images/BirthdayProblem.png)
+![img](http://jason.bryer.org/images/BirthdayProblem.png)
 
 	## See http://en.wikipedia.org/wiki/Birthday_problem for an explanation  of the problem
 	require(ggplot2)
