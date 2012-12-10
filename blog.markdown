@@ -5,6 +5,7 @@ title: Blog
 
 <ul id="posts" class="index">
   {% for post in site.posts %}
+    {% if post.status == "publish" %}
     <p>
       <strong><a href="{{ post.url }}">{{ post.title | xml_escape }}</a></strong>
       <span>
@@ -14,5 +15,6 @@ title: Blog
       </span>
 	  <br />{{ post.content | strip_html | truncatewords: 50 }} <a href="{{ post.url }}">continue reading...</a>
     </p>
+	{% endif %}
   {% endfor %}
 </ul>
