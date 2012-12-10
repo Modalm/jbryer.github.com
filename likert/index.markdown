@@ -6,6 +6,13 @@ subtitle: An R package analyzing and visualizing Likert items
 
 ### Overview
 
+The latest version of the `likert` package can be installed from [Github](http://github.com/jbryer/likert) using the `devtools` package:
+
+	require(devtools)
+	install_github('likert', 'jbryer')
+
+The following will analyze the reading attitude items from the [Programme of International Student Assessment](http://www.pisa.oecd.org).
+
 	require(likert)
 	data(pisa)
 	items28 = pisa[,substr(names(pisa), 1,5) == 'ST24Q']
