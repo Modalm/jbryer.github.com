@@ -12,11 +12,13 @@ future:      true
 lsi:         false
 pygments:    false
 markdown:    maruku
-permalink:   date
+permalink:   /posts/:year-:month-:day/:title.html
 
 name: Jason.Bryer.org Blog
 description: Blog about R, educational psychology, software, and other musings
 url: http://jason.bryer.org
+
+markdown_ext: markdown
 
 maruku:
   use_tex:    false
