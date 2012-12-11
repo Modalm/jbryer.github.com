@@ -5,11 +5,14 @@
 #' status parameter to 'publish'.
 #' 
 #' @param dir the directory to process R Markdown files.
+#' @param images.dir the base directory where images will be generated.
+#' @param images.url
 #' @param out_ext the file extention to use for processed files.
 #' @param in_ext the file extention of input files to process.
 #' @return nothing.
 #' @author Jason Bryer <jason@bryer.org>
-convertRMarkdown <- function(dir=getwd(), out_ext='.markdown', in_ext='.rmd') {
+convertRMarkdown <- function(dir=getwd(), images.dir=dir, images.url='/images/',
+							 out_ext='.markdown', in_ext='.rmd') {
 	require(knitr, quietly=TRUE, warn.conflicts=FALSE)
 	files <- list.files(path=dir, pattern=in_ext, ignore.case=TRUE)
 	for(f in files) {
@@ -24,11 +27,18 @@ convertRMarkdown <- function(dir=getwd(), out_ext='.markdown', in_ext='.rmd') {
 				status <- sub('[[:space:]]+$', '', status)
 				status <- sub('^[[:space:]]+', '', status)
 				if(tolower(status) == 'process') {
+					#This is a bit of a hack but if a line has zero length (i.e. a
+					#black line), it will be removed in the resulting markdown file.
+					#This will ensure that all line returns are retained.
+					content[nchar(content) == 0] <- ' '
 					message(paste('Processing ', f, sep=''))
 					content[statusLine] <- 'status: publish'
 					content[publishedLine] <- 'published: true'
 					outFile <- paste(substr(f, 1, (nchar(f)-(nchar(in_ext)))), out_ext, sep='')
 					render_markdown(strict=TRUE)
+					opts_knit$set(out.format='markdown')
+					opts_knit$set(base.dir=images.dir)
+					opts_knit$set(base.url=images.url)
 					try(knit(text=content, output=outFile), silent=FALSE)
 				} else {
 					warning(paste("Not processing ", f, ", status is '", status, 
