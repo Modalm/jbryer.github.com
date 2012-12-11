@@ -35,22 +35,22 @@ Create `rmarkdown.rb` and place it in the `_plugins` folder. The convert class f
 	      raise FatalException.new("Missing dependency: rinruby")
 	    end
 	
-		def matches(ext)
-  			ext =~ /rmd/i
-		end
+	    def matches(ext)
+  	      ext =~ /rmd/i
+	    end
 		
-		def output_ext(ext)
-		   '.html'
-		end
+	    def output_ext(ext)
+	      '.html'
+	    end
 		
-		def convert(content)
+	    def convert(content)
 	      setup
 	      R.eval "require(knitr)"
 	      R.assign "content", content
 	      R.eval "content <- (knitr::knit2html(text = content, fragment.only = TRUE))"
 	      R.pull "content"
-		end
-		end
+	    end
+	  end
 	end
  
 In order to use the `rmd` file extension (see the `ext =~ /rmd/i` line to change the extension used) you need to specify the markdown file extension in the `_config.yml` configuration file. Otherwise Jekyll will attempt to process `rmd` files as plain Markdown files. This also means that you cannot use `md` file extension for markdown files. See this discussion on [StackOverflow](http://stackoverflow.com/questions/13793858/jekyll-converter-for-r-markdown).
@@ -120,7 +120,7 @@ This approach is necessary for [Github Pages](http://pages.github.com) since [pl
 Here is the source to the [`rmd.sh`](https://github.com/jbryer/jbryer.github.com/blob/master/rmd.sh) shell script for calling the `convertRMarkdown` function. 
  
 	DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-	Rscript -e "source('$DIR/rmarkdown.r'); convertRMarkdown()"
+	Rscript -e "source('$DIR/rmarkdown.r'); convertRMarkdown(images.dir='$DIR/images')"
  
 ##### YAML Front Matter
  
