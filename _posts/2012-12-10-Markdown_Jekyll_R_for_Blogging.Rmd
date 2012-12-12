@@ -19,7 +19,7 @@ First, we need to install [RinRuby](https://sites.google.com/a/ddahl.org/rinruby
 
 	gem install rinruby
 
-Create `rmarkdown.rb` and place it in the `_plugins` folder. The convert class follows:
+Create `rmarkdown.rb` and place it in the `_plugins` folder. The convert class follows and can be [downloaded here](https://github.com/jbryer/jbryer.github.com/blob/master/_plugins/rmarkdown.rb).
 
 	module Jekyll
 		class RMarkdownConverter < Converter
@@ -61,7 +61,7 @@ Once created, `RMarkdownConverter` will convert `rmd` files to `html` each time 
 
 #### Approach Two: Pre-process R Markdown Files
 
-This approach is necessary for [Github Pages](http://pages.github.com) since [plugins are not supported](https://github.com/mojombo/jekyll/issues/325). Using this approach, we can convert the R Mardown file to plain Markdown using the R script below. The converted Markdown file will be saved in the same directory so that Jekyll can then convert the resulting file. For simplicity, I place the [`rmarkdown.r`](https://github.com/jbryer/jbryer.github.com/blob/master/rmarkdown.r) function in the root directory of my site (alternatively you can place this in your `.Rprofile` file in your home directory). I then call `rmd.sh` (also located in the root directory) to first, determine the directory where the script is be executed from, and two, call the `convertRMarkdown` function. This function will process all R Markdown files (`.rmd` by default) in the current working directory (which can be set explicitly with the `dir` parameter or by the `rmd.sh` script) and convert them to plain markdown (with `.markdown` file extension by default). Once converted, Jekyll will the process the resulting file(s).
+This approach is necessary for [Github Pages](http://pages.github.com) since [plugins are not supported](https://github.com/mojombo/jekyll/issues/325). Using this approach, we can convert the R Mardown file to plain Markdown using the R script below. The converted Markdown file will be saved in the same directory so that Jekyll can then convert the resulting file. For simplicity, I place the [`rmarkdown.r`](https://github.com/jbryer/jbryer.github.com/blob/master/rmarkdown.r) function in the root directory of my site (alternatively you can place this in your `.Rprofile` file in your home directory). I then call `rmd.sh` (also located in the root directory) to first, determine the directory where the script is be executed from, and two, call the `convertRMarkdown` function. This function will process all R Markdown files (`.rmd` by default) in the current working directory (which can be set explicitly with the `dir` parameter or by the `rmd.sh` script) and convert them to plain markdown (with `.markdown` file extension by default). Once converted, Jekyll will the process the resulting file(s). This file can be [downloaded here](https://github.com/jbryer/jbryer.github.com/blob/master/rmarkdown.r).
 
 	#' This R script will process all R mardown files (those with in_ext file extention,
 	#' .rmd by default) in the current working directory. Files with a status of
@@ -72,12 +72,13 @@ This approach is necessary for [Github Pages](http://pages.github.com) since [pl
 	#' @param dir the directory to process R Markdown files.
 	#' @param out_ext the file extention to use for processed files.
 	#' @param in_ext the file extention of input files to process.
+	#' @param recursive should rmd files in subdirectories be processed.
 	#' @return nothing.
 	#' @author Jason Bryer <jason@bryer.org>
 	convertRMarkdown <- function(dir=getwd(), images.dir=dir, images.url='/images/',
-	           out_ext='.markdown', in_ext='.rmd') {
+	           out_ext='.markdown', in_ext='.rmd', recursive=FALSE) {
 	  require(knitr, quietly=TRUE, warn.conflicts=FALSE)
-	  files <- list.files(path=dir, pattern=in_ext, ignore.case=TRUE)
+	  files <- list.files(path=dir, pattern=in_ext, ignore.case=TRUE, recursive=recursive	)
 	  for(f in files) {
 	    message(paste("Processing ", f, sep=''))
 	    content <- readLines(f)
@@ -117,7 +118,7 @@ This approach is necessary for [Github Pages](http://pages.github.com) since [pl
 	  invisible()
 	}
 
-Here is the source to the [`rmd.sh`](https://github.com/jbryer/jbryer.github.com/blob/master/rmd.sh) shell script for calling the `convertRMarkdown` function. 
+Here is the source to the [`rmd.sh`](https://github.com/jbryer/jbryer.github.com/blob/master/rmd.sh) shell script for calling the `convertRMarkdown` function. This file can be [downloaded here](https://github.com/jbryer/jbryer.github.com/blob/master/rmd.sh).
 
 	DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 	Rscript -e "source('$DIR/rmarkdown.r'); convertRMarkdown(images.dir='$DIR/images')"
