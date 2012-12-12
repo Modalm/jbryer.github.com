@@ -1,0 +1,68 @@
+---
+layout: default	
+title: likert
+subtitle: An R package analyzing and visualizing Likert items
+published: false
+status: process
+---
+```{r, results='hide', echo=FALSE}
+options(width=120)
+```
+
+### Overview
+
+The latest version of the `likert` package can be installed from [Github](http://github.com/jbryer/likert) using the `devtools` package:
+
+	require(devtools)
+	install_github('likert', 'jbryer')
+
+The following will analyze the reading attitude items from the [Programme of International Student Assessment](http://www.pisa.oecd.org).
+
+
+```{r setup, message=FALSE}
+require(likert)
+ls('package:likert')
+```
+
+```{r pisaSetup}
+data(pisaitems)
+items28 = pisaitems[,substr(names(pisaitems), 1,5) == 'ST24Q']
+items28 <- rename(items28, c(
+			ST24Q01="I read only if I have to.",
+			ST24Q02="Reading is one of my favorite hobbies.",
+			ST24Q03="I like talking about books with other people.",
+			ST24Q04="I find it hard to finish books.",
+			ST24Q05="I feel happy if I receive a book as a present.",
+			ST24Q06="For me, reading is a waste of time.",
+			ST24Q07="I enjoy going to a bookstore or a library.",
+			ST24Q08="I read only to get information that I need.",
+			ST24Q09="I cannot sit still and read for more than a few minutes.",
+			ST24Q10="I like to express my opinions about books I have read.",
+			ST24Q11="I like to exchange books with my friends"))
+for(i in 1:ncol(items28)) {
+	items28[,i] = factor(items28[,i], levels=1:4, 
+						 labels=c('Strongly disagree', 'Disagree', 'Agree', 'Strongly Agree'), 
+						 ordered=TRUE)
+}
+```
+
+```{r likertSummary}
+l28 <- likert(items28)
+print(l28)
+summary(l28)
+```
+
+```{r barchart, fig.width=10, fig.path='likert/'}
+plot(l28, low.color='maroon', high.color='burlywood4')
+plot(l28, type='heat')
+```
+
+```{r likertGrouped, fig.path='likert/'}
+l28.cnt <- likert(items28, pisaitems$CNT)
+summary(l28.cnt)
+plot(l28.cnt)
+```
+
+```{r centeredPlot, message=FALSE, results='hide', fig.path='likert/'}
+plot(l28.cnt, centered=TRUE, low.color='#FF9900', high.color='#660066')
+```
