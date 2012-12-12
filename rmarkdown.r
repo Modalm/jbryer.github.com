@@ -9,12 +9,13 @@
 #' @param images.url
 #' @param out_ext the file extention to use for processed files.
 #' @param in_ext the file extention of input files to process.
+#' @param recursive should rmd files in subdirectories be processed.
 #' @return nothing.
 #' @author Jason Bryer <jason@bryer.org>
 convertRMarkdown <- function(dir=getwd(), images.dir=dir, images.url='/images/',
-							 out_ext='.markdown', in_ext='.rmd') {
+							 out_ext='.markdown', in_ext='.rmd', recursive=FALSE) {
 	require(knitr, quietly=TRUE, warn.conflicts=FALSE)
-	files <- list.files(path=dir, pattern=in_ext, ignore.case=TRUE)
+	files <- list.files(path=dir, pattern=in_ext, ignore.case=TRUE, recursive=recursive)
 	for(f in files) {
 		message(paste("Processing ", f, sep=''))
 		content <- readLines(f)
