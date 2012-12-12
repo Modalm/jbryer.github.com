@@ -1,0 +1,135 @@
+---
+layout: default	
+title: naep
+subtitle: An R package for the National Assessment of Educational Progress (NAEP)
+published: false
+status: process
+---
+```{r, results='hide', echo=FALSE}
+options(width=80)
+```
+
+This document outline getting started analyzing [National Assessment of Educational Progress (NAEP)](http://nces.ed.gov/nationsreportcard/) data with R and the `naep` package. The examples will utilize the [NAEP Primer](http://nces.ed.gov/pubsearch/pubsinfo.asp?pubid=2011463) but can be used with restricted use data.
+
+```{r setup, results='hide', message=FALSE}
+require(naep)
+```
+
+The first step for working with NAEP in R is to determine the base directory for the NAEP data. The `getBaseDirectory` function will provide a dialog box to assist in locating the root directory of the NAEP data, typically stored on DVD as supplied by NCES. This function will also verify that you have indeed selected a readable NAEP data source.
+
+```{r, echo=TRUE, results='hide', eval=FALSE}
+baseDir = getBaseDirectory()
+```
+
+![Select base directory](/images/naep/BaseDirectory.png)
+
+The `baseDir` variable will be used for all of the data access functions. Once determined, you may wish to hard code the value to make re-running your R script easier.
+
+```{r setbase}
+baseDir <- "/Volumes/PRIMER_FINAL"
+```
+
+We can read in the data catalog with the `getNAEPCatalog` function. Note that the `year`, `grade`, `subject`, `sample`, and `directory` parameters are required.
+
+```{r catalog}
+catalog <- getNAEPCatalog(year=2005, grade=8, subject="Math", sample='PM', directory=baseDir)
+names(catalog)
+nrow(catalog)
+head(catalog[,c('FieldName', 'Description')], n=10)
+```
+
+There are `r nrow(catalog)` variables in this dataset, we have printed the first 10.
+
+```{r selectvars, eval=FALSE}
+vars <- selectVariables(year=2005, grade=8, subject="Math", sample='PM', directory=baseDir)
+```
+
+![Variable Selection](/images/naep/VariableSelectScreen.png)
+
+However, like with the `getBaseDirectory()` function above, you can set the variables you wish to use directly.
+
+```{r setvars}
+vars <- c("SCRPSU","DSEX","IEP","LEP","ELL3","SDRACEM","PARED","RPTSAMP","REPGRP1","REPGRP2","JKUNIT", "ORIGWT", "SRWT01", "SRWT02", "SRWT03", "SRWT04", "SRWT05", "SRWT06", "SRWT07", "SRWT08", "SRWT09", "SRWT10", "SRWT11", "SRWT12", "SRWT13", "SRWT14", "SRWT15", "SRWT16", "SRWT17", "SRWT18", "SRWT19", "SRWT20", "SRWT21", "SRWT22", "SRWT23", "SRWT24", "SRWT25", "SRWT26", "SRWT27", "SRWT28", "SRWT29", "SRWT30", "SRWT31", "SRWT32", "SRWT33", "SRWT34", "SRWT35", "SRWT36", "SRWT37", "SRWT38", "SRWT39", "SRWT40", "SRWT41", "SRWT42", "SRWT43", "SRWT44", "SRWT45", "SRWT46", "SRWT47", "SRWT48", "SRWT49", "SRWT50", "SRWT51", "SRWT52", "SRWT53", "SRWT54", "SRWT55", "SRWT56", "SRWT57", "SRWT58", "SRWT59", "SRWT60", "SRWT61", "SRWT62", "SMSRSWT", "MRPCM1", "MRPCM2", "MRPCM3", "MRPCM4", "MRPCM5")
+```
+
+Once the base directory and variable list have been determined, we can read data from the NAEP dataset using the `getNAEPData` function.
+
+```{r readdata}
+g8math = getNAEPData(year=2005, grade=8, subject="Math", sample='PM', directory=baseDir, vars=vars)
+class(g8math)
+names(g8math)
+```
+
+The `getNAEPData` returns a list of type `naep` that contains a number of important variables, not least of which is the actual data and the design. The raw data can be accessed using `g8math$data`. Here we get the name of the variables available in the data frame.
+
+```{r thedata}
+names(g8math$data)
+```
+
+The `naep` package makes substantial use of the [`survey`](http://faculty.washington.edu/tlumley/survey/) package (Lumley, 2004, 2012b) to analyze data using the provided replicate weights. The `design` object in `g8math` represents the survey design. The `naep.model` function is provided to conveniently interface with the `survey` package. There are a number of functions available to perform most types of analysis. By convention, all functions start with `svy`. Here is the current listing of functions:
+
+```{r listsvyfunctions}
+ls('package:survey')[grep('^svy*', ls('package:survey'))]
+```
+
+You can get more information about any of these functions through R's help system by typing `?functionName`.
+
+For example, the `svytable` will return a contingency table, here using the IEP variable.
+
+```{r iepcrosstab}
+m1 <- naep.model(~ IEP, naepData=g8math, svyFUN=svytable, na.action=na.pass)
+round(m1$combined)
+```
+
+And to perform a two-way contigency table.
+
+```{r twowaycrosstab}
+m2 <- naep.model(~ IEP + DSEX, naepData=g8math, svyFUN=svytable, na.action=na.pass)
+round(m2$combined)
+round(prop.table(m2$combined) * 100, digits=1)
+```
+
+The `naep.model` function will also combine the multiple plausable values using the [`mitools`](http://faculty.washington.edu/tlumley/survey/svymi.html) package (Lumley, 2012a).
+
+```{r means}
+m3 <- naep.model(~ MRPCM, var='MRPCM', naepData=g8math, svyFUN=svymean, na.rm=TRUE)
+print(m3)
+summary(m3)
+```
+
+We can show that we indeed do not get the same result when simplying calculating the mean of the multiple plausible values.
+
+```{r nomitools}
+avgScores = apply(g8math$data[,paste('MRPCM', 1:5, sep='')], 1, mean, na.rm=TRUE)
+mean(avgScores, na.rm=TRUE)
+rbind(as.data.frame(m3$models[[1]]),
+	  as.data.frame(m3$models[[2]]), 
+	  as.data.frame(m3$models[[3]]),
+	  as.data.frame(m3$models[[4]]),
+	  as.data.frame(m3$models[[5]]))
+```
+
+The following example combines the functionality for using the replicate weights and multiple plausible values in a regression model predicting math scores from gender, IEP, English Language Learner, race, and parents education. Note that since this is Primer data, no inferences or conclusions should be made. This is provided merely to demonstrate how the `naep` package works.
+
+```{r regression}
+m4 <- naep.model(MRPCM ~ DSEX + IEP + ELL3 + SDRACEM + PARED, 
+				 var='MRPCM', naepData=g8math, svyFUN=svyglm)
+m4$svyFUN
+m4$combined
+```
+
+We can also examine each of the five models separately. Here we extract the beta coefficents for each model run (i.e. one for each plausible value).
+
+```{r betas}
+betas <- MIextract(m4$models, fun=coef)
+betas
+```
+
+#### References
+
+Lumley, T. (2004) Analysis of complex survey samples. *Journal of Statistical Software 9*(1): 1-19
+
+Lumley, T. (2012a). mitools: Tools for multiple imputation of missing data. R package version 2.2. http://CRAN.R-project.org/package=mitools
+
+Lumley, T. (2012b) "survey: Analysis of complex survey samples". R package version 3.28-2.
+
