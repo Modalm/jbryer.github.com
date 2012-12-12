@@ -12,7 +12,7 @@ My research interests include the charter/public school debate, math anxiety, is
 
 I am the proud dad to Gabriel and Miles and husband to Heather. My wife and I also have a photography business which can be found at [BryerPhotography.com](http://bryerphotography.com).
 
-The design of this website has been modified from [Skeleton](http://www.getskeleton.com/) and is hosted on [Github Pages](http://pages.github.com) using the [Jekyll](https://github.com/mojombo/jekyll) framework.
+The design of this website has been modified from [Skeleton](http://www.getskeleton.com/) and is hosted on [Github Pages](http://pages.github.com) using the [Jekyll](https://github.com/mojombo/jekyll) framework. See [this blog post](/posts/2012-12-10/Markdown_Jekyll_R_for_Blogging.html) on how I use R Markdown with Jekyll.
 
 Thanks for visiting, 
 Jason
