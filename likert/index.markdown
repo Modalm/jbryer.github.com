@@ -29,10 +29,11 @@ The following will analyze the reading attitude items from the [Programme of Int
 
     data(pisaitems)
     items28 = pisaitems[, substr(names(pisaitems), 1, 5) == "ST24Q"]
-    items28 <- rename(items28, c(ST24Q01 = "I read only if I have to.", ST24Q02 = "Reading is one of my favorite hobbies.", ST24Q03 = "I like talking about books with other people.", 
-        ST24Q04 = "I find it hard to finish books.", ST24Q05 = "I feel happy if I receive a book as a present.", ST24Q06 = "For me, reading is a waste of time.", 
-        ST24Q07 = "I enjoy going to a bookstore or a library.", ST24Q08 = "I read only to get information that I need.", ST24Q09 = "I cannot sit still and read for more than a few minutes.", 
-        ST24Q10 = "I like to express my opinions about books I have read.", ST24Q11 = "I like to exchange books with my friends"))
+    items28 <- rename(items28, c(ST24Q01 = "I read only if I have to.", ST24Q02 = "Reading is one of my favorite hobbies.", 
+        ST24Q03 = "I like talking about books with other people.", ST24Q04 = "I find it hard to finish books.", ST24Q05 = "I feel happy if I receive a book as a present.", 
+        ST24Q06 = "For me, reading is a waste of time.", ST24Q07 = "I enjoy going to a bookstore or a library.", ST24Q08 = "I read only to get information that I need.", 
+        ST24Q09 = "I cannot sit still and read for more than a few minutes.", ST24Q10 = "I like to express my opinions about books I have read.", 
+        ST24Q11 = "I like to exchange books with my friends"))
     for (i in 1:ncol(items28)) {
         items28[, i] = factor(items28[, i], levels = 1:4, labels = c("Strongly disagree", "Disagree", "Agree", "Strongly Agree"), 
             ordered = TRUE)
