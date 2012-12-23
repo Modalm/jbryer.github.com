@@ -1,0 +1,113 @@
+---
+layout: default	
+title: Propensity Score Matching for Non-Binary Treatments
+subtitle: Analyzing propensity score models with three groups.
+published: false
+status: process
+---
+```{r, results='hide', echo=FALSE}
+opts_chunk$set(comment=NA, fig.width=11, fig.path='trimatch/')
+
+options(width=80)
+source('~/Dropbox/Projects/TriMatch/trianglePSA.r')
+source('~/Dropbox/Projects/TriMatch/R/friedman.r')
+```
+
+#### Introduction
+
+The data represent newly enrolled students in a distance education program. By the nature of the program all students are considered part-time. Moreover, enrollment in the institution does not necessarily mean students are making active progress towards degree completion. To address this issue the institution began an outreach program whereby academic advisors would regularly contact new students within the first six months of enrollment until either six months have passed, or the student enrolled in some credit earning activity (generally a course or an examination for credit). Since randomization to receive the outreach was not possible, a comparison group was defined as students who enrolled six months prior to the start of the outreach. The treatment group is identified as students who enrolled six months after the start of the outreach and who received at least one academic advisor contact. 
+
+Covariates for estimating propensity scores were retrieved from the student information system. The dependent variable of interest is the number of credits attempted within the first seven months of enrollment.
+
+During the implementation phase it was identified that the outreach being conducted was substantially different between the two academic advisors responsible for the treatment. As such, it became necessary to treat each academic advisor as a separate treatment. The analysis of propensity score models for more than two groups (i.e. two treatments and one control) has relied on conducting three separate analyses. We outline here an approach to conducting propensity score analysis with three groups. 
+
+#### Data preparation
+
+First we will load the required R packages and data frame.
+
+```{r setup, results='hide', message=FALSE}
+require(mice)
+require(ggplot2)
+require(reshape)
+require(coin)
+require(multcomp)
+require(colorspace)
+require(psych)
+load("~/Dropbox/Projects/TriMatch/Data/students.rda")
+```
+
+There is a small amount of missingness so will impute missing values using the `mice` package.
+
+```{r impute, results='hide', message=FALSE, cache=TRUE}
+names(students)
+students = students[-which(students$TreatBy == 'Both'),]
+cols.model <- c('ACTIVE_MIL_STUDENT','INCOME_RANGE_CODE_INT', 'EMPLOYMENT_LVL_CODE',
+				'ENGLISH_LANGUAGE_NATIVE','HIGHEST_ED_LVL_CODE_MOTHER_INT',
+				'HIGHEST_ED_LVL_CODE_FATHER_INT','HAS_ASSOC_DEGREE','ETHNICITY','GENDER','Age')
+students.mice <- mice(students[,cols.model])
+students.complete <- complete(students.mice, 5)
+```
+
+Lastly, we will create a `treat` variable that identifies our three groups.
+
+```{r treatsetup}
+treat <- students$TreatBy
+treat[is.na(treat)] <- 'Control'
+table(treat, useNA='ifany')
+```
+
+#### Estimate Propensity Scores
+
+The `triangle.psa` function will estimate three propensity score models.
+
+```{r trianglepsa, results='hide', message=FALSE}
+tpsa <- triangle.psa(students.complete, treat, ids=1:nrow(students.complete))
+```
+
+
+```{r psaestimates}
+head(tpsa)
+(p <- plot(tpsa))
+```
+
+#### Matched Triplets
+
+```{r matches, message=FALSE}
+tmatch <- triangle.match(tpsa)
+head(tmatch)
+plot(tmatch, rows=c(2), line.alpha=1, draw.segments=TRUE)
+plot.distances(tmatch, sdfactor=c(.1, .2, .5))
+```
+
+The distance plot shows that there are a few matches that have fairly large distances. The numbers on the left edge are the row numbers from `tmatch`. We can then use the `plot.triangle.matches` function with specifying the `rows` parameters to any or all of these values to investigate that matched triplet. The following figures shows that the large distances in due to the fact that only one data point has a very large propensity score in both model 1 and 2.
+
+```{r followup}
+tmatch[55,]
+plot(tmatch, rows=c(55), line.alpha=1, draw.segments=TRUE)
+```
+
+#### Friedman Rank Sum Test
+
+```{r merge}
+tmatch.out <- merge(tmatch, students[,c('ECHOURS_ATTEMPTED_COURSES_CALC')])
+names(tmatch.out)
+plot.parallel(tmatch.out)
+```
+
+```{r freidman}
+tmatch.out$id <- 1:nrow(tmatch.out)
+out <- melt(tmatch.out[,c('Treatment1.out','Treatment2.out','Control.out','id')],id.vars='id')
+names(out) <- c('ID','Treatment','Outcome')
+head(out)
+set.seed(2112)
+friedman.test.with.post.hoc(Outcome ~ Treatment | ID, out)
+```
+
+
+#### References
+
+Rosenbaum, P.R., & Rubin, D.B. (1983). ￼The Central Role of the Propensity Score in Observational Studies for Causal Effects. *Biometrika, 70*(1).
+
+[National Medical Expenditure Survey](http://dx.doi.org/10.3886/ICPSR09280.v1)
+
+National Center for Health Services Research and Health Care Technology Assessment. NATIONAL MEDICAL EXPENDITURE SURVEY, 1987: INSTITUTIONAL POPULATION COMPONENT. Rockville, MD: Westat, Inc. [producer], 1987. Ann Arbor, MI: Inter-university Consortium for Political and Social Research [distributor], 1990. doi:10.3886/ICPSR09280.v1
