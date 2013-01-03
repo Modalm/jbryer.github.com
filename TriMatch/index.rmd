@@ -1,16 +1,13 @@
 ---
 layout: default	
-title: Propensity Score Matching for Non-Binary Treatments
-subtitle: Analyzing propensity score models with three groups.
+title: TriMatch
+subtitle: Propensity Score Matching for Non-Binary Treatments
 published: false
 status: process
 ---
 ```{r, results='hide', echo=FALSE}
 opts_chunk$set(comment=NA, fig.width=11, fig.path='trimatch/')
-
-options(width=80)
-source('~/Dropbox/Projects/TriMatch/trianglePSA.r')
-source('~/Dropbox/Projects/TriMatch/R/friedman.r')
+options(width=90)
 ```
 
 #### Introduction
@@ -23,45 +20,41 @@ During the implementation phase it was identified that the outreach being conduc
 
 #### Data preparation
 
+```{r install, eval=FALSE}
+require(devtools)
+install_github('TriMatch', 'jbryer')
+```
+
 First we will load the required R packages and data frame.
 
 ```{r setup, results='hide', message=FALSE}
-require(mice)
-require(ggplot2)
-require(reshape)
-require(coin)
-require(multcomp)
-require(colorspace)
-require(psych)
-load("~/Dropbox/Projects/TriMatch/Data/students.rda")
-```
-
-There is a small amount of missingness so will impute missing values using the `mice` package.
-
-```{r impute, results='hide', message=FALSE, cache=TRUE}
+require(TriMatch)
+data(students)
 names(students)
-students = students[-which(students$TreatBy == 'Both'),]
-cols.model <- c('ACTIVE_MIL_STUDENT','INCOME_RANGE_CODE_INT', 'EMPLOYMENT_LVL_CODE',
-				'ENGLISH_LANGUAGE_NATIVE','HIGHEST_ED_LVL_CODE_MOTHER_INT',
-				'HIGHEST_ED_LVL_CODE_FATHER_INT','HAS_ASSOC_DEGREE','ETHNICITY','GENDER','Age')
-students.mice <- mice(students[,cols.model])
-students.complete <- complete(students.mice, 5)
 ```
+
 
 Lastly, we will create a `treat` variable that identifies our three groups.
 
 ```{r treatsetup}
 treat <- students$TreatBy
-treat[is.na(treat)] <- 'Control'
 table(treat, useNA='ifany')
+describeBy(students$CreditsAttempted, group=list(students$TreatBy), mat=TRUE, skew=FALSE)
+```
+
+```{r boxplot}
+ggplot(students, aes(x=TreatBy, y=CreditsAttempted, colour=TreatBy)) + 
+	geom_boxplot() + coord_flip() + geom_jitter()
 ```
 
 #### Estimate Propensity Scores
 
 The `triangle.psa` function will estimate three propensity score models.
 
-```{r trianglepsa, results='hide', message=FALSE}
-tpsa <- triangle.psa(students.complete, treat, ids=1:nrow(students.complete))
+```{r trianglepsa, results='hide', message=FALSE, cache=TRUE}
+cols.model <- c('Military','Income', 'Employment', 'NativeEnglish','EdLevelMother',
+				'EdLevelFather','HasAssocAtEnrollment','Ethnicity','Gender','Age')
+tpsa <- triangle.psa(students[,cols.model], treat, ids=1:nrow(students))
 ```
 
 
@@ -72,35 +65,49 @@ head(tpsa)
 
 #### Matched Triplets
 
-```{r matches, message=FALSE}
+```{r trianglematch, results='hide', message=FALSE, cache=TRUE}
 tmatch <- triangle.match(tpsa)
+```
+
+```{r matches, message=FALSE, cache=FALSE}
 head(tmatch)
 plot(tmatch, rows=c(2), line.alpha=1, draw.segments=TRUE)
-plot.distances(tmatch, sdfactor=c(.1, .2, .5))
+plot.distances(tmatch, caliper=c(.15, .2, .25))
 ```
 
 The distance plot shows that there are a few matches that have fairly large distances. The numbers on the left edge are the row numbers from `tmatch`. We can then use the `plot.triangle.matches` function with specifying the `rows` parameters to any or all of these values to investigate that matched triplet. The following figures shows that the large distances in due to the fact that only one data point has a very large propensity score in both model 1 and 2.
 
 ```{r followup}
-tmatch[55,]
-plot(tmatch, rows=c(55), line.alpha=1, draw.segments=TRUE)
+tmatch[tmatch$Dtotal > .11,]
+tmatch[838,]
+plot(tmatch, rows=c(838), line.alpha=1, draw.segments=TRUE)
+```
+
+```{r unmatched}
+#Look at the subjects that could not be matched
+unmatched <- attr(tmatch, 'unmatched')
+nrow(unmatched) / nrow(tpsa) * 100
+#Percentage of each group not matched
+table(unmatched$treat) / table(tpsa$treat) * 100 
+unmatched[unmatched$treat != 'Control',]
 ```
 
 #### Friedman Rank Sum Test
 
 ```{r merge}
-tmatch.out <- merge(tmatch, students[,c('ECHOURS_ATTEMPTED_COURSES_CALC')])
+tmatch.out <- merge(x=tmatch, y=students[,c('CreditsAttempted')])
 names(tmatch.out)
 plot.parallel(tmatch.out)
 ```
 
+**NOTE: This is experimental and teh friedman test function has not be exported in the package yet and will likely change**
 ```{r freidman}
 tmatch.out$id <- 1:nrow(tmatch.out)
 out <- melt(tmatch.out[,c('Treatment1.out','Treatment2.out','Control.out','id')],id.vars='id')
 names(out) <- c('ID','Treatment','Outcome')
 head(out)
 set.seed(2112)
-friedman.test.with.post.hoc(Outcome ~ Treatment | ID, out)
+TriMatch:::friedman.test.with.post.hoc(Outcome ~ Treatment | ID, out)
 ```
 
 
