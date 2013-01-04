@@ -29,6 +29,7 @@ First we will load the required R packages and data frame.
 
 ```{r setup, results='hide', message=FALSE}
 require(TriMatch)
+require(ez)
 data(students)
 names(students)
 ```
@@ -92,7 +93,7 @@ table(unmatched$treat) / table(tpsa$treat) * 100
 unmatched[unmatched$treat != 'Control',]
 ```
 
-#### Friedman Rank Sum Test
+#### Parrellel Plot
 
 ```{r merge}
 tmatch.out <- merge(x=tmatch, y=students[,c('CreditsAttempted')])
@@ -100,16 +101,44 @@ names(tmatch.out)
 plot.parallel(tmatch.out)
 ```
 
-**NOTE: This is experimental and teh friedman test function has not be exported in the package yet and will likely change**
+#### Friedman Rank Sum Test
+
 ```{r freidman}
+outcomes <- grep(".out$", names(tmatch.out), perl=TRUE)
 tmatch.out$id <- 1:nrow(tmatch.out)
-out <- melt(tmatch.out[,c('Treatment1.out','Treatment2.out','Control.out','id')],id.vars='id')
+out <- melt(tmatch.out[,c(outcomes, ncol(tmatch.out))],id.vars='id')
 names(out) <- c('ID','Treatment','Outcome')
 head(out)
 set.seed(2112)
-TriMatch:::friedman.test.with.post.hoc(Outcome ~ Treatment | ID, out)
+friedman.test(Outcome ~ Treatment | ID, out)
 ```
 
+#### Repeated Measures ANOVA
+
+```{r repeatedANOVA}
+#Repeated measures ANOVA
+rmanova <- ezANOVA(data=out, dv=Outcome, wid=ID, within=Treatment)
+print(rmanova)
+```
+
+#### Posthoc *t*-tests
+
+```{r ttests}
+t.test(x=tmatch.out$Treatment1.out, y=tmatch.out$Control.out, paired=TRUE)
+t.test(x=tmatch.out$Treatment2.out, y=tmatch.out$Control.out, paired=TRUE)
+t.test(x=tmatch.out$Treatment1.out, y=tmatch.out$Treatment2.out, paired=TRUE)
+```
+
+#### Boxplot of differences
+
+```{r boxplotdiff}
+tmatch.out$Treat1_Control <- tmatch.out$Treatment1.out - tmatch.out$Control.out
+tmatch.out$Treat2_Control <- tmatch.out$Treatment2.out - tmatch.out$Control.out
+tmatch.out$Treat2_Treat1 <- tmatch.out$Treatment2.out - tmatch.out$Treatment1.out
+out.box <- melt(tmatch.out[,c('id','Treat1_Control','Treat2_Control','Treat2_Treat1')], id.vars='id')
+names(out.box) <- c('Student','Treatment','Difference')
+ggplot(out.box, aes(x=Treatment, y=Difference)) + geom_boxplot() + geom_hline(yintercept=0)
+```
 
 #### References
 

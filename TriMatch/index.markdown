@@ -27,6 +27,7 @@ First we will load the required R packages and data frame.
  
 
     require(TriMatch)
+    require(ez)
     data(students)
     names(students)
 
@@ -186,7 +187,7 @@ The distance plot shows that there are a few matches that have fairly large dist
     369 369 Treatment1   TRUE     NA   TRUE 0.4517     NA 1.000e+00       5    <NA>       5
 
  
-#### Friedman Rank Sum Test
+#### Parrellel Plot
  
 
     tmatch.out <- merge(x = tmatch, y = students[, c("CreditsAttempted")])
@@ -200,83 +201,125 @@ The distance plot shows that there are a few matches that have fairly large dist
 ![plot of chunk merge](/images/trimatch/merge.png) 
 
  
-**NOTE: This is experimental and teh friedman test function has not be exported in the package yet and will likely change**
+#### Friedman Rank Sum Test
+ 
 
+    outcomes <- grep(".out$", names(tmatch.out), perl = TRUE)
     tmatch.out$id <- 1:nrow(tmatch.out)
-    out <- melt(tmatch.out[, c("Treatment1.out", "Treatment2.out", "Control.out", "id")], id.vars = "id")
+    out <- melt(tmatch.out[, c(outcomes, ncol(tmatch.out))], id.vars = "id")
     names(out) <- c("ID", "Treatment", "Outcome")
     head(out)
 
       ID      Treatment Outcome
-    1  1 Treatment1.out       0
-    2  2 Treatment1.out       4
-    3  3 Treatment1.out       0
-    4  4 Treatment1.out       1
-    5  5 Treatment1.out       9
-    6  6 Treatment1.out       0
+    1  1 Treatment2.out       4
+    2  2 Treatment2.out      17
+    3  3 Treatment2.out       3
+    4  4 Treatment2.out       0
+    5  5 Treatment2.out       0
+    6  6 Treatment2.out       3
 
     set.seed(2112)
-    TriMatch:::friedman.test.with.post.hoc(Outcome ~ Treatment | ID, out)
+    friedman.test(Outcome ~ Treatment | ID, out)
 
-    Loading required package: coin
-
-    Loading required package: survival
-
-    Loading required package: splines
-
-    Loading required package: mvtnorm
-
-    Loading required package: modeltools
-
-    Loading required package: stats4
-
-    Attaching package: 'modeltools'
-
-    The following object(s) are masked from 'package:plyr':
     
-    empty
-
-    Loading required package: multcomp
-
-    Loading required package: colorspace
-
-    $Friedman.Test
+    	Friedman rank sum test
     
-    	Asymptotic General Independence Test
-    
-    data:  Outcome by
-    	 Treatment (Treatment1.out, Treatment2.out, Control.out) 
-    	 stratified by ID 
-    maxT = 8.3, p-value < 2.2e-16
-    
-    
-    $PostHoc.Test
-                                             
-    Treatment2.out - Treatment1.out 4.148e-07
-    Control.out - Treatment1.out    5.551e-16
-    Control.out - Treatment2.out    7.683e-03
-    
-
-![plot of chunk freidman](/images/trimatch/freidman.png) 
-
-    $Friedman.Test
-    
-    	Asymptotic General Independence Test
-    
-    data:  Outcome by
-    	 Treatment (Treatment1.out, Treatment2.out, Control.out) 
-    	 stratified by ID 
-    maxT = 8.3, p-value = 5.551e-16
-    
-    
-    $PostHoc.Test
-                                             
-    Treatment2.out - Treatment1.out 4.148e-07
-    Control.out - Treatment1.out    5.551e-16
-    Control.out - Treatment2.out    7.683e-03
+    data:  Outcome and Treatment and ID 
+    Friedman chi-squared = 70.65, df = 2, p-value = 4.546e-16
     
 
  
+#### Repeated Measures ANOVA
+ 
+
+    # Repeated measures ANOVA
+    rmanova <- ezANOVA(data = out, dv = Outcome, wid = ID, within = Treatment)
+
+    Warning: Converting "ID" to factor for ANOVA.
+
+    ls(rmanova)
+
+    [1] "ANOVA"                         "Mauchly's Test for Sphericity"
+    [3] "Sphericity Corrections"       
+
+    print(rmanova)
+
+    $ANOVA
+         Effect DFn  DFd     F         p p<.05     ges
+    2 Treatment   2 1674 58.33 3.251e-25     * 0.04424
+    
+    $`Mauchly's Test for Sphericity`
+         Effect      W         p p<.05
+    2 Treatment 0.9769 5.685e-05     *
+    
+    $`Sphericity Corrections`
+         Effect    GGe     p[GG] p[GG]<.05    HFe    p[HF] p[HF]<.05
+    2 Treatment 0.9774 1.048e-24         * 0.9797 9.32e-25         *
+    
+
+ 
+#### Posthoc *t*-tests
+ 
+
+    t.test(x = tmatch.out$Treatment1.out, y = tmatch.out$Control.out, paired = TRUE)
+
+    
+    	Paired t-test
+    
+    data:  tmatch.out$Treatment1.out and tmatch.out$Control.out 
+    t = -10.76, df = 837, p-value < 2.2e-16
+    alternative hypothesis: true difference in means is not equal to 0 
+    95 percent confidence interval:
+     -4.385 -3.032 
+    sample estimates:
+    mean of the differences 
+                     -3.709 
+    
+
+    t.test(x = tmatch.out$Treatment2.out, y = tmatch.out$Control.out, paired = TRUE)
+
+    
+    	Paired t-test
+    
+    data:  tmatch.out$Treatment2.out and tmatch.out$Control.out 
+    t = -4.863, df = 837, p-value = 1.379e-06
+    alternative hypothesis: true difference in means is not equal to 0 
+    95 percent confidence interval:
+     -2.491 -1.058 
+    sample estimates:
+    mean of the differences 
+                     -1.774 
+    
+
+    t.test(x = tmatch.out$Treatment1.out, y = tmatch.out$Treatment2.out, paired = TRUE)
+
+    
+    	Paired t-test
+    
+    data:  tmatch.out$Treatment1.out and tmatch.out$Treatment2.out 
+    t = -6.054, df = 837, p-value = 2.13e-09
+    alternative hypothesis: true difference in means is not equal to 0 
+    95 percent confidence interval:
+     -2.562 -1.307 
+    sample estimates:
+    mean of the differences 
+                     -1.934 
+    
+
+ 
+#### Boxplot of differences
+ 
+
+    tmatch.out$Treat1_Control <- tmatch.out$Treatment1.out - tmatch.out$Control.out
+    tmatch.out$Treat2_Control <- tmatch.out$Treatment2.out - tmatch.out$Control.out
+    tmatch.out$Treat2_Treat1 <- tmatch.out$Treatment2.out - tmatch.out$Treatment1.out
+    out.box <- melt(tmatch.out[, c("id", "Treat1_Control", "Treat2_Control", "Treat2_Treat1")], 
+        id.vars = "id")
+    names(out.box) <- c("Student", "Treatment", "Difference")
+    ggplot(out.box, aes(x = Treatment, y = Difference)) + geom_boxplot() + geom_hline(yintercept = 0)
+
+![plot of chunk boxplotdiff](/images/trimatch/boxplotdiff.png) 
+
  
 #### References
  
