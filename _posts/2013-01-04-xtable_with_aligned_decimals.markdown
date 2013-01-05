@@ -83,10 +83,10 @@ Link to [`xtable.decimal.r`](https://gist.github.com/4458674) as a Gist.
 	#' @seealso xtable
 	#' @export
 	xtable.decimal <- function(x, 
-							   cols=which(lapply(x, class) == 'numeric'), 
-							   colAlignment, 
-							   tocharFun=prettyNum,
-							   ...) {
+				cols=which(lapply(x, class) == 'numeric'), 
+				colAlignment, 
+				tocharFun=prettyNum,
+				...) {
 		splitCol <- function(x, ...) {
 			s <- strsplit(tocharFun(x, ...), split='.', fixed=TRUE)
 			right <- sapply(s, FUN=function(x) { ifelse(length(x) == 2, x[2], '0') })
@@ -106,7 +106,7 @@ Link to [`xtable.decimal.r`](https://gist.github.com/4458674) as a Gist.
 				tmp <- cbind(x[,1:(ncol(x)-1)], splitCol(x[,ncol(x)], ...))
 				names(tmp)[1:(ncol(tmp)-2)] <- names(x)[1:(ncol(x)-1)]
 				names(tmp)[(ncol(tmp)-1):ncol(tmp)] <- paste(names(x)[ncol(x)], 
-												c('left','right'), sep='.')
+							c('left','right'), sep='.')
 				x <- tmp
 			} else {
 				tmp <- cbind(x[,1:(i-1)], splitCol(x[,i], ...), x[,(i+1):ncol(x)])
