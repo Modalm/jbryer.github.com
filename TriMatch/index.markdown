@@ -10,30 +10,38 @@ status: publish
  
 #### Introduction
  
-The data represent newly enrolled students in a distance education program. By the nature of the program all students are considered part-time. Moreover, enrollment in the institution does not necessarily mean students are making active progress towards degree completion. To address this issue the institution began an outreach program whereby academic advisors would regularly contact new students within the first six months of enrollment until either six months have passed, or the student enrolled in some credit earning activity (generally a course or an examination for credit). Since randomization to receive the outreach was not possible, a comparison group was defined as students who enrolled six months prior to the start of the outreach. The treatment group is identified as students who enrolled six months after the start of the outreach and who received at least one academic advisor contact. 
  
-Covariates for estimating propensity scores were retrieved from the student information system. The dependent variable of interest is the number of credits attempted within the first seven months of enrollment.
  
-During the implementation phase it was identified that the outreach being conducted was substantially different between the two academic advisors responsible for the treatment. As such, it became necessary to treat each academic advisor as a separate treatment. The analysis of propensity score models for more than two groups (i.e. two treatments and one control) has relied on conducting three separate analyses. We outline here an approach to conducting propensity score analysis with three groups. 
+#### Installation
  
-#### Data preparation
+The latest development version of `TriMatch` can be installed from [Github](http://github.com/jbryer/TriMatch) using the `devtools` package.
  
 
     require(devtools)
     install_github("TriMatch", "jbryer")
 
  
-First we will load the required R packages and data frame.
+Looad the required R packages and data frame.
  
 
     require(TriMatch)
     require(ez)
+
+ 
+#### Example One: New Student Outreach
+ 
+The data in example one (`data(students)`) represent newly enrolled students in a distance education program. By the nature of the program all students are considered part-time. Moreover, enrollment in the institution does not necessarily mean students are making active progress towards degree completion. To address this issue the institution began an outreach program whereby academic advisors would regularly contact new students within the first six months of enrollment until either six months have passed, or the student enrolled in some credit earning activity (generally a course or an examination for credit). Since randomization to receive the outreach was not possible, a comparison group was defined as students who enrolled six months prior to the start of the outreach. The treatment group is identified as students who enrolled six months after the start of the outreach and who received at least one academic advisor contact. 
+ 
+Covariates for estimating propensity scores were retrieved from the student information system. The dependent variable of interest is the number of credits attempted within the first seven months of enrollment.
+ 
+During the implementation phase it was identified that the outreach being conducted was substantially different between the two academic advisors responsible for the treatment. As such, it became necessary to treat each academic advisor as a separate treatment. The analysis of propensity score models for more than two groups (i.e. two treatments and one control) has relied on conducting three separate analyses. We outline here an approach to conducting propensity score analysis with three groups. 
+ 
+
     data(students)
     names(students)
 
  
- 
-Lastly, we will create a `treat` variable that identifies our three groups.
+We will create a `treat` variable that identifies our three groups.
  
 
     treat <- students$TreatBy
@@ -50,6 +58,8 @@ Lastly, we will create a `treat` variable that identifies our three groups.
     12    2 Treatment1   1  83 4.361 6.156      0   3.254 0.000   0  27    27 0.6757
     13    3 Treatment2   1  91 5.923 7.148      3   4.767 4.448   0  25    25 0.7493
 
+ 
+The following boxplot shows unadjusted results.
  
 
     ggplot(students, aes(x = TreatBy, y = CreditsAttempted, colour = TreatBy)) + geom_boxplot() + 
@@ -95,6 +105,8 @@ The `triangle.psa` function will estimate three propensity score models.
     tmatch <- triangle.match(tpsa)
 
  
+Triangle plot of the results. We can see how the propensity scores translate from one model to another.
+ 
 
     head(tmatch)
 
@@ -108,7 +120,11 @@ The `triangle.psa` function will estimate three propensity score models.
 
     plot(tmatch, rows = c(2), line.alpha = 1, draw.segments = TRUE)
 
-![plot of chunk matches](/images/trimatch/matches1.png) 
+![plot of chunk matches](/images/trimatch/matches.png) 
+
+ 
+We can plot the distances. We can specify other calipers to see how may matched triplets we eliminate if we specify a small caliper to the `triangle.match` function.
+ 
 
     plot.distances(tmatch, caliper = c(0.15, 0.2, 0.25))
 
@@ -119,10 +135,10 @@ The `triangle.psa` function will estimate three propensity score models.
 
     Warning: position_stack requires constant width: output may be incorrect
 
-![plot of chunk matches](/images/trimatch/matches2.png) 
+![plot of chunk distances](/images/trimatch/distances.png) 
 
  
-The distance plot shows that there are a few matches that have fairly large distances. The numbers on the left edge are the row numbers from `tmatch`. We can then use the `plot.triangle.matches` function with specifying the `rows` parameters to any or all of these values to investigate that matched triplet. The following figures shows that the large distances in due to the fact that only one data point has a very large propensity score in both model 1 and 2.
+The numbers on the left edge are the row numbers from `tmatch`. We can then use the `plot.triangle.matches` function with specifying the `rows` parameters to any or all of these values to investigate that matched triplet. The following figures shows that the large distances in due to the fact that only one data point has a very large propensity score in both model 1 and 2.
  
 
     tmatch[tmatch$Dtotal > 0.11, ]
@@ -144,6 +160,8 @@ The distance plot shows that there are a few matches that have fairly large dist
 
 ![plot of chunk followup](/images/trimatch/followup.png) 
 
+ 
+#### Examine unmatched students.
  
 
     # Look at the subjects that could not be matched
@@ -232,15 +250,9 @@ The distance plot shows that there are a few matches that have fairly large dist
 #### Repeated Measures ANOVA
  
 
-    # Repeated measures ANOVA
     rmanova <- ezANOVA(data = out, dv = Outcome, wid = ID, within = Treatment)
 
     Warning: Converting "ID" to factor for ANOVA.
-
-    ls(rmanova)
-
-    [1] "ANOVA"                         "Mauchly's Test for Sphericity"
-    [3] "Sphericity Corrections"       
 
     print(rmanova)
 
@@ -258,10 +270,27 @@ The distance plot shows that there are a few matches that have fairly large dist
     
 
  
+#### Pairwise Wilcoxon Rank Sum Tests
+ 
+
+    pairwise.wilcox.test(x = out$Outcome, g = out$Treatment, paired = TRUE, p.adjust.method = "bonferroni")
+
+    
+    	Pairwise comparisons using Wilcoxon signed rank test 
+    
+    data:  out$Outcome and out$Treatment 
+    
+                   Treatment2.out Treatment1.out
+    Treatment1.out 4.2e-10        -             
+    Control.out    1.4e-05        < 2e-16       
+    
+    P value adjustment method: bonferroni 
+
+ 
 #### Posthoc *t*-tests
  
 
-    t.test(x = tmatch.out$Treatment1.out, y = tmatch.out$Control.out, paired = TRUE)
+    (t1 <- t.test(x = tmatch.out$Treatment1.out, y = tmatch.out$Control.out, paired = TRUE))
 
     
     	Paired t-test
@@ -276,7 +305,7 @@ The distance plot shows that there are a few matches that have fairly large dist
                      -3.709 
     
 
-    t.test(x = tmatch.out$Treatment2.out, y = tmatch.out$Control.out, paired = TRUE)
+    (t2 <- t.test(x = tmatch.out$Treatment2.out, y = tmatch.out$Control.out, paired = TRUE))
 
     
     	Paired t-test
@@ -291,19 +320,19 @@ The distance plot shows that there are a few matches that have fairly large dist
                      -1.774 
     
 
-    t.test(x = tmatch.out$Treatment1.out, y = tmatch.out$Treatment2.out, paired = TRUE)
+    (t3 <- t.test(x = tmatch.out$Treatment2.out, y = tmatch.out$Treatment1.out, paired = TRUE))
 
     
     	Paired t-test
     
-    data:  tmatch.out$Treatment1.out and tmatch.out$Treatment2.out 
-    t = -6.054, df = 837, p-value = 2.13e-09
+    data:  tmatch.out$Treatment2.out and tmatch.out$Treatment1.out 
+    t = 6.054, df = 837, p-value = 2.13e-09
     alternative hypothesis: true difference in means is not equal to 0 
     95 percent confidence interval:
-     -2.562 -1.307 
+     1.307 2.562 
     sample estimates:
     mean of the differences 
-                     -1.934 
+                      1.934 
     
 
  
@@ -316,7 +345,15 @@ The distance plot shows that there are a few matches that have fairly large dist
     out.box <- melt(tmatch.out[, c("id", "Treat1_Control", "Treat2_Control", "Treat2_Treat1")], 
         id.vars = "id")
     names(out.box) <- c("Student", "Treatment", "Difference")
-    ggplot(out.box, aes(x = Treatment, y = Difference)) + geom_boxplot() + geom_hline(yintercept = 0)
+    
+    ci <- as.data.frame(rbind(t1$conf.int, t2$conf.int, t3$conf.int))
+    ci$Treatment <- names(tmatch.out)[12:14]
+    ci$estimate <- c(t1$estimate, t2$estimate, t3$estimate)
+    
+    ggplot(out.box, aes(x = Treatment, y = Difference)) + geom_boxplot() + geom_hline(yintercept = 0) + 
+        geom_crossbar(data = ci, aes(x = Treatment, ymin = V1, ymax = V2, y = estimate), color = "green", 
+            fill = "green", width = 0.72, alpha = 0.6) + scale_x_discrete(NULL, labels = c(Treat1_Control = "Treat1 - Control", 
+        Treat2_Control = "Treat2 - Control", Treat2_Treat1 = "Treat2 - Treat1")) + xlab(NULL)
 
 ![plot of chunk boxplotdiff](/images/trimatch/boxplotdiff.png) 
 
