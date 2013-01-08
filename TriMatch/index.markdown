@@ -205,6 +205,14 @@ The numbers on the left edge are the row numbers from `tmatch`. We can then use 
     369 369 Treatment1   TRUE     NA   TRUE 0.4517     NA 1.000e+00       5    <NA>       5
 
  
+We can create a triangle plot of only the unmatched students by subsetting `tpsa` with those students in the `unmatched` data frame.
+ 
+
+    plot(tpsa[tpsa$id %in% unmatched$id, ])
+
+![plot of chunk plotunmatched](/images/trimatch/plotunmatched.png) 
+
+ 
 #### Parrellel Plot
  
 

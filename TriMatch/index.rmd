@@ -112,6 +112,12 @@ table(unmatched$treat) / table(tpsa$treat) * 100
 unmatched[unmatched$treat != 'Control',]
 ```
 
+We can create a triangle plot of only the unmatched students by subsetting `tpsa` with those students in the `unmatched` data frame.
+
+```{r plotunmatched}
+plot(tpsa[tpsa$id %in% unmatched$id,])
+```
+
 #### Parrellel Plot
 
 ```{r merge}
