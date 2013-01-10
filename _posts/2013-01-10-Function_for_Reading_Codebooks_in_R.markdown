@@ -76,7 +76,7 @@ Here are the first six rows of the returned data frame.
 	5      69    SCHNO     5   AN                                                                                NCES school ID.    FALSE
 	6      71     STID     6   AN                                                       State?s own ID for the education agency.    FALSE
 
-In addition to the columns corresponding to `var.names`, the function also returns a `linenum` and `isfactor` column. The former is an integer corresponding to the line number in the original file from which this row as parsed. This is useful for tracking down issues in the parsing. The `isfactor` is a logical column indicating whether there are factor levels specified for that variable. Factor levels can be retrieved as follows:
+In addition to the columns corresponding to `var.names`, the function also returns a `linenum` and `isfactor` column. The former is an integer corresponding to the line number in the original file from which this row was parsed. This is useful for tracking down issues in the parsing or text formatting. The `isfactor` is a logical column indicating whether there are factor levels specified for that variable. Factor levels can be retrieved as follows:
 
 	> ccd.var.levels <- attr(ccd.codebook, 'levels')
 	> names(ccd.var.levels)
