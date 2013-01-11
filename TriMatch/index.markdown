@@ -1,5 +1,5 @@
 ---
-layout: default	
+layout: mathjax	
 title: TriMatch
 subtitle: Propensity Score Matching for Non-Binary Treatments
 published: true
@@ -10,6 +10,30 @@ status: publish
  
 #### Introduction
  
+ 
+a. Propensity scores are estimated for three models:
+ 
+$${ PS }_{ 1 }=e({ x }_{ { T }_{ 1 }C })=Pr(z=1|{ x }_{ { T }_{ 1 }C })$$
+$${ PS }_{ 2 }=e({ x }_{ { T }_{ 2 }C })=Pr(z=1|{ x }_{ { T }_{ 2 }C })$$
+$${ PS }_{ 2 }=e({ x }_{ { T }_{ 2 }{ T }_{ 1 } })=Pr(z=1|{ x }_{ { T }_{ 2 }{ T }_{ 1 } })$$
+ 
+b. Match order is determined. The default behavior is to start with the larger of the two treatments, followed the second treatment, and lastly the control group. However, the match order is configurable vis-à-vis the `match.order` parameter. 
+ 
+c. Three distance matrices are calculated, ${D}_{1}$, ${D}_{2}$, and ${D}_{3}$ corresponding to the propensity scores estimated in step a.
+ 
+d. Distances greater than the caliper (.25 by default, see Rosenbaum & Rubin, 1985) are eliminated. The caliper is specified in standard units so .25 corresponds to one-quarter of one standard deviation. Therefore the threshold for each model in actual units will be different.
+ 
+e. The first element from group one is selected and the `nmatch` smallest elements from group two with a distance less than the caliper are selected. Note that the default value for `nmatch` is `Inf` so that all elements within the caliper are considered. For large datasets this can have a substantial impact on execution time. Although setting `nmatch` to a smaller value will increase execution time during development, we recommend setting `nmatch` to `Inf` for final results.
+ 
+f. For each element in group two selected in step e, the `nmatch` smallest elements from group three with a distance less thant he caliper are selected.
+ 
+g. The distance between each element identified in step f and the starting element from group one is retrieved and those with distance less than the caliper are retained. All matched triplets are saved to a data frame.
+ 
+h. Steps e to g are repeated for the remaining elements in group one.
+ 
+i. The total distance for each matched triplet identified in steps e to h are calculated and the data frame is sorted on the total distance.
+ 
+j. The `M` unique smallest matched triplets are returned.
  
  
 #### Installation
@@ -369,6 +393,8 @@ We can create a triangle plot of only the unmatched students by subsetting `tpsa
 #### References
  
 Rosenbaum, P.R., & Rubin, D.B. (1983). ￼The Central Role of the Propensity Score in Observational Studies for Causal Effects. *Biometrika, 70*(1).
+ 
+Rosenbaum, P.R., & Rubin, D.B. (1885) Constructing a control group using multivariate matched sampling methods that incorporate teh propensity score. *The American Statistician, 39*(1).
  
 [National Medical Expenditure Survey](http://dx.doi.org/10.3886/ICPSR09280.v1)
  
