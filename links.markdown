@@ -43,3 +43,19 @@ ____
 #### Propensity Score Analysis
 * [Software for implementing matching methods and propensity scores](http://www.biostat.jhsph.edu/~estuart/propensityscoresoftware.html)
 
+____
+#### Software
+
+This is the list of software I use related to either the content of this website, or to creation of this website.
+
+* [R](http://www.r-project.org)
+* [RStudio](http://www.rstudio.com)
+* [MacTeX](http://tug.org/mactex/)
+* [Pandoc](http://johnmacfarlane.net/pandoc/)
+* [Daum Equation Editor](http://www.daumcorp.com/DaumEng/main.daum)
+* [Textmate](http://macromates.com/)
+* [Mou](http://mouapp.com/)
+* [Tower](http://www.git-tower.com/)
+* [MathJax](http://www.mathjax.org/)
+* [Jekyll](https://github.com/mojombo/jekyll)
+
