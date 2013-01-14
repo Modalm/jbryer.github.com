@@ -1,0 +1,45 @@
+---
+layout: mathjax	
+title: TriMatch
+subtitle: Propensity Score Matching for Non-Binary Treatments
+published: false
+status: process
+submenu: trimatch
+---
+
+#### Example: National Medical Expenditure Survey
+
+```{r, results='hide', echo=FALSE}
+opts_chunk$set(comment=NA, fig.width=11, fig.path='trimatch/')
+options(width=90)
+require(TriMatch)
+```
+
+```{r loaddata}
+data(nmes)
+names(nmes)
+```
+
+We will create a `treat` variable that identifies our three groups.
+
+```{r treatsetup}
+```
+
+The following boxplot shows unadjusted results.
+
+```{r boxplot}
+```
+
+#### Estimate Propensity Scores
+
+The `trips` function will estimate three propensity score models.
+
+```{r trips, results='hide', message=FALSE, cache=TRUE}
+```
+
+
+```{r psaestimates}
+```
+
+#### Matched Triplets
+
