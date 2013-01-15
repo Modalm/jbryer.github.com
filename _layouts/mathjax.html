@@ -33,7 +33,7 @@
 	<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
 	<link rel="apple-touch-icon" sizes="72x72" href="/images/apple-touch-icon-72x72.png">
 	<link rel="apple-touch-icon" sizes="114x114" href="/images/apple-touch-icon-114x114.png">
-	<link rel="alternate" type="application/rss+xml" title="RSS Feed for Jason.Bryer.org" href="http://jason.bryer.org/feed.xml" 
+	<link rel="alternate" type="application/rss+xml" title="RSS Feed for Jason.Bryer.org" href="http://jason.bryer.org/feed.xml" />
 	
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -71,23 +71,7 @@
 			<hr />
 		</div>
 		<div class="three columns sidebar">
-			<nav>
-			<ul>
-				{% if page.submenu == 'pisa' %}{% include menu-pisa.html %}
-				{% elsif page.submenu == 'retention' %}{% include menu-retention.html %}
-				{% elsif page.submenu == 'ipeds' %}{% include menu-ipeds.html %}
-				{% elsif page.submenu == 'irutils' %}{% include menu-irutils.html %}
-				{% elsif page.submenu == 'likert' %}{% include menu-likert.html %}
-				{% elsif page.submenu == 'makeR' %}{% include menu-makeR.html %}
-				{% elsif page.submenu == 'multilevelPSA' %}{% include menu-multilevelPSA.html %}
-				{% elsif page.submenu == 'qualtrics' %}{% include menu-qualtrics.html %}
-				{% elsif page.submenu == 'sqlutils' %}{% include menu-sqlutils.html %}
-				{% elsif page.submenu == 'trimatch' %}{% include menu-trimatch.html %}
-				{% elsif page.submenu == 'none' %}			
-				{% endif %}
-				{% include menu.html %}
-			</ul>
-			</nav>
+			{% include menus.html %}
 		</div>
 		<div class="thirteen columns content ">
 			{{ content }}
