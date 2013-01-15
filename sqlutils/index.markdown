@@ -11,7 +11,12 @@ For many Institutional Research offices the institutions student information sys
 
 The database access functions provide an interface to a directory of SQL scripts. SQL scripts are simply a plain text file containing the query. 
 
-The `sqlutils` package provides a set of utility functions to help manage a library of structured query language (SQL) files. The package can be installed from Github using the `devtools` package.
+The `sqlutils` package provides a set of utility functions to help manage a library of structured query language (SQL) files. 
+To install the latest released version from [CRAN](http://cran.r-project.org):
+
+	install.packages('sqlutils', repos='http://cran.r-project.org')
+	
+The lastest development version can be installed from Github using the `devtools` package.
 
 	require(devtools)
 	install_github('sqlutils', 'jbryer')
@@ -20,7 +25,7 @@ The `sqlutils` package provides functions to document, cache, and execute SQL qu
 By default, a single path will be defined being the `data` directory where the `sqlutils` package is installed.
 
 	> sqlPaths()
-	[1] "/Users/jbryer/R/sqlutils/data"
+	[1] "/Users/jbryer/R/sqlutils/sql"
 
 Additional search paths can be added using `sqlPaths('/Path/To/SQL/Files')`. By convention, `sqlutils` will work with any plain text files with a `.sql` file extention in any of the directories returned from `sqlPaths()`. In the case of multiple files with the same name, first one wins.
 
@@ -77,12 +82,9 @@ A list of all available queries is returned using the `getQueries()` function.
 There are two functions available to execute queries, `execQuery` and `cacheQuery`. The former will send the SQL query to the database upon every execution. The latter however, maintains a local cached version (as a CSV or Rda file) of the resulting data frame. Specifically, the function creates a unique filename based upon the query name and parameters (see `getCacheFilename` function; this can also be overwritten using the `filename` parameter). If that file exists in specified directory (the current working directory by default), then it reads the file from disk and returns that. If the file does not exist, then `execQuery` is called, the result data frame saved to disk, and then the data frame is returned. The following complete example loads the `students` data frame from the `retention` package, saves it to a SQLite database, and executes the two included queries.
 
 	> require(RSQLite)
-	> require(retention)
-	> data(students)
+	> sqlfile <- paste(system.file(package='sqlutils'), '/db/students.db', sep='')
 	> m <- dbDriver("SQLite")
-	> m <- dbDriver("SQLite")
-	> conn <- dbConnect(m, dbname='students.db')
-	> dbWriteTable(conn, "students", students[!is.na(students$CreatedDate),])
+	> conn <- dbConnect(m, dbname=sqlfile)
 	> q1 <- execQuery('StudentSummary', connection=conn)
 	> head(q1)
 	  CreatedDate count
