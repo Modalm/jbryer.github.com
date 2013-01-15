@@ -5,7 +5,7 @@ subtitle: An R package for managing a library of database queries
 submenu: sqlutils
 ---
 
-### Interactive SQL within R
+### Interactive SQL
 
 Occasionally I teach a SQL workshop and needed a way to have participants interact with SQL statements. Obviously there are lots of tools to interface with a database, but since we are all R users I thought it would be nice to be able interact without leaving R. Although this interface is fairly basic, the fact that we can type in a SQL statement and get the results as an R data frame provides all the advantages of having data in R. Moreover, I found this to be an interesting exercise in see the power of R as programming language, not just as statistical software. The function described here is part of the [`sqlutils`](/sqlutils) package which was created to manage a library of SQL files. More information about that is provided on the [project page](/sqlutils) and I will likely have a forthcoming blog post too.
 
@@ -13,13 +13,9 @@ First we need to create a database to interact with. In this example we will use
 
 	require(sqlutils)
 	require(RSQLite)
-	require(retention)
-	data(students)
-	students$CreatedDate = as.character(students$CreatedDate)
+	sqlfile <- paste(system.file(package='sqlutils'), '/db/students.db', sep='')
 	m <- dbDriver("SQLite")
-	tmpfile <- tempfile('students.db', fileext='.db')
-	conn <- dbConnect(m, dbname=tmpfile)
-	dbWriteTable(conn, "students", students[!is.na(students$CreatedDate),])
+	conn <- dbConnect(m, dbname=sqlfile)
 	
 We begin an interactive SQL environment with the `isql` function. The only required parameter is `conn` which is the connection to the database that SQL statements will be executed. The `sql` parameter is optional and sets the initial SQL statement for the session that can be edited or executed.
 
