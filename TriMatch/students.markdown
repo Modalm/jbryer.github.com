@@ -153,6 +153,67 @@ The numbers on the left edge are the row numbers from `tmatch`. We can then use 
 #### Checking balance.
  
  
+
+    plot.balance(tmatch, students$Age, label = "Age")
+
+    Warning: Could not determine strata for the following rows: 441
+
+    
+    	Friedman rank sum test
+    
+    data:  Covariate and Treatment and ID 
+    Friedman chi-squared = 32.98, df = 2, p-value = 6.89e-08
+
+![plot of chunk balance](/images/trimatch/balance1.png) 
+
+    plot.balance(tmatch, students$Age, label = "Age", nstrata = 8)
+
+    Warning: Could not determine strata for the following rows: 441
+
+    
+    	Friedman rank sum test
+    
+    data:  Covariate and Treatment and ID 
+    Friedman chi-squared = 32.98, df = 2, p-value = 6.89e-08
+
+![plot of chunk balance](/images/trimatch/balance2.png) 
+
+    plot.balance(tmatch, students$Military, label = "Military", nstrata = 10)
+
+    Warning: Could not determine strata for the following rows: 441
+
+    
+    	Friedman rank sum test
+    
+    data:  Covariate and Treatment and ID 
+    Friedman chi-squared = 1.924, df = 2, p-value = 0.3821
+
+![plot of chunk balance](/images/trimatch/balance3.png) 
+
+    plot.balance(tmatch, students$Gender, label = "Gender")
+
+    Warning: Could not determine strata for the following rows: 441
+
+    
+    	Friedman rank sum test
+    
+    data:  Covariate and Treatment and ID 
+    Friedman chi-squared = 9.553, df = 2, p-value = 0.008425
+
+![plot of chunk balance](/images/trimatch/balance4.png) 
+
+    plot.balance(tmatch, students$Ethnicity, label = "Ethnicity")
+
+    Warning: Could not determine strata for the following rows: 441
+
+    
+    	Friedman rank sum test
+    
+    data:  Covariate and Treatment and ID 
+    Friedman chi-squared = 6.38, df = 2, p-value = 0.04118
+
+![plot of chunk balance](/images/trimatch/balance5.png) 
+
  
 #### Examine unmatched students.
  

@@ -87,6 +87,13 @@ plot(tmatch, rows=c(838), line.alpha=1, draw.segments=TRUE)
 #### Checking balance.
 
 
+```{r balance}
+plot.balance(tmatch, students$Age, label='Age')
+plot.balance(tmatch, students$Age, label='Age', nstrata=8)
+plot.balance(tmatch, students$Military, label='Military', nstrata=10)
+plot.balance(tmatch, students$Gender, label='Gender')
+plot.balance(tmatch, students$Ethnicity, label='Ethnicity')
+```
 
 #### Examine unmatched students.
 
