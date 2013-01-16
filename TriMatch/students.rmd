@@ -84,6 +84,10 @@ tmatch[838,]
 plot(tmatch, rows=c(838), line.alpha=1, draw.segments=TRUE)
 ```
 
+#### Checking balance.
+
+
+
 #### Examine unmatched students.
 
 ```{r unmatched}
@@ -99,6 +103,12 @@ We can create a triangle plot of only the unmatched students by subsetting `tpsa
 
 ```{r plotunmatched}
 plot(tpsa[tpsa$id %in% unmatched$id,])
+```
+
+#### Loess Plot
+
+```{r loess}
+plot.loess3(tmatch, students$CreditsAttempted, plot.points=geom_jitter, ylab='Credits Attempted')
 ```
 
 #### Parrellel Plot

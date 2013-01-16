@@ -115,6 +115,13 @@ We can plot the distances. We can specify other calipers to see how may matched 
     Percentage of matches exceding a distance of 0.11 (caliper = 0.2): 0.72%
     Percentage of matches exceding a distance of 0.14 (caliper = 0.25): 0%
 
+    Mapping a variable to y and also using stat="bin".  With stat="bin", it will attempt to
+    set the y value to the count of cases in each group.  This can result in unexpected
+    behavior and will not be allowed in a future version of ggplot2.  If you want y to
+    represent counts of cases, use stat="bin" and don't map a variable to y.  If you want y
+    to represent values in the data, use stat="identity".  See ?geom_bar for examples.
+    (Deprecated; last used in version 0.9.2)
+
     Warning: position_stack requires constant width: output may be incorrect
 
 ![plot of chunk distances](/images/trimatch/distances.png) 
@@ -142,6 +149,10 @@ The numbers on the left edge are the row numbers from `tmatch`. We can then use 
 
 ![plot of chunk followup](/images/trimatch/followup.png) 
 
+ 
+#### Checking balance.
+ 
+ 
  
 #### Examine unmatched students.
  
@@ -195,6 +206,17 @@ We can create a triangle plot of only the unmatched students by subsetting `tpsa
 ![plot of chunk plotunmatched](/images/trimatch/plotunmatched.png) 
 
  
+#### Loess Plot
+ 
+
+    plot.loess3(tmatch, students$CreditsAttempted, plot.points = geom_jitter, ylab = "Credits Attempted")
+
+    geom_smooth: method="auto" and size of largest group is <1000, so using loess. Use
+    'method = x' to change the smoothing method.
+
+![plot of chunk loess](/images/trimatch/loess.png) 
+
+ 
 #### Parrellel Plot
  
 
@@ -234,7 +256,6 @@ We can create a triangle plot of only the unmatched students by subsetting `tpsa
     
     data:  Outcome and Treatment and ID 
     Friedman chi-squared = 70.65, df = 2, p-value = 4.546e-16
-    
 
  
 #### Repeated Measures ANOVA
@@ -257,7 +278,6 @@ We can create a triangle plot of only the unmatched students by subsetting `tpsa
     $`Sphericity Corrections`
          Effect    GGe     p[GG] p[GG]<.05    HFe    p[HF] p[HF]<.05
     2 Treatment 0.9774 1.048e-24         * 0.9797 9.32e-25         *
-    
 
  
 #### Pairwise Wilcoxon Rank Sum Tests
@@ -293,7 +313,6 @@ We can create a triangle plot of only the unmatched students by subsetting `tpsa
     sample estimates:
     mean of the differences 
                      -3.709 
-    
 
     (t2 <- t.test(x = tmatch.out$Treatment2.out, y = tmatch.out$Control.out, paired = TRUE))
 
@@ -308,7 +327,6 @@ We can create a triangle plot of only the unmatched students by subsetting `tpsa
     sample estimates:
     mean of the differences 
                      -1.774 
-    
 
     (t3 <- t.test(x = tmatch.out$Treatment2.out, y = tmatch.out$Treatment1.out, paired = TRUE))
 
@@ -323,7 +341,6 @@ We can create a triangle plot of only the unmatched students by subsetting `tpsa
     sample estimates:
     mean of the differences 
                       1.934 
-    
 
  
 #### Boxplot of differences
