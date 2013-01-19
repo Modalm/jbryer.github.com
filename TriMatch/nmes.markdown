@@ -7,7 +7,7 @@ status: publish
 submenu: trimatch
 ---
  
-#### Example One: New Student Outreach
+#### Example: National Medical Expenditure Survey
  
 
     ## Loading required package: TriMatch
@@ -20,15 +20,7 @@ submenu: trimatch
     ## 
     ## %+%
 
-    ## Loading required package: reshape
-
-    ## Loading required package: plyr
-
-    ## Attaching package: 'reshape'
-
-    ## The following object(s) are masked from 'package:plyr':
-    ## 
-    ## rename, round_any
+    ## Loading required package: reshape2
 
     ## Loading required package: ez
 
@@ -52,10 +44,6 @@ submenu: trimatch
 
     ## Attaching package: 'Matrix'
 
-    ## The following object(s) are masked from 'package:reshape':
-    ## 
-    ## expand
-
     ## The following object(s) are masked from 'package:stats':
     ## 
     ## toeplitz
@@ -72,13 +60,7 @@ submenu: trimatch
 
     ## Loading required package: memoise
 
-    ## Loading required package: reshape2
-
-    ## Attaching package: 'reshape2'
-
-    ## The following object(s) are masked from 'package:reshape':
-    ## 
-    ## colsplit, melt, recast
+    ## Loading required package: plyr
 
     ## Loading required package: scales
 
@@ -89,6 +71,16 @@ submenu: trimatch
     ## alpha, rescale
 
     ## Loading required package: stringr
+
+    ## Attaching package: 'ez'
+
+    ## The following object(s) are masked from 'package:plyr':
+    ## 
+    ## progress_time
+
+    ## Loading required package: PSAgraphics
+
+    ## Loading required package: rpart
 
  
 

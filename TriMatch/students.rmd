@@ -79,7 +79,7 @@ plot.distances(tmatch, caliper=c(.15, .2, .25))
 The numbers on the left edge are the row numbers from `tmatch`. We can then use the `plot.triangle.matches` function with specifying the `rows` parameters to any or all of these values to investigate that matched triplet. The following figures shows that the large distances in due to the fact that only one data point has a very large propensity score in both model 1 and 2.
 
 ```{r followup}
-tmatch[tmatch$Dtotal > .11,]
+tmatch[tmatch$Dtotal > .60,]
 tmatch[838,]
 plot(tmatch, rows=c(838), line.alpha=1, draw.segments=TRUE)
 ```
@@ -93,6 +93,17 @@ plot.balance(tmatch, students$Age, label='Age', nstrata=8)
 plot.balance(tmatch, students$Military, label='Military', nstrata=10)
 plot.balance(tmatch, students$Gender, label='Gender')
 plot.balance(tmatch, students$Ethnicity, label='Ethnicity')
+```
+
+```{r effectsizes, width=8}
+covs <- students[,c('Military','NativeEnglish','Gender','Age',
+					'Income','Employment','EdLevelMother','EdLevelFather')]
+covs$Gender <- as.integer(covs$Gender)
+covs$Income <- as.integer(covs$Income)
+covs$Employment <- as.integer(covs$Employment)
+covs$EdLevelMother <- as.integer(covs$EdLevelMother)
+covs$EdLevelFather <- as.integer(covs$EdLevelFather)
+plot.multibalance(tpsa, covs, grid=TRUE)
 ```
 
 #### Examine unmatched students.
@@ -116,6 +127,8 @@ plot(tpsa[tpsa$id %in% unmatched$id,])
 
 ```{r loess}
 plot.loess3(tmatch, students$CreditsAttempted, plot.points=geom_jitter, ylab='Credits Attempted')
+plot.loess3(tmatch, students$CreditsAttempted, plot.points=geom_jitter, ylab='Credits Attempted', 
+			points.alpha=.5, plot.connections=TRUE)
 ```
 
 #### Parrellel Plot

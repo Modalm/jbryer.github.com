@@ -74,7 +74,7 @@ The `trips` function will estimate three propensity score models.
     3  3    Control  FALSE  FALSE     NA 3.934e-01 3.693e-01  NA       4       4    <NA>
     4  4    Control  FALSE  FALSE     NA 2.965e-08 1.779e-08  NA       1       1    <NA>
     5  5    Control  FALSE  FALSE     NA 2.965e-08 1.779e-08  NA       1       1    <NA>
-    6  6    Control  FALSE  FALSE     NA 2.220e-16 1.650e-08  NA    <NA>       1    <NA>
+    6  6    Control  FALSE  FALSE     NA 2.220e-16 1.650e-08  NA       1       1    <NA>
 
     (p <- plot(tpsa))
 
@@ -92,13 +92,13 @@ Triangle plot of the results. We can see how the propensity scores translate fro
 
     head(tmatch)
 
-      Treatment2 Treatment1 Control      D.m3      D.m1      D.m2   Dtotal
-    1        158        133      79 0.0019572 0.0003234 0.0002349 0.002516
-    2        321        105      91 0.0001022 0.0018232 0.0016915 0.003617
-    3        340         50     111 0.0006063 0.0032318 0.0027056 0.006544
-    4        366        151      13 0.0014745 0.0006807 0.0051495 0.007305
-    5        338        334     170 0.0034381 0.0001212 0.0040458 0.007605
-    6        340         31     219 0.0016162 0.0050170 0.0011234 0.007757
+      Treatment2 Treatment1 Control      D.m3      D.m1     D.m2  Dtotal
+    1        158        133      79 0.0083434 0.0019013 0.001612 0.01186
+    2        321        105      91 0.0004357 0.0107182 0.011610 0.02276
+    3        340         50     111 0.0025844 0.0189995 0.018570 0.04015
+    4        338        334     170 0.0146559 0.0007126 0.027769 0.04314
+    5        340         31     219 0.0068895 0.0294940 0.007710 0.04409
+    6        130        371      42 0.0237282 0.0038837 0.017754 0.04537
 
     plot(tmatch, rows = c(2), line.alpha = 1, draw.segments = TRUE)
 
@@ -111,18 +111,9 @@ We can plot the distances. We can specify other calipers to see how may matched 
     plot.distances(tmatch, caliper = c(0.15, 0.2, 0.25))
 
     Standard deviations of propensity scores: 0.17 + 0.15 + 0.23 = 0.55
-    Percentage of matches exceding a distance of 0.083 (caliper = 0.15): 7%
-    Percentage of matches exceding a distance of 0.11 (caliper = 0.2): 0.72%
-    Percentage of matches exceding a distance of 0.14 (caliper = 0.25): 0%
-
-    Mapping a variable to y and also using stat="bin".  With stat="bin", it will attempt to
-    set the y value to the count of cases in each group.  This can result in unexpected
-    behavior and will not be allowed in a future version of ggplot2.  If you want y to
-    represent counts of cases, use stat="bin" and don't map a variable to y.  If you want y
-    to represent values in the data, use stat="identity".  See ?geom_bar for examples.
-    (Deprecated; last used in version 0.9.2)
-
-    Warning: position_stack requires constant width: output may be incorrect
+    Percentage of matches exceding a distance of 0.15 (caliper = 0.15): 6.1%
+    Percentage of matches exceding a distance of 0.2 (caliper = 0.2): 0.72%
+    Percentage of matches exceding a distance of 0.25 (caliper = 0.25): 0%
 
 ![plot of chunk distances](/images/trimatch/distances.png) 
 
@@ -130,20 +121,20 @@ We can plot the distances. We can specify other calipers to see how may matched 
 The numbers on the left edge are the row numbers from `tmatch`. We can then use the `plot.triangle.matches` function with specifying the `rows` parameters to any or all of these values to investigate that matched triplet. The following figures shows that the large distances in due to the fact that only one data point has a very large propensity score in both model 1 and 2.
  
 
-    tmatch[tmatch$Dtotal > 0.11, ]
+    tmatch[tmatch$Dtotal > 0.6, ]
 
-        Treatment2 Treatment1 Control    D.m3    D.m1    D.m2 Dtotal
-    833        128         12     180 0.05792 0.04008 0.01561 0.1136
-    834        181         12     180 0.04890 0.04008 0.02495 0.1139
-    835        271         12     180 0.05416 0.04008 0.02054 0.1148
-    836        372        103     256 0.04075 0.04209 0.03475 0.1176
-    837        363        283      25 0.05112 0.03998 0.02767 0.1188
-    838        368        103     256 0.04575 0.04209 0.03242 0.1203
+        Treatment2 Treatment1 Control   D.m3   D.m1   D.m2 Dtotal
+    833        333         38      76 0.1834 0.2030 0.2205 0.6069
+    834        271         12     180 0.2309 0.2356 0.1409 0.6074
+    835        181         12     180 0.2085 0.2356 0.1712 0.6153
+    836        363        283      25 0.2179 0.2351 0.1899 0.6429
+    837        372        103     256 0.1737 0.2474 0.2385 0.6596
+    838        368        103     256 0.1950 0.2474 0.2225 0.6649
 
     tmatch[838, ]
 
-        Treatment2 Treatment1 Control    D.m3    D.m1    D.m2 Dtotal
-    838        368        103     256 0.04575 0.04209 0.03242 0.1203
+        Treatment2 Treatment1 Control  D.m3   D.m1   D.m2 Dtotal
+    838        368        103     256 0.195 0.2474 0.2225 0.6649
 
     plot(tmatch, rows = c(838), line.alpha = 1, draw.segments = TRUE)
 
@@ -156,63 +147,86 @@ The numbers on the left edge are the row numbers from `tmatch`. We can then use 
 
     plot.balance(tmatch, students$Age, label = "Age")
 
-    Warning: Could not determine strata for the following rows: 441
+    Using propensity scores from model 3 for evaluating balance.
+
+    Warning: Could not determine strata for the following rows: 443
 
     
     	Friedman rank sum test
     
     data:  Covariate and Treatment and ID 
-    Friedman chi-squared = 32.98, df = 2, p-value = 6.89e-08
+    Friedman chi-squared = 37.82, df = 2, p-value = 6.117e-09
 
 ![plot of chunk balance](/images/trimatch/balance1.png) 
 
     plot.balance(tmatch, students$Age, label = "Age", nstrata = 8)
 
-    Warning: Could not determine strata for the following rows: 441
+    Using propensity scores from model 3 for evaluating balance.
+
+    Warning: Could not determine strata for the following rows: 443
 
     
     	Friedman rank sum test
     
     data:  Covariate and Treatment and ID 
-    Friedman chi-squared = 32.98, df = 2, p-value = 6.89e-08
+    Friedman chi-squared = 37.82, df = 2, p-value = 6.117e-09
 
 ![plot of chunk balance](/images/trimatch/balance2.png) 
 
     plot.balance(tmatch, students$Military, label = "Military", nstrata = 10)
 
-    Warning: Could not determine strata for the following rows: 441
+    Using propensity scores from model 3 for evaluating balance.
+
+    Warning: Could not determine strata for the following rows: 443
 
     
     	Friedman rank sum test
     
     data:  Covariate and Treatment and ID 
-    Friedman chi-squared = 1.924, df = 2, p-value = 0.3821
+    Friedman chi-squared = 0.8121, df = 2, p-value = 0.6663
 
 ![plot of chunk balance](/images/trimatch/balance3.png) 
 
     plot.balance(tmatch, students$Gender, label = "Gender")
 
-    Warning: Could not determine strata for the following rows: 441
+    Using propensity scores from model 3 for evaluating balance.
+
+    Warning: Could not determine strata for the following rows: 443
 
     
     	Friedman rank sum test
     
     data:  Covariate and Treatment and ID 
-    Friedman chi-squared = 9.553, df = 2, p-value = 0.008425
+    Friedman chi-squared = 14.47, df = 2, p-value = 0.0007201
 
 ![plot of chunk balance](/images/trimatch/balance4.png) 
 
     plot.balance(tmatch, students$Ethnicity, label = "Ethnicity")
 
-    Warning: Could not determine strata for the following rows: 441
+    Using propensity scores from model 3 for evaluating balance.
+
+    Warning: Could not determine strata for the following rows: 443
 
     
     	Friedman rank sum test
     
     data:  Covariate and Treatment and ID 
-    Friedman chi-squared = 6.38, df = 2, p-value = 0.04118
+    Friedman chi-squared = 6.106, df = 2, p-value = 0.04722
 
 ![plot of chunk balance](/images/trimatch/balance5.png) 
+
+ 
+
+    covs <- students[, c("Military", "NativeEnglish", "Gender", "Age", "Income", "Employment", 
+        "EdLevelMother", "EdLevelFather")]
+    covs$Gender <- as.integer(covs$Gender)
+    covs$Income <- as.integer(covs$Income)
+    covs$Employment <- as.integer(covs$Employment)
+    covs$EdLevelMother <- as.integer(covs$EdLevelMother)
+    covs$EdLevelFather <- as.integer(covs$EdLevelFather)
+    plot.multibalance(tpsa, covs, grid = TRUE)
+
+![plot of chunk effectsizes](/images/trimatch/effectsizes.png) 
 
  
 #### Examine unmatched students.
@@ -249,7 +263,7 @@ The numbers on the left edge are the row numbers from `tmatch`. We can then use 
     285 285 Treatment2     NA   TRUE  FALSE     NA 0.6094 1.195e-01    <NA>       5       1
     302 302 Treatment2     NA   TRUE  FALSE     NA 0.3743 6.308e-08    <NA>       4       1
     319 319 Treatment2     NA   TRUE  FALSE     NA 0.5894 1.260e-01    <NA>       5       1
-    323 323 Treatment2     NA   TRUE  FALSE     NA 0.3476 2.220e-16    <NA>       4    <NA>
+    323 323 Treatment2     NA   TRUE  FALSE     NA 0.3476 2.220e-16    <NA>       4       1
     324 324 Treatment2     NA   TRUE  FALSE     NA 0.3517 6.188e-08    <NA>       4       1
     332 332 Treatment2     NA   TRUE  FALSE     NA 0.6212 3.449e-01    <NA>       5       2
     335 335 Treatment1   TRUE     NA   TRUE 1.0000     NA 1.000e+00       5    <NA>       5
@@ -275,7 +289,15 @@ We can create a triangle plot of only the unmatched students by subsetting `tpsa
     geom_smooth: method="auto" and size of largest group is <1000, so using loess. Use
     'method = x' to change the smoothing method.
 
-![plot of chunk loess](/images/trimatch/loess.png) 
+![plot of chunk loess](/images/trimatch/loess1.png) 
+
+    plot.loess3(tmatch, students$CreditsAttempted, plot.points = geom_jitter, ylab = "Credits Attempted", 
+        points.alpha = 0.5, plot.connections = TRUE)
+
+    geom_smooth: method="auto" and size of largest group is <1000, so using loess. Use
+    'method = x' to change the smoothing method.
+
+![plot of chunk loess](/images/trimatch/loess2.png) 
 
  
 #### Parrellel Plot
@@ -306,8 +328,8 @@ We can create a triangle plot of only the unmatched students by subsetting `tpsa
     2  2 Treatment2.out      17
     3  3 Treatment2.out       3
     4  4 Treatment2.out       0
-    5  5 Treatment2.out       0
-    6  6 Treatment2.out       3
+    5  5 Treatment2.out       3
+    6  6 Treatment2.out       7
 
     set.seed(2112)
     friedman.test(Outcome ~ Treatment | ID, out)
@@ -316,7 +338,7 @@ We can create a triangle plot of only the unmatched students by subsetting `tpsa
     	Friedman rank sum test
     
     data:  Outcome and Treatment and ID 
-    Friedman chi-squared = 70.65, df = 2, p-value = 4.546e-16
+    Friedman chi-squared = 77, df = 2, p-value < 2.2e-16
 
  
 #### Repeated Measures ANOVA
@@ -330,15 +352,15 @@ We can create a triangle plot of only the unmatched students by subsetting `tpsa
 
     $ANOVA
          Effect DFn  DFd     F         p p<.05     ges
-    2 Treatment   2 1674 58.33 3.251e-25     * 0.04424
+    2 Treatment   2 1674 61.47 1.731e-26     * 0.04644
     
     $`Mauchly's Test for Sphericity`
-         Effect      W         p p<.05
-    2 Treatment 0.9769 5.685e-05     *
+         Effect      W        p p<.05
+    2 Treatment 0.9793 0.000162     *
     
     $`Sphericity Corrections`
-         Effect    GGe     p[GG] p[GG]<.05    HFe    p[HF] p[HF]<.05
-    2 Treatment 0.9774 1.048e-24         * 0.9797 9.32e-25         *
+         Effect    GGe     p[GG] p[GG]<.05   HFe     p[HF] p[HF]<.05
+    2 Treatment 0.9798 5.236e-26         * 0.982 4.623e-26         *
 
  
 #### Pairwise Wilcoxon Rank Sum Tests
@@ -353,7 +375,7 @@ We can create a triangle plot of only the unmatched students by subsetting `tpsa
     
                    Treatment2.out Treatment1.out
     Treatment1.out 4.2e-10        -             
-    Control.out    1.4e-05        < 2e-16       
+    Control.out    4.9e-06        < 2e-16       
     
     P value adjustment method: bonferroni 
 
@@ -367,13 +389,13 @@ We can create a triangle plot of only the unmatched students by subsetting `tpsa
     	Paired t-test
     
     data:  tmatch.out$Treatment1.out and tmatch.out$Control.out 
-    t = -10.76, df = 837, p-value < 2.2e-16
+    t = -11.03, df = 837, p-value < 2.2e-16
     alternative hypothesis: true difference in means is not equal to 0 
     95 percent confidence interval:
-     -4.385 -3.032 
+     -4.473 -3.121 
     sample estimates:
     mean of the differences 
-                     -3.709 
+                     -3.797 
 
     (t2 <- t.test(x = tmatch.out$Treatment2.out, y = tmatch.out$Control.out, paired = TRUE))
 
@@ -381,13 +403,13 @@ We can create a triangle plot of only the unmatched students by subsetting `tpsa
     	Paired t-test
     
     data:  tmatch.out$Treatment2.out and tmatch.out$Control.out 
-    t = -4.863, df = 837, p-value = 1.379e-06
+    t = -5.143, df = 837, p-value = 3.377e-07
     alternative hypothesis: true difference in means is not equal to 0 
     95 percent confidence interval:
-     -2.491 -1.058 
+     -2.574 -1.152 
     sample estimates:
     mean of the differences 
-                     -1.774 
+                     -1.863 
 
     (t3 <- t.test(x = tmatch.out$Treatment2.out, y = tmatch.out$Treatment1.out, paired = TRUE))
 
