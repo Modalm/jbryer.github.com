@@ -4,6 +4,7 @@ title: naep
 subtitle: An R package for the National Assessment of Educational Progress (NAEP)
 published: true
 status: publish
+submenu: naep
 ---
 
 

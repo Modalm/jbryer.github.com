@@ -4,6 +4,7 @@ title: naep
 subtitle: An R package for the National Assessment of Educational Progress (NAEP)
 published: false
 status: process
+submenu: naep
 ---
 ```{r, results='hide', echo=FALSE}
 options(width=80)
