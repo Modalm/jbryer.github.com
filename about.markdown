@@ -4,7 +4,9 @@ title: About
 subtitle: Who is Jason and what is this site about?
 ---
 
-<img src='/images/me.gif' align='left' style="padding:5px;">
+<!--img src='/images/me.gif' align='left' style="padding:5px;"-->
+
+<img src='/images/ff_jason.jpg' width='250' height='250' align='left' style='padding:5px'>
 
 Welcome to my website. This is a place for me to share projects I have been evolved with. A little about me… I graduated from St Rose in Albany, NY in 1999 with a B.A. in Mathematics with a minor in Computer Science. After completing college I worked at MapInfo for about five years and am now employed at Excelsior College. After more than 10 years as a software developer, I am now an educational researcher working on a doctorate degree in Education Psychology & Methodology at the University at Albany.
 
