@@ -7,16 +7,20 @@ status: publish
 submenu: talks
 ---
 
-[Jason Bryer](http://jason.bryer.org) ([jason@bryer.org](mailto:jason@bryer.org)) and [Robert Pruzek](http://rmpruzek.com) ([rpruzek@albany.edu](mailto:rpruzek@albany.edu))
+##### [Jason Bryer](http://jason.bryer.org) ([jason@bryer.org](mailto:jason@bryer.org)) and [Robert Pruzek](http://rmpruzek.com) ([rpruzek@albany.edu](mailto:rpruzek@albany.edu))
 
-## Overview
+##### Workshop for the [2013 useR! conference](http://www3.uclm.es/congresos/useR-2013/)
+
+------------------------------------
+
+### Overview
 
 The use of propensity score methods (Rosenbaum & Rubin, 1983) for estimating causal effects in observational studies or certain kinds of quasi-experiments has been increasing in the social sciences (Thoemmes & Kim, 2011) and in medical research (Austin, 2008) in the last decade. Propensity score analysis (PSA) attempts to adjust selection bias that occurs due to the lack of randomization. Analysis is typically conducted in two phases where in phase I, the probability of placement in the treatment is estimated to identify matched pairs or clusters so that in phase II, comparisons on the dependent variable can be made between matched pairs or within clusters. R (R Core Team, 2012) is ideal for conducting PSA given its wide availability of the most current statistical methods vis-à-vis add-on packages as well as its superior graphics capabilities.
 
 The proposed workshop will provide participants with a theoretical overview of propensity score methods as well as illustrations and discussion of PSA applications. Methods used in phase I of PSA (i.e. models or methods for estimating propensity scores) include logistic regression, classification trees, and matching. Discussions on appropriate comparisons and estimations of effect size and confidence intervals in phase II will also be covered. The use of graphics for diagnosing covariate balance as well as summarizing overall results will be emphasized. Lastly, the extension of PSA methods for multilevel data will also be presented.
 
 
-## Outline
+### Outline
 
 * Theretical overview of propensity score methods
 * Phase I of PSA - Adjusting for selection bias by modeling treatment placement
@@ -29,7 +33,7 @@ The proposed workshop will provide participants with a theoretical overview of p
 	* Sensitivity analysis
 * Analysis of multilevel data
 
-## R Packages
+### R Packages
 
 There are a number of R packages available for conducting propensity score analysis. We will utilize the following R packages:
 
@@ -40,8 +44,21 @@ There are a number of R packages available for conducting propensity score analy
 * [`PSAgraphics`](http://www.jstatsoft.org/v29/i06/paper) (Helmreich & Pruzek, 2009) An R Package to Support Propensity Score Analysis
 * [`rpart`](http://cran.r-project.org/web/packages/rpart/index.html) (Therneau, Atkinson, & Ripley, 2012) Recursive Partitioning
 * [`rbounds`](http://www.personal.psu.edu/ljk20/rbounds%20vignette.pdf) (Keele, 2010) An Overview of rebounds: An R Package for Rosenbaum bounds sensitivity analysis with matched data.
+* [`TriMatch`](http://jason.bryer.org/TriMatch) (Bryer, 2013) Propensity Score Matching for Non-binary Treatments.
 
-## References
+### Prerequisites
+
+Basic knowledge of regression models and statistics. 
+
+### Intended Audience
+
+This tutorial is intended for anyone who wishes to use propensity score models for estimating causal effects in observational studies.
+
+### Workshop Materials
+
+Materials will include slides, R scripts, and data and will be made available on this site.
+
+### References
 
 Rosenbaum, P.R., & Rubin, D.B. (1983). [The central role of the propensity score in observational studies for causal effects](http://faculty.smu.edu/Millimet/classes/eco7377/papers/rosenbaum%20rubin%2083a.pdf). *Biometrika, 70*(1), 41-55.
 
