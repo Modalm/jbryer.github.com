@@ -61,10 +61,18 @@ The following examples are included in the `TriMatch` package as demos. Type `de
 
 #### References
 
-Rosenbaum, P.R., & Rubin, D.B. (1983). ￼The Central Role of the Propensity Score in Observational Studies for Causal Effects. *Biometrika, 70*(1).
-
-Rosenbaum, P.R., & Rubin, D.B. (1885) Constructing a control group using multivariate matched sampling methods that incorporate teh propensity score. *The American Statistician, 39*(1).
+Imai, K., & van Dyk, D.A. (2004). [Causal Inference With General Treatment Regimes: Generalizing the Propensity Score](http://imai.princeton.edu/research/files/pscore.pdf). *Journal of the American Statistical Association, 99*(467).
 
 [National Medical Expenditure Survey](http://dx.doi.org/10.3886/ICPSR09280.v1)
 
 National Center for Health Services Research and Health Care Technology Assessment. NATIONAL MEDICAL EXPENDITURE SURVEY, 1987: INSTITUTIONAL POPULATION COMPONENT. Rockville, MD: Westat, Inc. [producer], 1987. Ann Arbor, MI: Inter-university Consortium for Political and Social Research [distributor], 1990. doi:10.3886/ICPSR09280.v1
+
+Rosenbaum, P.R., & Rubin, D.B. (1983). ￼The Central Role of the Propensity Score in Observational Studies for Causal Effects. *Biometrika, 70*(1).
+
+Rosenbaum, P.R., & Rubin, D.B. (1885) Constructing a control group using multivariate matched sampling methods that incorporate teh propensity score. *The American Statistician, 39*(1).
+
+Rubin, D.B., & Stuart, E.A. (). Matching with Multiple Control Groups, and Adjusting for Group Differences.
+
+Spreeuwenberg, M.D., Bartak A., Croon, M.A., Hagenaars, J.A., Busschbach, J.J.V.,Andrea, H., Twisk, J., & Stijnen, T. (2010). The Multiple Propensity Score as Control for Bias in the Comparison of More Than Two Treatment Arms. *Medical Care, 48*(2).
+
+Zhao, S., van Dyk, D.A., & Imai, K. (2012). [Causal Inference in Observational Studies with Non-Binary Treatments](http://imai.princeton.edu/research/files/gpscore.pdf). 
