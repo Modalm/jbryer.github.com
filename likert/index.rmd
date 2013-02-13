@@ -25,8 +25,8 @@ ls('package:likert')
 ```
 
 ```{r pisaSetup}
-data(pisaitems)
-items28 = pisaitems[,substr(names(pisaitems), 1,5) == 'ST24Q']
+data(pisana)
+items28 = pisaitems[,substr(names(pisana), 1,5) == 'ST24Q']
 items28 <- rename(items28, c(
 	ST24Q01="I read only if I have to.",
 	ST24Q02="Reading is one of my favorite hobbies.",
