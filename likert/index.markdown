@@ -27,8 +27,8 @@ The following will analyze the reading attitude items from the [Programme of Int
 
  
 
-    data(pisaitems)
-    items28 = pisaitems[, substr(names(pisaitems), 1, 5) == "ST24Q"]
+    data(pisana)
+    items28 = pisana[, substr(names(pisana), 1, 5) == "ST24Q"]
     items28 <- rename(items28, c(ST24Q01 = "I read only if I have to.", ST24Q02 = "Reading is one of my favorite hobbies.", 
         ST24Q03 = "I like talking about books with other people.", ST24Q04 = "I find it hard to finish books.", ST24Q05 = "I feel happy if I receive a book as a present.", 
         ST24Q06 = "For me, reading is a waste of time.", ST24Q07 = "I enjoy going to a bookstore or a library.", ST24Q08 = "I read only to get information that I need.", 
@@ -84,7 +84,7 @@ The following will analyze the reading attitude items from the [Programme of Int
 
  
 
-    l28.cnt <- likert(items28, pisaitems$CNT)
+    l28.cnt <- likert(items28, pisana$CNT)
     summary(l28.cnt)
 
     ##    Group                                                     Item   low  high  mean     sd
