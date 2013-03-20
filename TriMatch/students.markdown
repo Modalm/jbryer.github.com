@@ -55,9 +55,9 @@ The following boxplot shows unadjusted results.
 The `trips` function will estimate three propensity score models.
  
 
-    cols.model <- c("Military", "Income", "Employment", "NativeEnglish", "EdLevelMother", "EdLevelFather", 
-        "HasAssocAtEnrollment", "Ethnicity", "Gender", "Age")
-    tpsa <- trips(students[, cols.model], treat, ids = 1:nrow(students))
+    form <- ~Military + Income + Employment + NativeEnglish + EdLevelMother + EdLevelFather + HasAssocAtEnrollment + 
+        Ethnicity + Gender + Age
+    tpsa <- trips(students, students$TreatBy, formu = form)
 
     Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
 
@@ -84,7 +84,7 @@ The `trips` function will estimate three propensity score models.
 #### Matched Triplets
  
 
-    tmatch <- trimatch(tpsa)
+    tmatch <- trimatch(tpsa, exact = students[, c("Military", "DegreeLevel")])
 
  
 Triangle plot of the results. We can see how the propensity scores translate from one model to another.
@@ -92,13 +92,13 @@ Triangle plot of the results. We can see how the propensity scores translate fro
 
     head(tmatch)
 
-      Treatment2 Treatment1 Control      D.m3      D.m1     D.m2  Dtotal
-    1        158        133      79 0.0083434 0.0019013 0.001612 0.01186
-    2        321        105      91 0.0004357 0.0107182 0.011610 0.02276
-    3        340         50     111 0.0025844 0.0189995 0.018570 0.04015
-    4        338        334     170 0.0146559 0.0007126 0.027769 0.04314
-    5        340         31     219 0.0068895 0.0294940 0.007710 0.04409
-    6        130        371      42 0.0237282 0.0038837 0.017754 0.04537
+      Treatment2 Treatment1 Control      D.m3     D.m1    D.m2  Dtotal
+    1        321        105      91 0.0004357 0.010718 0.01161 0.02276
+    2        342        326     198 0.0150613 0.002718 0.04715 0.06493
+    3         30        310     203 0.0408941 0.004873 0.02937 0.07514
+    4         95        310     248 0.0454191 0.020088 0.01894 0.08444
+    5        104        105     129 0.0007764 0.070095 0.01655 0.08742
+    6        352        105     109 0.0091104 0.013030 0.06693 0.08907
 
     plot(tmatch, rows = c(2), line.alpha = 1, draw.segments = TRUE)
 
@@ -111,8 +111,8 @@ We can plot the distances. We can specify other calipers to see how may matched 
     plot.distances(tmatch, caliper = c(0.15, 0.2, 0.25))
 
     Standard deviations of propensity scores: 0.17 + 0.15 + 0.23 = 0.55
-    Percentage of matches exceding a distance of 0.15 (caliper = 0.15): 6.1%
-    Percentage of matches exceding a distance of 0.2 (caliper = 0.2): 0.72%
+    Percentage of matches exceding a distance of 0.15 (caliper = 0.15): 11%
+    Percentage of matches exceding a distance of 0.2 (caliper = 0.2): 0.56%
     Percentage of matches exceding a distance of 0.25 (caliper = 0.25): 0%
 
 ![plot of chunk distances](/images/trimatch/distances.png) 
@@ -124,21 +124,16 @@ The numbers on the left edge are the row numbers from `tmatch`. We can then use 
     tmatch[tmatch$Dtotal > 0.6, ]
 
         Treatment2 Treatment1 Control   D.m3   D.m1   D.m2 Dtotal
-    833        333         38      76 0.1834 0.2030 0.2205 0.6069
-    834        271         12     180 0.2309 0.2356 0.1409 0.6074
-    835        181         12     180 0.2085 0.2356 0.1712 0.6153
-    836        363        283      25 0.2179 0.2351 0.1899 0.6429
-    837        372        103     256 0.1737 0.2474 0.2385 0.6596
-    838        368        103     256 0.1950 0.2474 0.2225 0.6649
+    179        295         50     184 0.1842 0.2494 0.1959 0.6294
 
-    tmatch[838, ]
+    tmatch[466, ]
 
-        Treatment2 Treatment1 Control  D.m3   D.m1   D.m2 Dtotal
-    838        368        103     256 0.195 0.2474 0.2225 0.6649
+       Treatment2 Treatment1 Control D.m3 D.m1 D.m2 Dtotal
+    NA       <NA>       <NA>    <NA>   NA   NA   NA     NA
 
-    plot(tmatch, rows = c(838), line.alpha = 1, draw.segments = TRUE)
+    plot(tmatch, rows = c(466), line.alpha = 1, draw.segments = TRUE)
 
-![plot of chunk followup](/images/trimatch/followup.png) 
+    Error: 'data' must be of a vector type
 
  
 #### Checking balance.
@@ -149,13 +144,16 @@ The numbers on the left edge are the row numbers from `tmatch`. We can then use 
 
     Using propensity scores from model 3 for evaluating balance.
 
-    Warning: Could not determine strata for the following rows: 443
-
     
     	Friedman rank sum test
     
     data:  Covariate and Treatment and ID 
-    Friedman chi-squared = 37.82, df = 2, p-value = 6.117e-09
+    Friedman chi-squared = 10.39, df = 2, p-value = 0.00555
+    
+     Repeated measures ANOVA
+    
+         Effect DFn DFd    F        p p<.05     ges
+    2 Treatment   2 356 7.01 0.001033     * 0.02293
 
 ![plot of chunk balance](/images/trimatch/balance1.png) 
 
@@ -163,13 +161,16 @@ The numbers on the left edge are the row numbers from `tmatch`. We can then use 
 
     Using propensity scores from model 3 for evaluating balance.
 
-    Warning: Could not determine strata for the following rows: 443
-
     
     	Friedman rank sum test
     
     data:  Covariate and Treatment and ID 
-    Friedman chi-squared = 37.82, df = 2, p-value = 6.117e-09
+    Friedman chi-squared = 10.39, df = 2, p-value = 0.00555
+    
+     Repeated measures ANOVA
+    
+         Effect DFn DFd    F        p p<.05     ges
+    2 Treatment   2 356 7.01 0.001033     * 0.02293
 
 ![plot of chunk balance](/images/trimatch/balance2.png) 
 
@@ -177,13 +178,11 @@ The numbers on the left edge are the row numbers from `tmatch`. We can then use 
 
     Using propensity scores from model 3 for evaluating balance.
 
-    Warning: Could not determine strata for the following rows: 443
-
     
     	Friedman rank sum test
     
     data:  Covariate and Treatment and ID 
-    Friedman chi-squared = 0.8121, df = 2, p-value = 0.6663
+    Friedman chi-squared = NaN, df = 2, p-value = NA
 
 ![plot of chunk balance](/images/trimatch/balance3.png) 
 
@@ -191,13 +190,11 @@ The numbers on the left edge are the row numbers from `tmatch`. We can then use 
 
     Using propensity scores from model 3 for evaluating balance.
 
-    Warning: Could not determine strata for the following rows: 443
-
     
     	Friedman rank sum test
     
     data:  Covariate and Treatment and ID 
-    Friedman chi-squared = 14.47, df = 2, p-value = 0.0007201
+    Friedman chi-squared = 13.57, df = 2, p-value = 0.00113
 
 ![plot of chunk balance](/images/trimatch/balance4.png) 
 
@@ -205,13 +202,11 @@ The numbers on the left edge are the row numbers from `tmatch`. We can then use 
 
     Using propensity scores from model 3 for evaluating balance.
 
-    Warning: Could not determine strata for the following rows: 443
-
     
     	Friedman rank sum test
     
     data:  Covariate and Treatment and ID 
-    Friedman chi-squared = 6.106, df = 2, p-value = 0.04722
+    Friedman chi-squared = 0.215, df = 2, p-value = 0.8981
 
 ![plot of chunk balance](/images/trimatch/balance5.png) 
 
@@ -236,41 +231,86 @@ The numbers on the left edge are the row numbers from `tmatch`. We can then use 
     unmatched <- attr(tmatch, "unmatched")
     nrow(unmatched)/nrow(tpsa) * 100
 
-    [1] 18.45
+    [1] 53.74
 
     # Percentage of each group not matched
     table(unmatched$treat)/table(tpsa$treat) * 100
 
     
        Control Treatment1 Treatment2 
-         23.00      13.25      13.19 
+         66.50      42.17      36.26 
 
     unmatched[unmatched$treat != "Control", ]
 
          id      treat model1 model2 model3    ps1    ps2       ps3 strata1 strata2 strata3
     2     2 Treatment1   TRUE     NA   TRUE 0.8304     NA 1.000e+00       5    <NA>       5
     23   23 Treatment1   TRUE     NA   TRUE 1.0000     NA 1.000e+00       5    <NA>       5
+    38   38 Treatment1   TRUE     NA   TRUE 0.5186     NA 5.457e-01       5    <NA>       3
     65   65 Treatment1   TRUE     NA   TRUE 0.7518     NA 1.000e+00       5    <NA>       5
+    70   70 Treatment1   TRUE     NA   TRUE 0.3445     NA 6.562e-01       4    <NA>       4
     80   80 Treatment1   TRUE     NA   TRUE 0.5788     NA 8.082e-01       5    <NA>       5
     83   83 Treatment1   TRUE     NA   TRUE 0.7625     NA 1.000e+00       5    <NA>       5
+    87   87 Treatment2     NA   TRUE  FALSE     NA 0.4371 2.259e-01    <NA>       5       1
     119 119 Treatment2     NA   TRUE  FALSE     NA 0.5751 1.641e-01    <NA>       5       1
     123 123 Treatment2     NA   TRUE  FALSE     NA 0.6137 1.316e-01    <NA>       5       1
     125 125 Treatment2     NA   TRUE  FALSE     NA 0.5315 1.413e-08    <NA>       5       1
+    138 138 Treatment1   TRUE     NA   TRUE 0.4051     NA 6.757e-01       4    <NA>       5
     139 139 Treatment2     NA   TRUE  FALSE     NA 0.3737 3.892e-08    <NA>       4       1
+    143 143 Treatment2     NA   TRUE  FALSE     NA 0.3551 6.714e-01    <NA>       4       4
     144 144 Treatment1   TRUE     NA   TRUE 0.5993     NA 7.979e-01       5    <NA>       5
+    149 149 Treatment2     NA   TRUE  FALSE     NA 0.5527 2.139e-01    <NA>       5       1
+    213 213 Treatment2     NA   TRUE  FALSE     NA 0.1445 5.528e-01    <NA>       1       4
     214 214 Treatment1   TRUE     NA   TRUE 0.5998     NA 8.225e-01       5    <NA>       5
+    216 216 Treatment2     NA   TRUE  FALSE     NA 0.2992 3.410e-01    <NA>       3       2
+    240 240 Treatment2     NA   TRUE  FALSE     NA 0.3969 2.137e-01    <NA>       4       1
+    267 267 Treatment2     NA   TRUE  FALSE     NA 0.6377 2.153e-01    <NA>       5       1
+    277 277 Treatment2     NA   TRUE  FALSE     NA 0.4930 1.852e-01    <NA>       5       1
+    282 282 Treatment2     NA   TRUE  FALSE     NA 0.4925 3.043e-01    <NA>       5       2
     284 284 Treatment2     NA   TRUE  FALSE     NA 0.4910 2.230e-08    <NA>       5       1
     285 285 Treatment2     NA   TRUE  FALSE     NA 0.6094 1.195e-01    <NA>       5       1
+    286 286 Treatment2     NA   TRUE  FALSE     NA 0.3559 2.083e-01    <NA>       4       1
+    289 289 Treatment1   TRUE     NA   TRUE 0.2875     NA 3.651e-01       3    <NA>       2
+    290 290 Treatment1   TRUE     NA   TRUE 0.2381     NA 5.260e-01       2    <NA>       3
+    296 296 Treatment1   TRUE     NA   TRUE 0.1898     NA 1.883e-01       2    <NA>       1
+    299 299 Treatment1   TRUE     NA   TRUE 0.3980     NA 4.123e-01       4    <NA>       2
     302 302 Treatment2     NA   TRUE  FALSE     NA 0.3743 6.308e-08    <NA>       4       1
+    308 308 Treatment1   TRUE     NA   TRUE 0.3783     NA 7.631e-01       4    <NA>       5
+    309 309 Treatment2     NA   TRUE  FALSE     NA 0.4612 3.000e-01    <NA>       5       2
+    311 311 Treatment1   TRUE     NA   TRUE 0.4735     NA 5.857e-01       5    <NA>       4
+    312 312 Treatment1   TRUE     NA   TRUE 0.5615     NA 6.758e-01       5    <NA>       5
+    313 313 Treatment1   TRUE     NA   TRUE 0.2626     NA 5.589e-01       3    <NA>       4
+    314 314 Treatment1   TRUE     NA   TRUE 0.5754     NA 7.471e-01       5    <NA>       5
+    315 315 Treatment1   TRUE     NA   TRUE 0.1773     NA 3.214e-01       2    <NA>       2
+    317 317 Treatment1   TRUE     NA   TRUE 0.4762     NA 8.001e-01       5    <NA>       5
+    318 318 Treatment2     NA   TRUE  FALSE     NA 0.4372 5.909e-01    <NA>       5       4
     319 319 Treatment2     NA   TRUE  FALSE     NA 0.5894 1.260e-01    <NA>       5       1
     323 323 Treatment2     NA   TRUE  FALSE     NA 0.3476 2.220e-16    <NA>       4       1
     324 324 Treatment2     NA   TRUE  FALSE     NA 0.3517 6.188e-08    <NA>       4       1
+    325 325 Treatment1   TRUE     NA   TRUE 0.5885     NA 7.360e-01       5    <NA>       5
+    327 327 Treatment1   TRUE     NA   TRUE 0.5673     NA 5.496e-01       5    <NA>       3
     332 332 Treatment2     NA   TRUE  FALSE     NA 0.6212 3.449e-01    <NA>       5       2
     335 335 Treatment1   TRUE     NA   TRUE 1.0000     NA 1.000e+00       5    <NA>       5
+    336 336 Treatment1   TRUE     NA   TRUE 0.6168     NA 5.726e-01       5    <NA>       4
+    338 338 Treatment2     NA   TRUE  FALSE     NA 0.2720 4.562e-01    <NA>       2       3
     339 339 Treatment2     NA   TRUE  FALSE     NA 0.6239 1.097e-01    <NA>       5       1
+    345 345 Treatment1   TRUE     NA   TRUE 0.3443     NA 7.315e-01       4    <NA>       5
+    350 350 Treatment1   TRUE     NA   TRUE 0.3303     NA 7.407e-01       4    <NA>       5
+    353 353 Treatment1   TRUE     NA   TRUE 0.5003     NA 8.108e-01       5    <NA>       5
+    356 356 Treatment1   TRUE     NA   TRUE 0.3477     NA 5.409e-01       4    <NA>       3
+    360 360 Treatment1   TRUE     NA   TRUE 0.2902     NA 3.978e-01       3    <NA>       2
+    361 361 Treatment1   TRUE     NA   TRUE 0.3101     NA 6.108e-01       3    <NA>       4
+    362 362 Treatment1   TRUE     NA   TRUE 0.4252     NA 5.813e-01       5    <NA>       4
+    363 363 Treatment2     NA   TRUE  FALSE     NA 0.5417 3.601e-01    <NA>       5       2
+    364 364 Treatment2     NA   TRUE  FALSE     NA 0.2766 5.596e-01    <NA>       2       4
     365 365 Treatment1   TRUE     NA   TRUE 0.8931     NA 1.000e+00       5    <NA>       5
+    366 366 Treatment2     NA   TRUE  FALSE     NA 0.2139 6.202e-01    <NA>       2       4
     367 367 Treatment1   TRUE     NA   TRUE 0.3604     NA 1.000e+00       4    <NA>       5
+    368 368 Treatment2     NA   TRUE  FALSE     NA 0.4665 2.543e-01    <NA>       5       2
     369 369 Treatment1   TRUE     NA   TRUE 0.4517     NA 1.000e+00       5    <NA>       5
+    370 370 Treatment2     NA   TRUE  FALSE     NA 0.3318 6.000e-01    <NA>       3       4
+    372 372 Treatment2     NA   TRUE  FALSE     NA 0.5336 1.678e-01    <NA>       5       1
+    373 373 Treatment2     NA   TRUE  FALSE     NA 0.5506 1.345e-01    <NA>       5       1
+    374 374 Treatment2     NA   TRUE  FALSE     NA 0.6451 2.147e-01    <NA>       5       1
 
  
 We can create a triangle plot of only the unmatched students by subsetting `tpsa` with those students in the `unmatched` data frame.
@@ -303,13 +343,7 @@ We can create a triangle plot of only the unmatched students by subsetting `tpsa
 #### Parrellel Plot
  
 
-    tmatch.out <- merge(x = tmatch, y = students[, c("CreditsAttempted")])
-    names(tmatch.out)
-
-     [1] "Treatment2"     "Treatment1"     "Control"        "D.m3"           "D.m1"          
-     [6] "D.m2"           "Dtotal"         "Treatment2.out" "Treatment1.out" "Control.out"   
-
-    plot.parallel(tmatch.out)
+    plot.parallel(tmatch, students$CreditsAttempted)
 
 ![plot of chunk merge](/images/trimatch/merge.png) 
 
@@ -317,19 +351,20 @@ We can create a triangle plot of only the unmatched students by subsetting `tpsa
 #### Friedman Rank Sum Test
  
 
+    tmatch.out <- merge(tmatch, students$CreditsAttempted)
     outcomes <- grep(".out$", names(tmatch.out), perl = TRUE)
     tmatch.out$id <- 1:nrow(tmatch.out)
-    out <- melt(tmatch.out[, c(outcomes, ncol(tmatch.out))], id.vars = "id")
+    out <- melt(tmatch.out[, c(outcomes, which(names(tmatch.out) == "id"))], id.vars = "id")
     names(out) <- c("ID", "Treatment", "Outcome")
     head(out)
 
       ID      Treatment Outcome
-    1  1 Treatment2.out       4
-    2  2 Treatment2.out      17
-    3  3 Treatment2.out       3
-    4  4 Treatment2.out       0
-    5  5 Treatment2.out       3
-    6  6 Treatment2.out       7
+    1  1 Treatment2.out      17
+    2  2 Treatment2.out       0
+    3  3 Treatment2.out       0
+    4  4 Treatment2.out      13
+    5  5 Treatment2.out       0
+    6  6 Treatment2.out       6
 
     set.seed(2112)
     friedman.test(Outcome ~ Treatment | ID, out)
@@ -338,7 +373,7 @@ We can create a triangle plot of only the unmatched students by subsetting `tpsa
     	Friedman rank sum test
     
     data:  Outcome and Treatment and ID 
-    Friedman chi-squared = 77, df = 2, p-value < 2.2e-16
+    Friedman chi-squared = 2.257, df = 2, p-value = 0.3235
 
  
 #### Repeated Measures ANOVA
@@ -351,16 +386,16 @@ We can create a triangle plot of only the unmatched students by subsetting `tpsa
     print(rmanova)
 
     $ANOVA
-         Effect DFn  DFd     F         p p<.05     ges
-    2 Treatment   2 1674 61.47 1.731e-26     * 0.04644
+         Effect DFn DFd     F      p p<.05      ges
+    2 Treatment   2 356 1.993 0.1378       0.007381
     
     $`Mauchly's Test for Sphericity`
-         Effect      W        p p<.05
-    2 Treatment 0.9793 0.000162     *
+         Effect      W       p p<.05
+    2 Treatment 0.9674 0.05342      
     
     $`Sphericity Corrections`
-         Effect    GGe     p[GG] p[GG]<.05   HFe     p[HF] p[HF]<.05
-    2 Treatment 0.9798 5.236e-26         * 0.982 4.623e-26         *
+         Effect    GGe  p[GG] p[GG]<.05    HFe  p[HF] p[HF]<.05
+    2 Treatment 0.9685 0.1394           0.9789 0.1389          
 
  
 #### Pairwise Wilcoxon Rank Sum Tests
@@ -374,8 +409,8 @@ We can create a triangle plot of only the unmatched students by subsetting `tpsa
     data:  out$Outcome and out$Treatment 
     
                    Treatment2.out Treatment1.out
-    Treatment1.out 4.2e-10        -             
-    Control.out    4.9e-06        < 2e-16       
+    Treatment1.out 0.094          -             
+    Control.out    1.000          0.533         
     
     P value adjustment method: bonferroni 
 
@@ -389,13 +424,13 @@ We can create a triangle plot of only the unmatched students by subsetting `tpsa
     	Paired t-test
     
     data:  tmatch.out$Treatment1.out and tmatch.out$Control.out 
-    t = -11.03, df = 837, p-value < 2.2e-16
+    t = -1.536, df = 178, p-value = 0.1262
     alternative hypothesis: true difference in means is not equal to 0 
     95 percent confidence interval:
-     -4.473 -3.121 
+     -2.7950  0.3481 
     sample estimates:
     mean of the differences 
-                     -3.797 
+                     -1.223 
 
     (t2 <- t.test(x = tmatch.out$Treatment2.out, y = tmatch.out$Control.out, paired = TRUE))
 
@@ -403,13 +438,13 @@ We can create a triangle plot of only the unmatched students by subsetting `tpsa
     	Paired t-test
     
     data:  tmatch.out$Treatment2.out and tmatch.out$Control.out 
-    t = -5.143, df = 837, p-value = 3.377e-07
+    t = 0.2968, df = 178, p-value = 0.7669
     alternative hypothesis: true difference in means is not equal to 0 
     95 percent confidence interval:
-     -2.574 -1.152 
+     -1.420  1.923 
     sample estimates:
     mean of the differences 
-                     -1.863 
+                     0.2514 
 
     (t3 <- t.test(x = tmatch.out$Treatment2.out, y = tmatch.out$Treatment1.out, paired = TRUE))
 
@@ -417,33 +452,19 @@ We can create a triangle plot of only the unmatched students by subsetting `tpsa
     	Paired t-test
     
     data:  tmatch.out$Treatment2.out and tmatch.out$Treatment1.out 
-    t = 6.054, df = 837, p-value = 2.13e-09
+    t = 2.04, df = 178, p-value = 0.04283
     alternative hypothesis: true difference in means is not equal to 0 
     95 percent confidence interval:
-     1.307 2.562 
+     0.04813 2.90159 
     sample estimates:
     mean of the differences 
-                      1.934 
+                      1.475 
 
  
 #### Boxplot of differences
  
 
-    tmatch.out$Treat1_Control <- tmatch.out$Treatment1.out - tmatch.out$Control.out
-    tmatch.out$Treat2_Control <- tmatch.out$Treatment2.out - tmatch.out$Control.out
-    tmatch.out$Treat2_Treat1 <- tmatch.out$Treatment2.out - tmatch.out$Treatment1.out
-    out.box <- melt(tmatch.out[, c("id", "Treat1_Control", "Treat2_Control", "Treat2_Treat1")], 
-        id.vars = "id")
-    names(out.box) <- c("Student", "Treatment", "Difference")
-    
-    ci <- as.data.frame(rbind(t1$conf.int, t2$conf.int, t3$conf.int))
-    ci$Treatment <- names(tmatch.out)[12:14]
-    ci$estimate <- c(t1$estimate, t2$estimate, t3$estimate)
-    
-    ggplot(out.box, aes(x = Treatment, y = Difference)) + geom_boxplot() + geom_hline(yintercept = 0) + 
-        geom_crossbar(data = ci, aes(x = Treatment, ymin = V1, ymax = V2, y = estimate), color = "green", 
-            fill = "green", width = 0.72, alpha = 0.6) + scale_x_discrete(NULL, labels = c(Treat1_Control = "Treat1 - Control", 
-        Treat2_Control = "Treat2 - Control", Treat2_Treat1 = "Treat2 - Treat1")) + xlab(NULL)
+    plot.boxdiff(tmatch, students$CreditsAttempted)
 
 ![plot of chunk boxplotdiff](/images/trimatch/boxplotdiff.png) 
 

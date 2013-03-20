@@ -46,9 +46,9 @@ ggplot(students, aes(x=TreatBy, y=CreditsAttempted, colour=TreatBy)) +
 The `trips` function will estimate three propensity score models.
 
 ```{r trips, results='hide', message=FALSE, cache=TRUE}
-cols.model <- c('Military','Income', 'Employment', 'NativeEnglish','EdLevelMother',
-				'EdLevelFather','HasAssocAtEnrollment','Ethnicity','Gender','Age')
-tpsa <- trips(students[,cols.model], treat, ids=1:nrow(students))
+form <- ~ Military + Income + Employment + NativeEnglish + EdLevelMother + 
+	      EdLevelFather + HasAssocAtEnrollment + Ethnicity + Gender + Age
+tpsa <- trips(students, students$TreatBy, formu=form)
 ```
 
 
@@ -60,7 +60,7 @@ head(tpsa)
 #### Matched Triplets
 
 ```{r trianglematch, results='hide', message=FALSE, cache=TRUE}
-tmatch <- trimatch(tpsa)
+tmatch <- trimatch(tpsa, exact=students[,c('Military','DegreeLevel')])
 ```
 
 Triangle plot of the results. We can see how the propensity scores translate from one model to another.
@@ -80,8 +80,8 @@ The numbers on the left edge are the row numbers from `tmatch`. We can then use 
 
 ```{r followup}
 tmatch[tmatch$Dtotal > .60,]
-tmatch[838,]
-plot(tmatch, rows=c(838), line.alpha=1, draw.segments=TRUE)
+tmatch[466,]
+plot(tmatch, rows=c(466), line.alpha=1, draw.segments=TRUE)
 ```
 
 #### Checking balance.
@@ -134,17 +134,16 @@ plot.loess3(tmatch, students$CreditsAttempted, plot.points=geom_jitter, ylab='Cr
 #### Parrellel Plot
 
 ```{r merge}
-tmatch.out <- merge(x=tmatch, y=students[,c('CreditsAttempted')])
-names(tmatch.out)
-plot.parallel(tmatch.out)
+plot.parallel(tmatch, students$CreditsAttempted)
 ```
 
 #### Friedman Rank Sum Test
 
 ```{r freidman}
+tmatch.out <- merge(tmatch, students$CreditsAttempted)
 outcomes <- grep(".out$", names(tmatch.out), perl=TRUE)
 tmatch.out$id <- 1:nrow(tmatch.out)
-out <- melt(tmatch.out[,c(outcomes, ncol(tmatch.out))],id.vars='id')
+out <- melt(tmatch.out[,c(outcomes, which(names(tmatch.out) == 'id'))],id.vars='id')
 names(out) <- c('ID','Treatment','Outcome')
 head(out)
 set.seed(2112)
@@ -175,23 +174,5 @@ pairwise.wilcox.test(x=out$Outcome, g=out$Treatment, paired=TRUE, p.adjust.metho
 #### Boxplot of differences
 
 ```{r boxplotdiff}
-tmatch.out$Treat1_Control <- tmatch.out$Treatment1.out - tmatch.out$Control.out
-tmatch.out$Treat2_Control <- tmatch.out$Treatment2.out - tmatch.out$Control.out
-tmatch.out$Treat2_Treat1 <- tmatch.out$Treatment2.out - tmatch.out$Treatment1.out
-out.box <- melt(tmatch.out[,c('id','Treat1_Control','Treat2_Control','Treat2_Treat1')], id.vars='id')
-names(out.box) <- c('Student','Treatment','Difference')
-
-ci <- as.data.frame(rbind(t1$conf.int, t2$conf.int, t3$conf.int))
-ci$Treatment <- names(tmatch.out)[12:14]
-ci$estimate <- c(t1$estimate, t2$estimate, t3$estimate)
-
-ggplot(out.box, aes(x=Treatment, y=Difference)) + 
-	geom_boxplot() + 
-	geom_hline(yintercept=0) +
-	geom_crossbar(data=ci, aes(x=Treatment, ymin=V1, ymax=V2, y=estimate), 
-				  color='green', fill='green', width=.72, alpha=.6) +
-	scale_x_discrete(NULL, labels=c(Treat1_Control='Treat1 - Control', 
-									Treat2_Control='Treat2 - Control',
-									Treat2_Treat1='Treat2 - Treat1')) +
-	xlab(NULL)
+plot.boxdiff(tmatch, students$CreditsAttempted)
 ```

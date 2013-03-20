@@ -42,12 +42,6 @@ submenu: trimatch
 
     ## Loading required package: lattice
 
-    ## Attaching package: 'Matrix'
-
-    ## The following object(s) are masked from 'package:stats':
-    ## 
-    ## toeplitz
-
     ## Attaching package: 'lme4'
 
     ## The following object(s) are masked from 'package:stats':
@@ -81,6 +75,14 @@ submenu: trimatch
     ## Loading required package: PSAgraphics
 
     ## Loading required package: rpart
+
+    ## Loading required package: compiler
+
+    ## Attaching package: 'TriMatch'
+
+    ## The following object(s) are masked from 'package:base':
+    ## 
+    ## as.data.frame.list
 
  
 
