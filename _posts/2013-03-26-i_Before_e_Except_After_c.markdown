@@ -1,0 +1,179 @@
+--- 
+layout: post
+title: i Before e Except After c
+tags: R R-Bloggers
+type: post
+published: true
+status: publish
+---
+ 
+When I went to school we were always taught the "i before e, except after c" rule for spelling. But how accurate is this rule? Kevin Marks tweeted today the following:
+ 
+ 
+<blockquote class="twitter-tweet"><p>»@<a href="https://twitter.com/uberfacts">uberfacts</a>: There are 923 words in the English language that break the “I before E” rule. Only 44 words actually follow that rule.« Science</p>&mdash; Kevin Marks (@kevinmarks) <a href="https://twitter.com/kevinmarks/status/316329566878695425">March 25, 2013</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+ 
+ 
+Not sure where he came up with that result, but seems simple enough to verify. First, download a English language word list compiled by Kevin Atkinson and available at http://wordlist.sourceforge.net/ (I will use the Parts of Speech Database). I also create a data frame (from the README file) `partsOfSpeech` that maps the codes to descriptions that we will use later.
+ 
+
+    require(ggplot2)
+    require(reshape)
+    
+    partsOfSpeech <- as.data.frame(matrix(c("N", "Noun", "P", "Plural", "h", "Noun Phrase", 
+        "V", "Verb (usu participle)", "t", "Verb (transitive)", "i", "Verb (intransitive)", 
+        "A", "Adjective", "v", "Adverb", "C", "Conjunction", "P", "Preposition", 
+        "!", "Interjection", "r", "Pronoun", "D", "Definite Article", "I", "Indefinite Article", 
+        "o", "Nominative"), ncol = 2, byrow = TRUE), stringsAsFactors = FALSE)
+    names(partsOfSpeech) <- c("Code", "Description")
+    
+    words <- read.table("part-of-speech.txt", sep = "\t", header = FALSE, quote = "", 
+        col.names = c("Word", "POS"), stringsAsFactors = FALSE)
+    nrow(words)
+
+    ## [1] 295172
+
+ 
+The parts-of-speech is coded such that the letters before `|` character come from the original [Moby database](http://en.wikipedia.org/wiki/Moby_Project) and letters after the `|` character come from [WordNet](http://wordnet.princeton.edu/). The first character corresponds to the primary classification. The following R code will split this field into two new variables, `Moby` and `WordNet`, and then strip the first character from `WordNet` to create a `WordNetPrimary` variable. We will use this classification later for plotting purposes.
+ 
+
+    tmp <- lapply(words$POS, FUN = function(x) {
+        x <- unlist(strsplit(x, "|", fixed = TRUE))
+        if (length(x) == 1) 
+            return(c(NA, x[[1]])) else if (x[[1]] == "") 
+            return(c(NA, x[[2]])) else return(c(x[[1]], x[[2]]))
+    })
+    words$Moby <- sapply(tmp, function(x) x[1])
+    words$WordNet <- sapply(tmp, function(x) x[2])
+    words$WordNetPrimary <- substr(words$WordNet, 1, 1)
+    table(words$WordNetPrimary, useNA = "ifany")
+
+    ## 
+    ##      !      A      C      D      h      i      N      p      P      r 
+    ##    260  51914     54     60  71566   2239 119441   8506     99     85 
+    ##      t      v      V   <NA> 
+    ##  12399  13730  12124   2695
+
+ 
+We use the `grep` function to get three vectors representing all the "ie", "ei", and "cei" words. We also print the number of each type word and the percentage of all words this represents.
+ 
+
+    ie <- grep("ie", words$Word)
+    ei <- grep("ei", words$Word)
+    cei <- grep("cei", words$Word)
+    
+    length(ie)
+
+    ## [1] 10647
+
+    length(ie)/nrow(words) * 100
+
+    ## [1] 3.607
+
+    length(ei)
+
+    ## [1] 3542
+
+    length(ei)/nrow(words) * 100
+
+    ## [1] 1.2
+
+    length(cei)
+
+    ## [1] 202
+
+    length(cei)/nrow(words) * 100
+
+    ## [1] 0.06843
+
+ 
+Number of words that follow the rule, "i before e except after c"
+ 
+
+    length(ie) + length(cei)
+
+    ## [1] 10849
+
+ 
+Number of i after e words that are not after c (i.e. those that break the rule).
+ 
+
+    length(ei[!(ei %in% cei)])
+
+    ## [1] 3340
+
+ 
+Percentage of words that break the rule.
+ 
+
+    length(ei[!(ei %in% cei)])/sum(length(ie), length(ei)) * 100
+
+    ## [1] 23.54
+
+ 
+**So of the 14,189 "ie" and "ei" words, 3,340 break the "i before e, except after c" rule, or about 23.5%.**
+ 
+Let's see how this breaks out by part-of-speech.
+ 
+
+    thewords <- words[c(ie, ei), ]
+    thewords$BreakRule <- TRUE
+    thewords[which(row.names(thewords) %in% c(cei, ie)), ]$BreakRule <- FALSE
+    
+    # Counts
+    tab <- as.data.frame(table(thewords$WordNetPrimary, thewords$BreakRule, useNA = "ifany"))
+    tab <- merge(tab, partsOfSpeech, by.x = "Var1", by.y = "Code", all.x = TRUE)
+    
+    ggplot(tab, aes(x = Description, y = Freq, fill = Var2)) + geom_bar(stat = "identity", 
+        position = "dodge") + ylab("Number of Words") + xlab("Part of Speech") + 
+        scale_fill_hue("Break the Rule") + ggtitle("i Before e, Except After c") + 
+        coord_flip()
+
+![plot of chunk plots](/images/figure/plots1.png) 
+
+    
+    # Percentages
+    tab2 <- as.data.frame(prop.table(table(thewords$WordNetPrimary, thewords$BreakRule, 
+        useNA = "ifany"), 1) * 100)
+    tab2 <- merge(tab2, partsOfSpeech, by.x = "Var1", by.y = "Code", all.x = TRUE)
+    ggplot(tab2, aes(x = Description, y = Freq, fill = Var2)) + geom_bar(stat = "identity", 
+        position = "dodge") + ylab("Percentage of Words by Part of Speech") + xlab("Part of Speech") + 
+        scale_fill_hue("Break the Rule") + ggtitle("i Before e, Except After c") + 
+        coord_flip()
+
+![plot of chunk plots](/images/figure/plots2.png) 
+
+ 
+A few last details. Here is the proportional table of words that break the rule by part-of-speech. Lastly, the *definite article* and *pronoun* words (three of each) that all break the rule.
+ 
+
+    cast(tab2, Description ~ Var2, mean, value = "Freq")
+
+    ##              Description FALSE   TRUE
+    ## 1              Adjective 86.38  13.62
+    ## 2                 Adverb 80.00  20.00
+    ## 3            Conjunction 25.00  75.00
+    ## 4       Definite Article  0.00 100.00
+    ## 5           Interjection 55.56  44.44
+    ## 6                   Noun 68.17  31.83
+    ## 7            Noun Phrase 71.61  28.39
+    ## 8                Pronoun  0.00 100.00
+    ## 9    Verb (intransitive) 54.55  45.45
+    ## 10     Verb (transitive) 49.92  50.08
+    ## 11 Verb (usu participle) 65.45  34.55
+    ## 12                  <NA> 72.93  27.07
+
+    thewords[which(thewords$WordNetPrimary == "D"), ]
+
+    ##           Word POS Moby WordNet WordNetPrimary BreakRule
+    ## 113927  either DCv <NA>     DCv              D      TRUE
+    ## 182679 neither DCv <NA>     DCv              D      TRUE
+    ## 262111   their   D <NA>       D              D      TRUE
+
+    thewords[which(thewords$WordNetPrimary == "r"), ]
+
+    ##               Word POS Moby WordNet WordNetPrimary BreakRule
+    ## 262112      theirs   r <NA>       r              r      TRUE
+    ## 262113   theirself   r <NA>       r              r      TRUE
+    ## 262114 theirselves  rp <NA>      rp              r      TRUE
+
