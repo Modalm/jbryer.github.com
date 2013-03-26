@@ -100,7 +100,7 @@ Percentage of words that break the rule.
 
 Let's see how this breaks out by part-of-speech.
 
-```{r plots}
+```{r IbeforeE}
 thewords <- words[c(ie,ei),]
 thewords$BreakRule <- TRUE
 thewords[which(row.names(thewords) %in% c(cei, ie[!(ie %in% cie)])),]$BreakRule <- FALSE

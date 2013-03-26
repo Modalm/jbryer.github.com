@@ -146,7 +146,7 @@ Let's see how this breaks out by part-of-speech.
         scale_fill_hue("Break the Rule") + ggtitle("i Before e, Except After c") + 
         coord_flip()
 
-![plot of chunk plots](/images/figure/plots1.png) 
+![plot of chunk IbeforeE](/images/figure/IbeforeE1.png) 
 
     
     # Percentages
@@ -158,7 +158,7 @@ Let's see how this breaks out by part-of-speech.
         scale_fill_hue("Break the Rule") + ggtitle("i Before e, Except After c") + 
         coord_flip()
 
-![plot of chunk plots](/images/figure/plots2.png) 
+![plot of chunk IbeforeE](/images/figure/IbeforeE2.png) 
 
  
 A few last details. Here is the proportional table of words that break the rule by part-of-speech. Lastly, the *definite article* and *pronoun* words (three of each) that all break the rule.
