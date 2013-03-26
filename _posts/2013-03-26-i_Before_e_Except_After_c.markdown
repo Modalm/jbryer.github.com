@@ -14,7 +14,7 @@ When I went to school we were always taught the "i before e, except after c" rul
  
  
  
-Not sure where he came up with that result, but seems simple enough to verify. First, download a English language word list compiled by Kevin Atkinson and available at http://wordlist.sourceforge.net/ (I will use the Parts of Speech Database). I also create a data frame (from the README file) `partsOfSpeech` that maps the codes to descriptions that we will use later.
+Not sure where he came up with that result, but seems simple enough to verify. First, download a English language word list compiled by Kevin Atkinson and available at [SourceForge](http://wordlist.sourceforge.net/) (I will use the Parts of Speech Database, or [download my version from Github](https://github.com/jbryer/jbryer.github.com/raw/master/_posts/part-of-speech.txt)). I also create a data frame (from the README file) `partsOfSpeech` that maps the codes to descriptions that we will use later.
  
 
     require(ggplot2)
