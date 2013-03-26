@@ -61,6 +61,7 @@ We use the `grep` function to get three vectors representing all the "ie", "ei",
     ie <- grep("ie", words$Word)
     ei <- grep("ei", words$Word)
     cei <- grep("cei", words$Word)
+    cie <- grep("cie", words$Word)
     
     length(ie)
 
@@ -86,16 +87,24 @@ We use the `grep` function to get three vectors representing all the "ie", "ei",
 
     ## [1] 0.06843
 
+    length(cie)
+
+    ## [1] 654
+
+    length(cie)/nrow(words) * 100
+
+    ## [1] 0.2216
+
  
 Number of words that follow the rule, "i before e except after c"
  
 
-    length(ie) + length(cei)
+    length(ie) + length(cei) - length(cie)
 
-    ## [1] 10849
+    ## [1] 10195
 
  
-Number of i after e words that are not after c (i.e. those that break the rule).
+Number of i after e words that are not after c (first way to break the rule).
  
 
     length(ei[!(ei %in% cei)])
@@ -103,22 +112,30 @@ Number of i after e words that are not after c (i.e. those that break the rule).
     ## [1] 3340
 
  
+Number of i before e words that are after c (the other way to break the rule).
+ 
+
+    length(cie)
+
+    ## [1] 654
+
+ 
 Percentage of words that break the rule.
  
 
-    length(ei[!(ei %in% cei)])/sum(length(ie), length(ei)) * 100
+    (length(ei[!(ei %in% cei)]) + length(cie))/sum(length(ie), length(ei)) * 100
 
-    ## [1] 23.54
+    ## [1] 28.15
 
  
-**So of the 14,189 "ie" and "ei" words, 3,340 break the "i before e, except after c" rule, or about 23.5%.**
+**So of the 14,189 "ie" and "ei" words, 3,994 break the "i before e, except after c" rule, or about 28.1%.**
  
 Let's see how this breaks out by part-of-speech.
  
 
     thewords <- words[c(ie, ei), ]
     thewords$BreakRule <- TRUE
-    thewords[which(row.names(thewords) %in% c(cei, ie)), ]$BreakRule <- FALSE
+    thewords[which(row.names(thewords) %in% c(cei, ie[!(ie %in% cie)])), ]$BreakRule <- FALSE
     
     # Counts
     tab <- as.data.frame(table(thewords$WordNetPrimary, thewords$BreakRule, useNA = "ifany"))
@@ -150,18 +167,18 @@ A few last details. Here is the proportional table of words that break the rule 
     cast(tab2, Description ~ Var2, mean, value = "Freq")
 
     ##              Description FALSE   TRUE
-    ## 1              Adjective 86.38  13.62
-    ## 2                 Adverb 80.00  20.00
+    ## 1              Adjective 83.17  16.83
+    ## 2                 Adverb 66.56  33.44
     ## 3            Conjunction 25.00  75.00
     ## 4       Definite Article  0.00 100.00
     ## 5           Interjection 55.56  44.44
-    ## 6                   Noun 68.17  31.83
-    ## 7            Noun Phrase 71.61  28.39
+    ## 6                   Noun 65.84  34.16
+    ## 7            Noun Phrase 63.70  36.30
     ## 8                Pronoun  0.00 100.00
     ## 9    Verb (intransitive) 54.55  45.45
-    ## 10     Verb (transitive) 49.92  50.08
+    ## 10     Verb (transitive) 49.42  50.58
     ## 11 Verb (usu participle) 65.45  34.55
-    ## 12                  <NA> 72.93  27.07
+    ## 12                  <NA> 67.26  32.74
 
     thewords[which(thewords$WordNetPrimary == "D"), ]
 

@@ -64,38 +64,46 @@ We use the `grep` function to get three vectors representing all the "ie", "ei",
 ie <- grep('ie', words$Word)
 ei <- grep('ei', words$Word)
 cei <- grep('cei', words$Word)
+cie <- grep('cie', words$Word)
 
 length(ie); length(ie) / nrow(words) * 100
 length(ei); length(ei) / nrow(words) * 100
 length(cei); length(cei) / nrow(words) * 100
+length(cie); length(cie) / nrow(words) * 100
 ```
 
 Number of words that follow the rule, "i before e except after c"
 
 ```{r}
-length(ie) + length(cei)
+length(ie) + length(cei) - length(cie)
 ```
 
-Number of i after e words that are not after c (i.e. those that break the rule).
+Number of i after e words that are not after c (first way to break the rule).
 
 ```{r}
 length(ei[!(ei %in% cei)])
 ```
 
+Number of i before e words that are after c (the other way to break the rule).
+
+```{r}
+length(cie)
+```
+
 Percentage of words that break the rule.
 
 ```{r}
-length(ei[!(ei %in% cei)]) / sum(length(ie), length(ei)) * 100
+(length(ei[!(ei %in% cei)]) + length(cie)) / sum(length(ie), length(ei)) * 100
 ```
 
-**So of the 14,189 "ie" and "ei" words, 3,340 break the "i before e, except after c" rule, or about 23.5%.**
+**So of the 14,189 "ie" and "ei" words, 3,994 break the "i before e, except after c" rule, or about 28.1%.**
 
 Let's see how this breaks out by part-of-speech.
 
 ```{r plots}
 thewords <- words[c(ie,ei),]
 thewords$BreakRule <- TRUE
-thewords[which(row.names(thewords) %in% c(cei, ie)),]$BreakRule <- FALSE
+thewords[which(row.names(thewords) %in% c(cei, ie[!(ie %in% cie)])),]$BreakRule <- FALSE
 
 #Counts
 tab <- as.data.frame(table(thewords$WordNetPrimary, thewords$BreakRule, useNA='ifany'))
