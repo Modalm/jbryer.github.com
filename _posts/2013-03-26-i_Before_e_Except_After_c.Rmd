@@ -11,7 +11,7 @@ When I went to school we were always taught the "i before e, except after c" rul
 
 
 <blockquote class="twitter-tweet"><p>»@<a href="https://twitter.com/uberfacts">uberfacts</a>: There are 923 words in the English language that break the “I before E” rule. Only 44 words actually follow that rule.« Science</p>&mdash; Kevin Marks (@kevinmarks) <a href="https://twitter.com/kevinmarks/status/316329566878695425">March 25, 2013</a></blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
 
 
 Not sure where he came up with that result, but seems simple enough to verify. First, download a English language word list compiled by Kevin Atkinson and available at http://wordlist.sourceforge.net/ (I will use the Parts of Speech Database). I also create a data frame (from the README file) `partsOfSpeech` that maps the codes to descriptions that we will use later.
