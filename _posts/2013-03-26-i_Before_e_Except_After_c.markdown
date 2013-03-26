@@ -194,3 +194,37 @@ A few last details. Here is the proportional table of words that break the rule 
     ## 262113   theirself   r <NA>       r              r      TRUE
     ## 262114 theirselves  rp <NA>      rp              r      TRUE
 
+ 
+### Part II - Using only the 5,000 Most Frequently Used Words
+ 
+Here is an update using the list of 5,000 most commonly used words from http://www.wordfrequency.info/top5000.asp (note there really are only 4,354 unique words since the same word can be used in different parts-of-speech). Of the 4,354 unique words, 96, or about 2.2%, have an "ie" or "ei" in the word. Of those 96 words, 31, or 32.3% break the "i before e except after c" rule.
+ 
+
+    words <- read.csv("MostUsedWords.csv")
+    dups <- words[words$Word %in% words[duplicated(words$Word), ]$Word, ]
+    head(dups[order(dups$Word), ])
+
+    ##      Rank  Word Part.of.speech Frequency Dispersion
+    ## 47     46 about              i    874406       0.96
+    ## 180   179 about              r    208550       0.97
+    ## 897   896 above              i     44130       0.95
+    ## 1604 1599 above              r     23866       0.92
+    ## 1553 1548 abuse              n     24534       0.93
+    ## 3783 3778 abuse              v      7554       0.94
+
+    length(unique(words$Word))
+
+    ## [1] 4354
+
+    words <- words[!duplicated(words$Word), ]
+    
+    ie <- grep("ie", words$Word)
+    ei <- grep("ei", words$Word)
+    cei <- grep("cei", words$Word)
+    cie <- grep("cie", words$Word)
+    
+    # Percentage of words that break the rule.
+    (length(ei[!(ei %in% cei)]) + length(cie))/sum(length(ie), length(ei)) * 100
+
+    ## [1] 32.29
+
