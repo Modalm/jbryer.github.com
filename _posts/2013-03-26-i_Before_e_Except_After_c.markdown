@@ -228,3 +228,19 @@ Here is an update using the list of 5,000 most commonly used words from http://w
 
     ## [1] 32.29
 
+### Part III - Weighted by Frequency of Words
+ 
+Using the same list as part II above, let's consider the word frequency. That is, we'll weight each word by it's frequency according to WordFrequency.info. Using this approach, 47% of "ie" words break the rule. Put another way, for each "ie" word you encounter reading, there is a 47% chance it does not follow the "i before e, except after c" rule.
+ 
+
+    words <- read.csv("MostUsedWords.csv")
+    ie <- grep("ie", words$Word)
+    ei <- grep("ei", words$Word)
+    cei <- grep("cei", words$Word)
+    cie <- grep("cie", words$Word)
+    (sum(words[ei[!(ei %in% cei)], "Frequency"]) + sum(words[cie, "Frequency"]))/sum(words[ie, 
+        "Frequency"], words[ei, "Frequency"]) * 100
+
+    ## [1] 46.81
+
+ 
