@@ -73,7 +73,7 @@ plot(tmatch, rows=c(2), line.alpha=1, draw.segments=TRUE)
 We can plot the distances. We can specify other calipers to see how may matched triplets we eliminate if we specify a small caliper to the `trimatch` function.
 
 ```{r distances}
-plot.distances(tmatch, caliper=c(.15, .2, .25))
+distances.plot(tmatch, caliper=c(.15, .2, .25))
 ```
 
 The numbers on the left edge are the row numbers from `tmatch`. We can then use the `plot.triangle.matches` function with specifying the `rows` parameters to any or all of these values to investigate that matched triplet. The following figures shows that the large distances in due to the fact that only one data point has a very large propensity score in both model 1 and 2.
@@ -88,11 +88,11 @@ plot(tmatch, rows=c(466), line.alpha=1, draw.segments=TRUE)
 
 
 ```{r balance}
-plot.balance(tmatch, students$Age, label='Age')
-plot.balance(tmatch, students$Age, label='Age', nstrata=8)
-plot.balance(tmatch, students$Military, label='Military', nstrata=10)
-plot.balance(tmatch, students$Gender, label='Gender')
-plot.balance(tmatch, students$Ethnicity, label='Ethnicity')
+balance.plot(tmatch, students$Age, label='Age')
+balance.plot(tmatch, students$Age, label='Age', nstrata=8)
+balance.plot(tmatch, students$Military, label='Military', nstrata=10)
+balance.plot(tmatch, students$Gender, label='Gender')
+balance.plot(tmatch, students$Ethnicity, label='Ethnicity')
 ```
 
 ```{r effectsizes, width=8}
@@ -103,7 +103,7 @@ covs$Income <- as.integer(covs$Income)
 covs$Employment <- as.integer(covs$Employment)
 covs$EdLevelMother <- as.integer(covs$EdLevelMother)
 covs$EdLevelFather <- as.integer(covs$EdLevelFather)
-plot.multibalance(tpsa, covs, grid=TRUE)
+multibalance.plot(tpsa, covs, grid=TRUE)
 ```
 
 #### Examine unmatched students.
@@ -126,15 +126,15 @@ plot(tpsa[tpsa$id %in% unmatched$id,])
 #### Loess Plot
 
 ```{r loess}
-plot.loess3(tmatch, students$CreditsAttempted, plot.points=geom_jitter, ylab='Credits Attempted')
-plot.loess3(tmatch, students$CreditsAttempted, plot.points=geom_jitter, ylab='Credits Attempted', 
+loess3.plot(tmatch, students$CreditsAttempted, plot.points=geom_jitter, ylab='Credits Attempted')
+loess3.plot(tmatch, students$CreditsAttempted, plot.points=geom_jitter, ylab='Credits Attempted', 
 			points.alpha=.5, plot.connections=TRUE)
 ```
 
 #### Parrellel Plot
 
 ```{r merge}
-plot.parallel(tmatch, students$CreditsAttempted)
+parallel.plot(tmatch, students$CreditsAttempted)
 ```
 
 #### Friedman Rank Sum Test
@@ -174,5 +174,5 @@ pairwise.wilcox.test(x=out$Outcome, g=out$Treatment, paired=TRUE, p.adjust.metho
 #### Boxplot of differences
 
 ```{r boxplotdiff}
-plot.boxdiff(tmatch, students$CreditsAttempted)
+boxdiff.plot(tmatch, students$CreditsAttempted)
 ```
