@@ -26,7 +26,6 @@ __________
 
 * I will be teaching a pre-conference workshop at the [2013 useR! Conference] in Spain this summer titled [*Introduction to Propensity Score Methods with R*](talks/psaworkshop.html).
 
-* I am teaching [EPSY 887 Computational Statistics](https://github.com/jbryer/CompStats) at the University at Albany during the Spring 2013 semester. Be sure to check out the [course description](https://github.com/jbryer/CompStats), [syllabus](https://github.com/jbryer/CompStats/tree/master/Syllabus), and [wiki](https://github.com/jbryer/CompStats/wiki) for more information.
 
 __________
 
