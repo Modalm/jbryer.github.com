@@ -7,7 +7,6 @@ status: process
 submenu: none
 ---
 
-
 ```{r, results='hide', echo=FALSE}
 options(width=110)
 ```
@@ -32,7 +31,7 @@ ls('package:likert')
 ```{r pisaSetup}
 data(pisaitems)
 
-items28 = pisaitems[,substr(names(pisaitems), 1,5) == 'ST24Q']
+items28 <- pisaitems[,substr(names(pisaitems), 1,5) == 'ST24Q']
 head(items28); ncol(items28)
 
 items28 <- rename(items28, c(
@@ -50,10 +49,11 @@ items28 <- rename(items28, c(
 ```
 
 ```{r likertSummary}
-l28 = likert(items28)
-l28
+l28 <- likert(items28)
 summary(l28)
 ```
+
+Some plots...
 
 ```{r barchart, fig.width=10, fig.path='likert/'}
 plot(l28)
@@ -62,8 +62,10 @@ plot(l28, type='density')
 plot(l28, type='heat')
 ```
 
+Grouped by country...
+
 ```{r likertGrouped, fig.path='likert/'}
-l28g = likert(items28, grouping=pisaitems$CNT)
+l28g <- likert(items28, grouping=pisaitems$CNT)
 print(l28g)
 summary(l28g)
 ```
@@ -78,17 +80,21 @@ plot(l28g, type='density')
 
 ```{r item29setup}
 title <- "How often do you read these materials because you want to?"
-items29 = pisaitems[,substr(names(pisaitems), 1,5) == 'ST25Q']
-names(items29) = c("Magazines", "Comic books", "Fiction", "Non-fiction books", "Newspapers")
+items29 <- pisaitems[,substr(names(pisaitems), 1,5) == 'ST25Q']
+names(items29) <- c("Magazines", "Comic books", "Fiction", "Non-fiction books", "Newspapers")
 l29 <- likert(items29)
 summary(l29)
 ```
+
+Some plots...
 
 ```{r barchart29, fig.width=10, fig.path='likert/'}
 plot(l29) + ggtitle(title)
 plot(l29, centered=TRUE) + ggtitle(title)
 plot(l29, centered=TRUE, center=2.5) + ggtitle(title)
 ```
+
+Grouped by Country...
 
 ```{r item29gsetup, fig.width=10, fig.path='likert/'}
 l29g <- likert(items29, grouping=pisaitems$CNT)
