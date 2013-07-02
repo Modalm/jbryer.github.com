@@ -24,7 +24,6 @@ The `ww2` demo (type `demo(ww2)` at the R console to start) provides many variat
 
 Or try the Shiny App from the [RStudio Server](http://rstudio.com) at [http://spark.rstudio.com/jbryer/timeline/](http://spark.rstudio.com/jbryer/timeline/).
 
-
 #### Development Version
 
 Install the latest development version using `devtools`:
