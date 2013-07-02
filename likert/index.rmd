@@ -24,45 +24,77 @@ require(likert)
 ls('package:likert')
 ```
 
+### Item 28: Reading Attitudes
+
 ```{r pisaSetup}
-data(pisana)
-items28 = pisaitems[,substr(names(pisana), 1,5) == 'ST24Q']
+data(pisaitems)
+
+items28 = pisaitems[,substr(names(pisaitems), 1,5) == 'ST24Q']
+head(items28); ncol(items28)
+
 items28 <- rename(items28, c(
-	ST24Q01="I read only if I have to.",
-	ST24Q02="Reading is one of my favorite hobbies.",
-	ST24Q03="I like talking about books with other people.",
-	ST24Q04="I find it hard to finish books.",
-	ST24Q05="I feel happy if I receive a book as a present.",
-	ST24Q06="For me, reading is a waste of time.",
-	ST24Q07="I enjoy going to a bookstore or a library.",
-	ST24Q08="I read only to get information that I need.",
-	ST24Q09="I cannot sit still and read for more than a few minutes.",
-	ST24Q10="I like to express my opinions about books I have read.",
-	ST24Q11="I like to exchange books with my friends"))
-for(i in 1:ncol(items28)) {
-	items28[,i] = factor(items28[,i], levels=1:4, 
-		labels=c('Strongly disagree', 'Disagree', 'Agree', 'Strongly Agree'), 
-		ordered=TRUE)
-}
+			ST24Q01="I read only if I have to.",
+			ST24Q02="Reading is one of my favorite hobbies.",
+			ST24Q03="I like talking about books with other people.",
+			ST24Q04="I find it hard to finish books.",
+			ST24Q05="I feel happy if I receive a book as a present.",
+			ST24Q06="For me, reading is a waste of time.",
+			ST24Q07="I enjoy going to a bookstore or a library.",
+			ST24Q08="I read only to get information that I need.",
+			ST24Q09="I cannot sit still and read for more than a few minutes.",
+			ST24Q10="I like to express my opinions about books I have read.",
+			ST24Q11="I like to exchange books with my friends"))
 ```
 
 ```{r likertSummary}
-l28 <- likert(items28)
-print(l28)
+l28 = likert(items28)
+l28
 summary(l28)
 ```
 
 ```{r barchart, fig.width=10, fig.path='likert/'}
-plot(l28, low.color='maroon', high.color='burlywood4')
+plot(l28)
+plot(l28, centered=TRUE, wrap=30)
+plot(l28, type='density')
 plot(l28, type='heat')
 ```
 
 ```{r likertGrouped, fig.path='likert/'}
-l28.cnt <- likert(items28, pisaitems$CNT)
-summary(l28.cnt)
-plot(l28.cnt)
+l28g = likert(items28, grouping=pisaitems$CNT)
+print(l28g)
+summary(l28g)
 ```
 
 ```{r centeredPlot, message=FALSE, results='hide', fig.path='likert/'}
-plot(l28.cnt, centered=TRUE, low.color='#FF9900', high.color='#660066')
+plot(l28g)
+plot(l28g, centered=TRUE)
+plot(l28g, type='density')
 ```
+
+### Item 29: How often do you read these materials because you want to?
+
+```{r item29setup, fig.width=10, fig.path='likert/'}
+title <- "How often do you read these materials because you want to?"
+items29 = pisaitems[,substr(names(pisaitems), 1,5) == 'ST25Q']
+names(items29) = c("Magazines", "Comic books", "Fiction", "Non-fiction books", "Newspapers")
+l29 = likert(items29)
+print(l29)
+summary(l29)
+```
+```{r barchart29, fig.width=10, fig.path='likert/'}
+plot(l29) + ggtitle(title)
+plot(l29, centered=TRUE) + ggtitle(title)
+plot(l29, centered=TRUE, center=2.5) + ggtitle(title)
+```
+
+```{r item29gsetup, fig.width=10, fig.path='likert/'}
+l29g <- likert(items29, grouping=pisaitems$CNT)
+summary(l29g)
+```
+
+```{r barchart29g, fig.width=10, fig.path='likert/'}
+plot(l29g) + ggtitle(title)
+plot(l29g, centered=TRUE, center=2.5) + ggtitle(title)
+plot(l29g, type='density', legend='Country') + ggtitle(title)
+```
+
