@@ -25,7 +25,7 @@ The following will analyze the reading attitude items from the [Programme of Int
     ## [1] "likert"              "likert.bar.plot"     "likert.density.plot" "recode"
 
  
-### Item 28: Reading Attitudes
+#### Item 28: Reading Attitudes
  
 
     data(pisaitems)
@@ -243,7 +243,7 @@ The following will analyze the reading attitude items from the [Programme of Int
 ![plot of chunk centeredPlot](/images/likert/centeredPlot3.png) 
 
  
-### Item 29: How often do you read these materials because you want to?
+#### Item 29: How often do you read these materials because you want to?
  
 
     title <- "How often do you read these materials because you want to?"
