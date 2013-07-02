@@ -22,8 +22,7 @@ submenu: multilevelPSA
  top and right, respectively.
 
  * [`lsos`](lsos.html) Nicer list of objects in memory. Particularly useful for analysis of large data.
- [# http://stackoverflow.com/questions/1358003/tricks-to-manage-the-available-memory-in-an-r-session](# http://stackoverflow.com/questions/1358003/tricks-to-manage-the-available-memory-in-an-r-session)
-
+ 
  * [`missing.plot`](missing.plot.html) Returns a heat map graphic representing missinging of variables grouped by
  the given grouping vector.
 

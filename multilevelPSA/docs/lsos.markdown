@@ -11,8 +11,7 @@ submenu: multilevelPSA
 
 
  Nicer list of objects in memory. Particularly useful for
- analysis of large data. c("[#\n](#\n)", "[  http://stackoverflow.com/questions/1358003/tricks-to-manage-the-available-memory-in-an-r-session](  http://stackoverflow.com/questions/1358003/tricks-to-manage-the-available-memory-in-an-r-session)") 
-
+ analysis of large data. 
 
 #### Usage ####
 
