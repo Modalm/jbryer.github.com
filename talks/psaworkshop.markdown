@@ -32,6 +32,7 @@ The proposed workshop will provide participants with a theoretical overview of p
 	* Visualizing results
 	* Sensitivity analysis
 * Analysis of multilevel data
+* Analysis of non-binary treatments
 
 ### R Packages
 
