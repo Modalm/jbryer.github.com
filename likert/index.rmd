@@ -4,7 +4,10 @@ title: likert
 subtitle: An R package analyzing and visualizing Likert items
 published: false
 status: process
+submenu: none
 ---
+
+
 ```{r, results='hide', echo=FALSE}
 options(width=110)
 ```
@@ -24,7 +27,7 @@ require(likert)
 ls('package:likert')
 ```
 
-### Item 28: Reading Attitudes
+#### Item 28: Reading Attitudes
 
 ```{r pisaSetup}
 data(pisaitems)
@@ -71,16 +74,16 @@ plot(l28g, centered=TRUE)
 plot(l28g, type='density')
 ```
 
-### Item 29: How often do you read these materials because you want to?
+#### Item 29: How often do you read these materials because you want to?
 
-```{r item29setup, fig.width=10, fig.path='likert/'}
+```{r item29setup}
 title <- "How often do you read these materials because you want to?"
 items29 = pisaitems[,substr(names(pisaitems), 1,5) == 'ST25Q']
 names(items29) = c("Magazines", "Comic books", "Fiction", "Non-fiction books", "Newspapers")
-l29 = likert(items29)
-print(l29)
+l29 <- likert(items29)
 summary(l29)
 ```
+
 ```{r barchart29, fig.width=10, fig.path='likert/'}
 plot(l29) + ggtitle(title)
 plot(l29, centered=TRUE) + ggtitle(title)
