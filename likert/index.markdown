@@ -243,5 +243,70 @@ The following will analyze the reading attitude items from the [Programme of Int
 ![plot of chunk centeredPlot](/images/likert/centeredPlot3.png) 
 
  
+#### Item 29: How often do you read these materials because you want to?
+ 
+
+    title <- "How often do you read these materials because you want to?"
+    items29 = pisaitems[, substr(names(pisaitems), 1, 5) == "ST25Q"]
+    names(items29) = c("Magazines", "Comic books", "Fiction", "Non-fiction books", "Newspapers")
+    l29 <- likert(items29)
+    summary(l29)
+
+    ##                Item   low neutral  high  mean    sd
+    ## 1         Magazines 30.22   21.33 48.45 3.255 1.245
+    ## 2       Comic books 62.43   15.78 21.79 2.299 1.293
+    ## 3           Fiction 41.77   19.62 38.61 2.961 1.343
+    ## 4 Non-fiction books 61.42   19.55 19.02 2.323 1.199
+    ## 5        Newspapers 37.29   15.73 46.98 3.140 1.442
+
+Some plots...
+
+    plot(l29) + ggtitle(title)
+
+![plot of chunk barchart29](/images/likert/barchart291.png) 
+
+    plot(l29, centered = TRUE) + ggtitle(title)
+
+![plot of chunk barchart29](/images/likert/barchart292.png) 
+
+    plot(l29, centered = TRUE, center = 2.5) + ggtitle(title)
+
+![plot of chunk barchart29](/images/likert/barchart293.png) 
+
+ 
+
+    l29g <- likert(items29, grouping = pisaitems$CNT)
+    summary(l29g)
+
+    ##            Group              Item   low neutral  high  mean    sd
+    ## 1         Canada         Magazines 27.21  24.886 47.90 3.265 1.233
+    ## 2         Canada       Comic books 73.02  13.205 13.78 1.978 1.194
+    ## 3         Canada           Fiction 38.42  20.255 41.33 3.081 1.359
+    ## 4         Canada Non-fiction books 59.75  20.777 19.47 2.379 1.195
+    ## 5         Canada        Newspapers 36.01  18.642 45.35 3.113 1.404
+    ## 6         Mexico         Magazines 32.28  18.727 48.99 3.249 1.255
+    ## 7         Mexico       Comic books 53.45  18.374 28.17 2.573 1.300
+    ## 8         Mexico           Fiction 43.60  19.085 37.31 2.897 1.329
+    ## 9         Mexico Non-fiction books 62.91  18.549 18.54 2.275 1.201
+    ## 10        Mexico        Newspapers 37.01  13.743 49.25 3.198 1.460
+    ## 11 United States         Magazines 28.30  24.802 46.89 3.257 1.225
+    ## 12 United States       Comic books 81.66   8.149 10.19 1.699 1.116
+    ## 13 United States           Fiction 43.10  20.707 36.19 2.902 1.332
+    ## 14 United States Non-fiction books 57.91  21.541 20.55 2.427 1.183
+    ## 15 United States        Newspapers 45.01  17.479 37.51 2.837 1.432
+
+ 
+
+    plot(l29g) + ggtitle(title)
+
+![plot of chunk barchart29g](/images/likert/barchart29g1.png) 
+
+    plot(l29g, centered = TRUE, center = 2.5) + ggtitle(title)
+
+![plot of chunk barchart29g](/images/likert/barchart29g2.png) 
+
+    plot(l29g, type = "density", legend = "Country") + ggtitle(title)
+
+![plot of chunk barchart29g](/images/likert/barchart29g3.png) 
 
  
