@@ -10,6 +10,7 @@ submenu: talks
 ##### [Jason Bryer](http://jason.bryer.org) ([jason@bryer.org](mailto:jason@bryer.org)) and [Robert Pruzek](http://rmpruzek.com) ([rpruzek@albany.edu](mailto:rpruzek@albany.edu))
 
 ##### Workshop for the [2013 useR! conference](http://www3.uclm.es/congresos/useR-2013/)
+##### Workshop materials available at [Github](http://github.com/jbryer/IntroPSAwithR)
 
 ------------------------------------
 
