@@ -4,7 +4,7 @@ title: likert
 subtitle: An R package analyzing and visualizing Likert items
 published: false
 status: process
-submenu: none
+submenu: likert
 ---
 
 ```{r, results='hide', echo=FALSE}
@@ -57,7 +57,7 @@ Some plots...
 
 ```{r barchart, fig.width=10, fig.path='likert/'}
 plot(l28)
-plot(l28, centered=TRUE, wrap=30)
+plot(l28, centered=FALSE, wrap=30)
 plot(l28, type='density')
 plot(l28, type='heat')
 ```
@@ -70,9 +70,10 @@ print(l28g)
 summary(l28g)
 ```
 
-```{r centeredPlot, message=FALSE, results='hide', fig.path='likert/'}
+```{r centeredPlot, message=FALSE, results='hide', fig.path='likert/', fig.width=8, fig.height=10}
 plot(l28g)
-plot(l28g, centered=TRUE)
+plot(l28g, include.histogram=TRUE)
+plot(l28g, centered=FALSE)
 plot(l28g, type='density')
 ```
 
@@ -90,8 +91,8 @@ Some plots...
 
 ```{r barchart29, fig.width=10, fig.path='likert/'}
 plot(l29) + ggtitle(title)
-plot(l29, centered=TRUE) + ggtitle(title)
-plot(l29, centered=TRUE, center=2.5) + ggtitle(title)
+plot(l29, centered=FALSE) + ggtitle(title)
+plot(l29, center=2.5) + ggtitle(title)
 ```
 
 Grouped by Country...
@@ -103,7 +104,7 @@ summary(l29g)
 
 ```{r barchart29g, fig.width=10, fig.path='likert/'}
 plot(l29g) + ggtitle(title)
-plot(l29g, centered=TRUE, center=2.5) + ggtitle(title)
+plot(l29g, centered=FALSE, center=2.5) + ggtitle(title)
 plot(l29g, type='density', legend='Country') + ggtitle(title)
 ```
 

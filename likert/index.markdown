@@ -4,7 +4,7 @@ title: likert
 subtitle: An R package analyzing and visualizing Likert items
 published: true
 status: publish
-submenu: none
+submenu: likert
 ---
  
 
@@ -24,7 +24,8 @@ The following will analyze the reading attitude items from the [Programme of Int
     require(likert)
     ls("package:likert")
 
-    ## [1] "likert"              "likert.bar.plot"     "likert.density.plot" "recode"
+    ## [1] "likert"                "likert.bar.plot"       "likert.density.plot"   "likert.heat.plot"     
+    ## [5] "likert.histogram.plot" "recode"                "reverse.levels"        "shinyLikert"
 
  
 #### Item 28: Reading Attitudes
@@ -74,17 +75,17 @@ The following will analyze the reading attitude items from the [Programme of Int
     summary(l28)
 
     ##                                                        Item   low neutral  high  mean     sd
-    ## 1                                 I read only if I have to. 58.73      NA 41.27 2.292 0.9369
-    ## 2                    Reading is one of my favorite hobbies. 56.64      NA 43.36 2.345 0.9277
-    ## 3             I like talking about books with other people. 54.99      NA 45.01 2.328 0.9090
-    ## 4                           I find it hard to finish books. 65.35      NA 34.65 2.178 0.8992
-    ## 5            I feel happy if I receive a book as a present. 46.93      NA 53.07 2.467 0.9447
-    ## 6                       For me, reading is a waste of time. 82.89      NA 17.11 1.810 0.8612
-    ## 7                I enjoy going to a bookstore or a library. 51.21      NA 48.79 2.429 0.9164
-    ## 8               I read only to get information that I need. 50.40      NA 49.60 2.485 0.9090
-    ## 9  I cannot sit still and read for more than a few minutes. 76.25      NA 23.75 1.975 0.8793
     ## 10   I like to express my opinions about books I have read. 41.08      NA 58.92 2.605 0.9010
+    ## 5            I feel happy if I receive a book as a present. 46.93      NA 53.07 2.467 0.9447
+    ## 8               I read only to get information that I need. 50.40      NA 49.60 2.485 0.9090
+    ## 7                I enjoy going to a bookstore or a library. 51.21      NA 48.79 2.429 0.9164
+    ## 3             I like talking about books with other people. 54.99      NA 45.01 2.328 0.9090
     ## 11                 I like to exchange books with my friends 55.54      NA 44.46 2.343 0.9609
+    ## 2                    Reading is one of my favorite hobbies. 56.64      NA 43.36 2.345 0.9277
+    ## 1                                 I read only if I have to. 58.73      NA 41.27 2.292 0.9369
+    ## 4                           I find it hard to finish books. 65.35      NA 34.65 2.178 0.8992
+    ## 9  I cannot sit still and read for more than a few minutes. 76.25      NA 23.75 1.975 0.8793
+    ## 6                       For me, reading is a waste of time. 82.89      NA 17.11 1.810 0.8612
 
  
 Some plots...
@@ -94,7 +95,7 @@ Some plots...
 
 ![plot of chunk barchart](/images/likert/barchart1.png) 
 
-    plot(l28, centered = TRUE, wrap = 30)
+    plot(l28, centered = FALSE, wrap = 30)
 
 ![plot of chunk barchart](/images/likert/barchart2.png) 
 
@@ -225,13 +226,17 @@ Grouped by country...
 
 ![plot of chunk centeredPlot](/images/likert/centeredPlot1.png) 
 
-    plot(l28g, centered = TRUE)
+    plot(l28g, include.histogram = TRUE)
 
 ![plot of chunk centeredPlot](/images/likert/centeredPlot2.png) 
 
-    plot(l28g, type = "density")
+    plot(l28g, centered = FALSE)
 
 ![plot of chunk centeredPlot](/images/likert/centeredPlot3.png) 
+
+    plot(l28g, type = "density")
+
+![plot of chunk centeredPlot](/images/likert/centeredPlot4.png) 
 
  
 #### Item 29: How often do you read these materials because you want to?
@@ -245,10 +250,10 @@ Grouped by country...
 
     ##                Item   low neutral  high  mean    sd
     ## 1         Magazines 30.22   21.33 48.45 3.255 1.245
-    ## 2       Comic books 62.43   15.78 21.79 2.299 1.293
-    ## 3           Fiction 41.77   19.62 38.61 2.961 1.343
-    ## 4 Non-fiction books 61.42   19.55 19.02 2.323 1.199
     ## 5        Newspapers 37.29   15.73 46.98 3.140 1.442
+    ## 3           Fiction 41.77   19.62 38.61 2.961 1.343
+    ## 2       Comic books 62.43   15.78 21.79 2.299 1.293
+    ## 4 Non-fiction books 61.42   19.55 19.02 2.323 1.199
 
  
 Some plots...
@@ -258,11 +263,11 @@ Some plots...
 
 ![plot of chunk barchart29](/images/likert/barchart291.png) 
 
-    plot(l29, centered = TRUE) + ggtitle(title)
+    plot(l29, centered = FALSE) + ggtitle(title)
 
 ![plot of chunk barchart29](/images/likert/barchart292.png) 
 
-    plot(l29, centered = TRUE, center = 2.5) + ggtitle(title)
+    plot(l29, center = 2.5) + ggtitle(title)
 
 ![plot of chunk barchart29](/images/likert/barchart293.png) 
 
@@ -296,7 +301,7 @@ Grouped by Country...
 
 ![plot of chunk barchart29g](/images/likert/barchart29g1.png) 
 
-    plot(l29g, centered = TRUE, center = 2.5) + ggtitle(title)
+    plot(l29g, centered = FALSE, center = 2.5) + ggtitle(title)
 
 ![plot of chunk barchart29g](/images/likert/barchart29g2.png) 
 
