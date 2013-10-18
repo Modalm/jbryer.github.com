@@ -1,6 +1,6 @@
 --- 
 layout: post
-title: Version 1.1 of the likert Pakcage Released to CRAN
+title: Version 1.1 of the likert Package Released to CRAN
 tags: R R-Bloggers
 type: post
 published: true
