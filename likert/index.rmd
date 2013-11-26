@@ -70,7 +70,7 @@ print(l28g)
 summary(l28g)
 ```
 
-```{r centeredPlot, message=FALSE, results='hide', fig.path='likert/', fig.width=8, fig.height=10}
+```{r centeredPlot, message=FALSE, results='hide', fig.path='likert/', fig.width=8t, fig.height=10}
 plot(l28g)
 plot(l28g, include.histogram=TRUE)
 plot(l28g, centered=FALSE)

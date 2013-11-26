@@ -20,7 +20,7 @@ convertRMarkdown <- function(dir=getwd(), images.dir=dir, images.url='/images/',
 		message(paste("Processing ", f, sep=''))
 		content <- readLines(f)
 		frontMatter <- which(substr(content, 1, 3) == '---')
-		if(length(frontMatter) == 2) {
+		if(length(frontMatter) >= 2 & 1 %in% frontMatter) {
 			statusLine <- which(substr(content, 1, 7) == 'status:')
 			publishedLine <- which(substr(content, 1, 10) == 'published:')
 			if(statusLine > frontMatter[1] & statusLine < frontMatter[2]) {

@@ -22,17 +22,12 @@ submenu: none
 
 __________
 
-### News ###
-
-* I will be teaching a pre-conference workshop at the [2013 useR! Conference] in Spain this summer titled [*Introduction to Propensity Score Methods with R*](talks/psaworkshop.html).
-
-
-__________
 
 ### Table of Contents ###
 
 The primary focus of this website is to provide documentation for R packages I maintain. These include:
 
+* [`PSAboot`](/PSAboot) Bootstrapping for Propensity Score Analysis.
 * [`TriMatch`](/TriMatch) Propensity score matching for non-binary treatments.
 * [`multilevelPSA`](/multilevelPSA) An R package for estimating and visualizing multilelel propensity score models.
 

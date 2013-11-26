@@ -7,6 +7,16 @@ status: publish
 submenu: talks
 ---
  
+#### EPSY 530 Statistics I
+##### Graduate course taught at [University at Albany](http://albany.edu) in the Fall 2013 semester.
+
+Course Website: [epsy530.bryer.org](http://epsy530.bryer.org)
+
+Descriptive statistics including measures of central tendency and variability, correlation and regression. Introduction to statistical inference, including sampling distributions, significance tests, confidence intervals, and power of tests of significance.
+
+
+-------------------
+
 #### Introduction to Propensity Score Methods with R
 ##### Pre-Conference workshop to be taught at the [2013 useR! conference](http://www3.uclm.es/congresos/useR-2013).
 
@@ -15,11 +25,14 @@ The use of propensity score methods (Rosenbaum & Rubin, 1983) for estimating cau
 The proposed workshop will provide participants with a theoretical overview of propensity score methods as well as illustrations and discussion of PSA applications. Methods used in phase I of PSA (i.e. models or methods for estimating propensity scores) include logistic regression, classification trees, and matching. Discussions on appropriate comparisons and estimations of effect size and confidence intervals in phase II will also be covered. The use of graphics for diagnosing covariate balance as well as summarizing overall results will be emphasized. Lastly, the extension of PSA methods for multilevel data will also be presented.
 
 * [Full workshop description...](psaworkshop.html)
+* [Download Slides](https://github.com/jbryer/IntroPSAwithR/blob/master/NEAIR2013%20Slides/Slides.pdf?raw=true)
+* [Workshop Materials on Github](https://github.com/jbryer/IntroPSAwithR)
+
 
 -------------------
 
 #### Introduction to R and LaTeX for Institutional Research
-##### Pre-Conference workshop taught at the 2011 and 2012 [NEAIR](http://neair.org) conferences.
+##### Pre-Conference workshop taught at the 2011, 2012, and 2013 [NEAIR](http://neair.org) conferences.
 
 This workshop will provide an overview as well as hands-on exercises for using R and LaTeX to perform data analysis and report generation. Participants will learn to perform basic statistical analyses in R and to generate reports with LaTeX in spreadsheet, presentation, and document formats.
 
