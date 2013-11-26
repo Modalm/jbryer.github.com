@@ -181,7 +181,7 @@ The `plot` function plots the estimate (mean difference) for each bootstrap samp
 
     plot(boot.lalonde)
 
-![plot of chunk lalonde.plot](/images/psaboot/lalonde_plot.png) 
+![plot of chunk lalonde.plot](/images/PSAboot/lalonde_plot.png) 
 
  
 The `hist` function plots a histogram of the estimates across all bootstrap samples for each method.
@@ -189,7 +189,7 @@ The `hist` function plots a histogram of the estimates across all bootstrap samp
 
     hist(boot.lalonde)
 
-![plot of chunk lalonde.histogram](/images/psaboot/lalonde_histogram.png) 
+![plot of chunk lalonde.histogram](/images/PSAboot/lalonde_histogram.png) 
 
  
 The `boxplot` function depicts the distribution of estimates for each method along with confidence intervals in green. Additionally, the overall pooled estimate and confidence interval across all bootstrap samples and methods are represented by the vertical blue and green lines, respectively.
@@ -197,7 +197,7 @@ The `boxplot` function depicts the distribution of estimates for each method alo
 
     boxplot(boot.lalonde)
 
-![plot of chunk lalonde.boxplot](/images/psaboot/lalonde_boxplot.png) 
+![plot of chunk lalonde.boxplot](/images/PSAboot/lalonde_boxplot.png) 
 
  
 The `matrixplot` summarizes the estimates across methods for each bootstrap sample. The lower half of the matrix are scatter plots where each point represents the one bootstrap sample. The red line is a Loess regression line. The main diagonal depicts the distribution of effects and the upper half provides the correlation of estimates. In the following example we see that the `ctree` and `Stratification` methods have the strongest agreement with a correlation of 0.63 whereas the `rpart` and `MatchIt` methods have the least agreement with a correlation of 0.22.
@@ -205,7 +205,7 @@ The `matrixplot` summarizes the estimates across methods for each bootstrap samp
 
     matrixplot(boot.lalonde)
 
-![plot of chunk lalonde.matrixplot](/images/psaboot/lalonde_matrixplot.png) 
+![plot of chunk lalonde.matrixplot](/images/PSAboot/lalonde_matrixplot.png) 
 
  
 ## Evaluating Balance
@@ -230,7 +230,7 @@ The `plot` function provides density plots of the balance statistics across all 
 
     plot(lalonde.bal)
 
-![plot of chunk lalonde.balance.plot](/images/psaboot/lalonde_balance_plot.png) 
+![plot of chunk lalonde.balance.plot](/images/PSAboot/lalonde_balance_plot.png) 
 
  
 The `boxplot` function provides a more nuanced depiction of the balance by separating on the distribution of balance statistics by individual covariate. In addition to the boxplot of balance statistics, the mean balance statistic is represented by the blue point and the unadjusted balance statistic by the red point. We see that the largest imbalance was in the `black`, `married`, and `re74` (real earnings in 1974) before adjustment. All of the estimates reduced the bias in these covariates although it is worth noting that the `MatchIt` method did not reduce the bias in the `black` covariate to a desirable level.
@@ -240,6 +240,6 @@ This figure, in conjunction with the density plot above, show that the relativel
 
     boxplot(lalonde.bal)
 
-![plot of chunk lalonde.balance.boxplot](/images/psaboot/lalonde_balance_boxplot.png) 
+![plot of chunk lalonde.balance.boxplot](/images/PSAboot/lalonde_balance_boxplot.png) 
 
  
