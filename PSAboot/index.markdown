@@ -7,9 +7,6 @@ status: publish
 submenu: psaboot
 ---
  
-
-
- 
 # Abstract
  
 As the popularity of propensity score methods for estimating causal effects in observational studies increase, the choice of specific method has also increased. Rosenbaum (2012) has suggested that there are substantial benefits for testing a hypothesis more than once. Moreover, with the wide availability of high power computers resampling methods such as bootstrapping (Efron, 1979) have become popular for providing more stable estimates of the sampling distribution. This paper introduces the `PSAboot` package for R that provides functions for bootstrapping propensity score methods. It deviates from traditional bootstrapping methods by allowing for different sampling specifications for treatment and control groups. Additionally, this framework will provide estimates using multiple methods for each bootstrap sample. Two examples are discussed: the classic National Work Demonstration and PSID (Lalonde, 1986) study and a study on tutoring effects on student grades.
@@ -18,7 +15,7 @@ As the popularity of propensity score methods for estimating causal effects in o
  
 You can download `PSAboot` from CRAN:
  
-
+ 
     install.packages("PSAboot", repos = "http://cran.r-project.org")
 
  
@@ -41,7 +38,7 @@ The package includes three demos:
 * `PSAbootLalonde` This demo performs a propensity score analysis of the classic lalonde dataset. Thid demonstrates how to boostrap both the treatment and control units.
 * `PSAbootTutoring` - This demo uses the tutoring dataset from the TriMatch package.
  
- 
+
 -----------------------------
  
 # Introduction
