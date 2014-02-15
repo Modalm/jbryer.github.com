@@ -7,8 +7,19 @@ status: publish
 submenu: talks
 ---
  
+#### EPSY 887 Data Science Institute
+##### Doctoral seminar taught at the [University at Albany](http://albany.edu) in the Fall 2014 semester.
+
+Course website: [https://github.com/jbryer/EPSY887DataScience](github.com/jbryer/EPSY887DataScience)
+
+Data Science is the intersection of statistics, computer science, and research. This seminar will introduce the key concepts of data science with an emphasis on data science in education. We will cover the important statistical and programming concepts necessary for conducting reproducible research on large datasets. The open source program R will be used throughout the course. No programming experience is required but at least two semesters of graduate statistics is highly recommended.
+
+
+-------------------
+
+
 #### EPSY 530 Statistics I
-##### Graduate course taught at [University at Albany](http://albany.edu) in the Fall 2013 semester.
+##### Graduate course taught at [University at Albany](http://albany.edu) in the Fall 2013, Summer 2014, and Fall 2014 semesters.
 
 Course Website: [epsy530.bryer.org](http://epsy530.bryer.org)
 

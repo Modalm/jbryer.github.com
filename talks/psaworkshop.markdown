@@ -7,10 +7,11 @@ status: publish
 submenu: talks
 ---
 
-##### [Jason Bryer](http://jason.bryer.org) ([jason@bryer.org](mailto:jason@bryer.org)) and [Robert Pruzek](http://rmpruzek.com) ([rpruzek@albany.edu](mailto:rpruzek@albany.edu))
+##### [Jason Bryer](http://jason.bryer.org) ([jason@bryer.org](mailto:jason@bryer.org)) 
 
 ##### Workshop for the [2013 useR! conference](http://www3.uclm.es/congresos/useR-2013/)
-##### Workshop materials available at [Github](http://github.com/jbryer/IntroPSAwithR)
+##### Workshop materials available at [Github](https://github.com/jbryer/psa)
+##### Slides for  a talk at the [2013 NEAIR Conference](https://github.com/jbryer/psa/blob/master/Download%20Slides)
 
 ------------------------------------
 
