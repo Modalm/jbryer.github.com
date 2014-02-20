@@ -21,7 +21,7 @@ The output is minimal by default (set `quiet=FALSE` to get all the messages prin
 
 	A newer version of lme4 is available (current=1.0.5; available=1.0.6)
 	
-			  loaded installed loaded.version available.version
+	          loaded installed loaded.version available.version
 	devtools    TRUE     FALSE          1.4.1             1.4.1
 	ggplot2     TRUE     FALSE        0.9.3.1           0.9.3.1
 	psych       TRUE     FALSE        1.4.2.3           1.4.2.3
