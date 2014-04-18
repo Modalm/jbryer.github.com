@@ -55,7 +55,7 @@ The `buildRmd` function will convert all `.Rmd` files in your project to `.md` u
 
 	> buildRmd()
 	
-The `buildGitbook` function is simply a wrapper to the Gitbook command line and will generate your book from the markdown sources. As of this writing, there is a [bug](https://github.com/GitbookIO/gitbook/issues/99) in Gitbook where the image URLS are incorrect. This function will fix the URLs.
+The `buildGitbook` function is simply a wrapper to the Gitbook command line and will generate your book from the markdown sources. As of this writing, there is a [bug](https://github.com/GitbookIO/gitbook/issues/99) in Gitbook where the image URLS are incorrect. This function will fix the URLs. There is also another [issue](https://github.com/GitbookIO/gitbook/issues/113) that links to the Introduction point to `/` and not `/index.html`. These will also be fixed.
 
 	> buildGitbook()
 	
