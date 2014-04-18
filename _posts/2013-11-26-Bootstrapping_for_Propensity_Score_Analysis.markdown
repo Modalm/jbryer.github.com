@@ -53,6 +53,7 @@ The `summary` function provides numeric results for each method including the ov
     #     Complete estimate = 0.482
     #     Complete CI = [0.3, 0.665]
     #     Bootstrap pooled estimate = 0.476
+    #     Bootstrap weighted pooled estimate = 0.475
     #     Bootstrap pooled CI = [0.332, 0.62]
     #     100% of bootstrap samples have confidence intervals that do not span zero.
     #        100% positive.
@@ -61,6 +62,7 @@ The `summary` function provides numeric results for each method including the ov
     #     Complete estimate = 0.458
     #     Complete CI = [0.177, 0.739]
     #     Bootstrap pooled estimate = 0.482
+    #     Bootstrap weighted pooled estimate = 0.477
     #     Bootstrap pooled CI = [0.294, 0.67]
     #     99% of bootstrap samples have confidence intervals that do not span zero.
     #        99% positive.
@@ -69,6 +71,7 @@ The `summary` function provides numeric results for each method including the ov
     #     Complete estimate = 0.475
     #     Complete CI = [0.165, 0.784]
     #     Bootstrap pooled estimate = 0.45
+    #     Bootstrap weighted pooled estimate = 0.447
     #     Bootstrap pooled CI = [0.212, 0.689]
     #     84% of bootstrap samples have confidence intervals that do not span zero.
     #        84% positive.
@@ -77,6 +80,7 @@ The `summary` function provides numeric results for each method including the ov
     #     Complete estimate = 0.479
     #     Complete CI = [0.388, 0.571]
     #     Bootstrap pooled estimate = 0.471
+    #     Bootstrap weighted pooled estimate = 0.471
     #     Bootstrap pooled CI = [0.231, 0.711]
     #     100% of bootstrap samples have confidence intervals that do not span zero.
     #        100% positive.
@@ -85,6 +89,7 @@ The `summary` function provides numeric results for each method including the ov
     #     Complete estimate = 0.5
     #     Complete CI = [0.253, 0.747]
     #     Bootstrap pooled estimate = 0.513
+    #     Bootstrap weighted pooled estimate = 0.51
     #     Bootstrap pooled CI = [0.293, 0.734]
     #     100% of bootstrap samples have confidence intervals that do not span zero.
     #        100% positive.
@@ -117,6 +122,8 @@ The `boxplot` function depicts the distribution of estimates for each method alo
  
 
     boxplot(tutoring.boot)
+
+    #  Loading required package: ggthemes
 
 ![plot of chunk tutoringboxplot](/images/figure/tutoringboxplot.png) 
 

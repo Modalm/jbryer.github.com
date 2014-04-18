@@ -11,4 +11,4 @@ I have started an [R Users Group](http://www.meetup.com/Albany-R-Users-Group) fo
 
 [www.meetup.com/Albany-R-Users-Group](http://www.meetup.com/Albany-R-Users-Group)
 
-Feel free to [email me](mailto:jason@bryer.org) or leave comment on this page or on the Meetup page if you are interested in giving a talk or hosting some future meeting.
+Feel free to [email me](mailto:jason@bryer.org) or leave comment on this page or on the Meetup page if you are interested in giving a talk or hosting some future meeting. 

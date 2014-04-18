@@ -59,3 +59,8 @@ This is the list of software I use related to either the content of this website
 * [MathJax](http://www.mathjax.org/)
 * [Jekyll](https://github.com/mojombo/jekyll)
 
+____
+#### Learning R
+
+* [Quick-R](http://statmethods.net/)
+* [Video Tutorials on Learning R](http://www.twotorials.com/)
