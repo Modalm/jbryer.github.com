@@ -51,6 +51,7 @@ And we can see the four files it created.
 At this stage you can open `SUMMARY.md` and change the outline of your book. Once you are done, the `initGitbook` function will create the files and folders for your book. Unlike the Gitbook command line, this function will change the file extensions of all your files to `.Rmd` (excluding `README.md` and `SUMMARY.md`) even though you specify `.md` in the links in that file. The `buildRmd` function discussed below will convert those `.Rmd` files to `.md`.
 
 	> initGitbook()
+
 ![Files](/images/gitbookfiles.png)
 
 The `buildRmd` function will convert all `.Rmd` files in your project to `.md` using the `knitr` package. It should be noted that this function will create a file, `.rmdbuild.Rda`, in your working directory. This is an R data file that saves the status of the last build. This allows this function to only build R markdown files that have changed since the last build and therefore, increase the execution time. By default, all the `knitr` messages will be printed to the console. If you specify `log.dir` parameter, then all the output will be saved to log files in that given directory (one log file per Rmd file). There is also a `clean` parameter that will build all R markdown files regardless of their modification timestamp.
