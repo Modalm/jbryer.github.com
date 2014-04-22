@@ -7,7 +7,9 @@ published: true
 status: publish
 ---
  
-** UPDATE: This R Script has been deprecated and all the functionality has been included in the Rgitbook Package. More information is at http://jason.bryer.org/Rgitbook **
+<b>
+UPDATE: This R Script has been deprecated and all the functionality has been included in the Rgitbook Package. More information is at http://jason.bryer.org/Rgitbook
+</b>
 
 [Gitbook](http://www.gitbook.io/) has been getting some (deserved) attention. For those who haven't seen it, Gitbook is a system to create really beautiful interactive web (or PDF and ebook) books. For me, the timing of discovering this framework could not be better as I am preparing documentation for propensity score analysis for an [upcoming workshop I am giving](http://www.meetup.com/Albany-R-Users-Group/events/176617442/). Of course, I want to use it to write about R and would prefer to use R markdown instead of just plain markdown. I have written a number of R functions to combine the functionality of `knitr` and Gitbook. The source code is on [Gist](https://gist.github.com/jbryer/11049319) or can be sourced directly using the `devtools` package.
 
