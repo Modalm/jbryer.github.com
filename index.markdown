@@ -41,6 +41,7 @@ The primary focus of this website is to provide documentation for R packages I m
 * [`qualtrics`](/qualtrics) An R package to interface with the [Qualtrics.com](http://qualtrics.com) survey system.
 * [`Rd2markdown`](/Rd2markdown) Functions to convert Rd help files to markdown format.
 * [`retention`](/retention) An R package for estimating and visualizing retention and completion rates. Designed primarily for online, distant education institutions, the method used can be generalized to traditional institutions.
+* [`Rgitbook`](/Rgitbook) Creating Gitbook Projects with R Markdown.
 * [`ruca`](https://github.com/jbryer/ruca) An R package to get [Rural-Urban Commuting Area](http://depts.washington.edu/uwruca/index.php) (RUCA) Codes from zip codes.
 * [`sqlutils`](/sqlutils) An R package to manage a library of SQL queries.
 * [`timeline`](/timeline) An R package to create timeline figures.
