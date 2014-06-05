@@ -8,7 +8,6 @@ status: publish
 ---
  
 
-
  
 I am happy to announce that version 1.0 of the `PSAboot` package has been released to CRAN. This package implements bootstrapping for propensity score analysis. This deviates from typical implementations such as [`boot`](http://cran.r-project.org/web/packages/boot/index.html) in that it allows for separate sampling specifications for treatment and control units. For example, in the case where the ratio of treatment-to-control units is large, one can bootstrap only the control units while always using all available treatment units. Additionally, this package will estimate treatment effects using multiple methods for each bootstrap sample. In addition to adhering to Rosenbaum's (2012) advise of ["Testing One Hypothesis Twice in Observational Studies"](http://biomet.oxfordjournals.org/content/99/4/763.abstract), we can compare the performance of different methods across many samples. Lastly, a set of functions to estimate and visualize balance across bootstrap samples and methods are provided.
  
@@ -25,24 +24,25 @@ The following example uses the `tutoring` dataset in the [`TriMatch`](/TriMatch)
     #  Loading required package: PSAgraphics
     #  Loading required package: rpart
 
-    data(tutoring, package = "TriMatch")
-    tutoring$treatbool <- tutoring$treat != "Control"
-    covs <- tutoring[, c("Gender", "Ethnicity", "Military", "ESL", "EdMother", "EdFather", 
-        "Age", "Employment", "Income", "Transfer", "GPA")]
+    data(tutoring, package='TriMatch')
+    tutoring$treatbool <- tutoring$treat != 'Control'
+    covs <- tutoring[,c('Gender', 'Ethnicity', 'Military', 'ESL', 'EdMother', 'EdFather',
+    					'Age', 'Employment', 'Income', 'Transfer', 'GPA')]
     table(tutoring$treatbool)
 
     #  
     #  FALSE  TRUE 
     #    918   224
 
-    tutoring.boot <- PSAboot(Tr = tutoring$treatbool, Y = tutoring$Grade, X = covs, 
-        seed = 2112)
+    tutoring.boot <- PSAboot(Tr=tutoring$treatbool, 
+    						 Y=tutoring$Grade, 
+    						 X=covs, 
+    						 seed=2112)
 
     #  100 bootstrap samples using 5 methods.
     #  Bootstrap sample sizes:
     #     Treated=224 (100%) with replacement.
     #     Control=918 (100%) with replacement.
-
  
 The `summary` function provides numeric results for each method including the overall estimate and confidence interval using the complete sample as well as the pooled estimates and confidence intervals with percentages of the number of confidence intervals that do not span zero.
  
@@ -53,7 +53,6 @@ The `summary` function provides numeric results for each method including the ov
     #     Complete estimate = 0.482
     #     Complete CI = [0.3, 0.665]
     #     Bootstrap pooled estimate = 0.476
-    #     Bootstrap weighted pooled estimate = 0.475
     #     Bootstrap pooled CI = [0.332, 0.62]
     #     100% of bootstrap samples have confidence intervals that do not span zero.
     #        100% positive.
@@ -62,7 +61,6 @@ The `summary` function provides numeric results for each method including the ov
     #     Complete estimate = 0.458
     #     Complete CI = [0.177, 0.739]
     #     Bootstrap pooled estimate = 0.482
-    #     Bootstrap weighted pooled estimate = 0.477
     #     Bootstrap pooled CI = [0.294, 0.67]
     #     99% of bootstrap samples have confidence intervals that do not span zero.
     #        99% positive.
@@ -71,7 +69,6 @@ The `summary` function provides numeric results for each method including the ov
     #     Complete estimate = 0.475
     #     Complete CI = [0.165, 0.784]
     #     Bootstrap pooled estimate = 0.45
-    #     Bootstrap weighted pooled estimate = 0.447
     #     Bootstrap pooled CI = [0.212, 0.689]
     #     84% of bootstrap samples have confidence intervals that do not span zero.
     #        84% positive.
@@ -80,7 +77,6 @@ The `summary` function provides numeric results for each method including the ov
     #     Complete estimate = 0.479
     #     Complete CI = [0.388, 0.571]
     #     Bootstrap pooled estimate = 0.471
-    #     Bootstrap weighted pooled estimate = 0.471
     #     Bootstrap pooled CI = [0.231, 0.711]
     #     100% of bootstrap samples have confidence intervals that do not span zero.
     #        100% positive.
@@ -89,12 +85,10 @@ The `summary` function provides numeric results for each method including the ov
     #     Complete estimate = 0.5
     #     Complete CI = [0.253, 0.747]
     #     Bootstrap pooled estimate = 0.513
-    #     Bootstrap weighted pooled estimate = 0.51
     #     Bootstrap pooled CI = [0.293, 0.734]
     #     100% of bootstrap samples have confidence intervals that do not span zero.
     #        100% positive.
     #        0% negative.
-
  
 The `plot` function plots the estimate (mean difference) for each bootstrap sample. The default is to sort from largest to smallest estimate for each method separately. That is, rows do not correspond across methods. The `sort` parameter can be set to `none` for no sorting or the name of any `method` to sort only based upon the results of that method. In these cases the rows then correspond to matching bootstrap samples. The blue points correspond to the the estimate for each bootstrap sample and the horizontal line to the confidence interval. Confidence intervals that do not span zero are colored red. The vertical blue line and green lines correspond to the overall pooled estimate and confidence for each method, respectively.
  
@@ -102,7 +96,6 @@ The `plot` function plots the estimate (mean difference) for each bootstrap samp
     plot(tutoring.boot)
 
 ![plot of chunk tutoringplot](/images/figure/tutoringplot.png) 
-
  
 The `hist` function plots a histogram of the estimates across all bootstrap samples for each method.
  
@@ -116,7 +109,6 @@ The `hist` function plots a histogram of the estimates across all bootstrap samp
     #  stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
 
 ![plot of chunk tutoringhist](/images/figure/tutoringhist.png) 
-
  
 The `boxplot` function depicts the distribution of estimates for each method along with confidence intervals in green. Additionally, the overall pooled estimate and confidence interval across all bootstrap samples and methods are represented by the vertical blue and green lines, respectively.
  
@@ -126,7 +118,6 @@ The `boxplot` function depicts the distribution of estimates for each method alo
     #  Loading required package: ggthemes
 
 ![plot of chunk tutoringboxplot](/images/figure/tutoringboxplot.png) 
-
  
 The `matrixplot` summarizes the estimates across methods for each bootstrap sample. The lower half of the matrix are scatter plots where each point represents the one bootstrap sample. The red line is a Loess regression line. The main diagonal depicts the distribution of effects and the upper half provides the correlation of estimates.
  
@@ -134,7 +125,6 @@ The `matrixplot` summarizes the estimates across methods for each bootstrap samp
     matrixplot(tutoring.boot)
 
 ![plot of chunk tutoringmatrixplot](/images/figure/tutoringmatrixplot.png) 
-
  
 The `balance` function will provide balance statistics. The `print`, `plot`, and `boxplot` S3 methods are implemented.
  
@@ -149,18 +139,15 @@ The `balance` function will provide balance statistics. The `print`, `plot`, and
     #  rpart           0.07846   0.08698
     #  Matching        0.04522   0.06668
     #  MatchIt         0.05078   0.05790
-
  
 
     plot(tutoring.balance)
 
 ![plot of chunk tutoringbalanceplot](/images/figure/tutoringbalanceplot.png) 
-
  
 
     boxplot(tutoring.balance)
 
 ![plot of chunk tutoringbalanceboxplot](/images/figure/tutoringbalanceboxplot.png) 
-
  
  
