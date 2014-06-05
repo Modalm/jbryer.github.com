@@ -77,12 +77,12 @@ With the `xtable` package we can format the results better for a document.
 <!-- Thu Jun  5 09:54:06 2014 -->
 <TABLE border=1>
 <TR> <TH> variable </TH> <TH> class </TH> <TH> levels </TH> <TH> examples </TH>  </TR>
-  <TR> <TD> Sepal.Length </TD> <TD> numeric </TD> <TD>  </TD> <TD> 5.1, 4.9, 4.7, 4.6, ... </TD> </TR>
-  <TR> <TD> Sepal.Width </TD> <TD> numeric </TD> <TD>  </TD> <TD> 3.5, 3, 3.2, 3.1, ... </TD> </TR>
-  <TR> <TD> Petal.Length </TD> <TD> numeric </TD> <TD>  </TD> <TD> 1.4, 1.4, 1.3, 1.5, ... </TD> </TR>
-  <TR> <TD> Petal.Width </TD> <TD> numeric </TD> <TD>  </TD> <TD> 0.2, 0.2, 0.2, 0.2, ... </TD> </TR>
-  <TR> <TD> Species </TD> <TD> Factor w/ 3 levels </TD> <TD> "setosa", "versicolor", "virginica" </TD> <TD> "setosa", "setosa", "setosa", "setosa", ... </TD> </TR>
-   </TABLE>
+<TR> <TD> Sepal.Length </TD> <TD> numeric </TD> <TD>  </TD> <TD> 5.1, 4.9, 4.7, 4.6, ... </TD> </TR>
+<TR> <TD> Sepal.Width </TD> <TD> numeric </TD> <TD>  </TD> <TD> 3.5, 3, 3.2, 3.1, ... </TD> </TR>
+<TR> <TD> Petal.Length </TD> <TD> numeric </TD> <TD>  </TD> <TD> 1.4, 1.4, 1.3, 1.5, ... </TD> </TR>
+<TR> <TD> Petal.Width </TD> <TD> numeric </TD> <TD>  </TD> <TD> 0.2, 0.2, 0.2, 0.2, ... </TD> </TR>
+<TR> <TD> Species </TD> <TD> Factor w/ 3 levels </TD> <TD> "setosa", "versicolor", "virginica" </TD> <TD> "setosa", "setosa", "setosa", "setosa", ... </TD> </TR>
+</TABLE>
  
 Here's a second example using the `diamonds` data from the `ggplot2` package.
  
