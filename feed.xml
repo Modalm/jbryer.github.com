@@ -25,7 +25,7 @@ layout: none
       <name>Jason Bryer</name>
       <uri>http://jason.bryer.org/</uri>
     </author>
-    <content type="html">{{ post.content | split:"<!--more-->" | first | xml_escape }} &lt;a href='{{ site.url }}{{ post.url }}'&gt;Read full post...&lt;/a&gt;</content>
+    <content type="html">{{ post.content | split:"<!--more-->" | first | append:' ' | xml_escape }} &lt;a href='{{ site.url }}{{ post.url }}'&gt;Read full post...&lt;/a&gt;</content>
   </entry>
   {% endfor %} 
 </feed>
