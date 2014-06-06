@@ -31,25 +31,18 @@ The `strtable` has five parameters:
 * `factor.values` function defining how factor examples should be printed. Possible values are `as.character` or `as.integer`.
 
 ```{r irisstrtable}
-strtable(iris)
-strtable(iris, factor.values=as.integer)
+print(strtable(iris), na.print='')
+print(strtable(iris, factor.values=as.integer), na.print='')
 ```
 
-With the `xtable` package we can format the results better for a document.
-
-```{r irishtml, results='asis'}
-require(xtable)
-x <- xtable(strtable(iris))
-print(x, include.rownames=FALSE, type='html')
-```
 
 Here's a second example using the `diamonds` data from the `ggplot2` package.
 
 ```{r diamonds}
 data(diamonds)
 str(diamonds)
-strtable(diamonds)
-strtable(diamonds, factor.values=as.integer)
+print(strtable(diamonds), na.print='')
+print(strtable(diamonds, factor.values=as.integer), na.print='')
 ```
 
 Here's the source code from [Gist](https://gist.github.com/jbryer/4a0a5ab9fe7e1cf3be0e):
