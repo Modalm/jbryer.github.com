@@ -18,3 +18,4 @@ title: Blog
 	{% endif %}
   {% endfor %}
 </ul>
+
