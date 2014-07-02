@@ -4,7 +4,7 @@ title: str Implementation for Data Frames
 tags: R R-Bloggers
 type: post
 published: true
-status: process
+status: publish
 ---
 
 The `str` function is perhaps the most useful function in R. It provides great information about the structure of some object. When I teach R, especially for those coming from SPSS, the `str` function for data frames provides the information they are use to seeing on the variable view tab. However, sometimes I want to display the information `str` returns in a better format (e.g. as an HTML or LaTeX table). I wrote a function, `strtable` that provides the information `str.data.frame` does but returns the results as a `data.frame`. This provides much more flexibility for controlling how the output is formatted. Specifically, it will return a `data.frame` with four columns: `variable`, `class`, `levels`, and `examples`.

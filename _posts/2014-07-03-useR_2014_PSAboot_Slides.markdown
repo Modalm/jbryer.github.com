@@ -4,7 +4,7 @@ title: useR 2014 Slides for PSAboot and Version 1.1 on CRAN
 tags: R R-Bloggers
 type: post
 published: true
-status: process
+status: publish
 ---
 
 `PSAboot` is an R package to assist with bootstrapping propensity score methods. I gave a talk today at the [useR! 2014 Conference](http://user2014.stat.ucla.edu). The slides can be [downloaded from the PSAboot Github page](https://github.com/jbryer/PSAboot) or directly [here](https://github.com/jbryer/PSAboot/blob/master/Slides/Slides.pdf?raw=true). The package is described at [jason.bryer.org/PSAboot](http://jason.bryer.org/PSAboot) and maintained on Github at [github.com/jbryer/PSAboot/](https://github.com/jbryer/PSAboot/).
