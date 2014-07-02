@@ -1,6 +1,6 @@
 --- 
 layout: post
-title: useR! 2014 Slides for PSAboot and Version 1.1 on CRAN
+title: useR 2014 Slides for PSAboot and Version 1.1 on CRAN
 tags: R R-Bloggers
 type: post
 published: true
