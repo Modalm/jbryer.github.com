@@ -182,24 +182,21 @@ The source for this post can be downloaded from [GitHub](https://github.com/jbry
     l <- likert(items, grouping=pisana$CNT)
 
     ## Error: object 'items' not found
-
  
 Once the `likert` has been called we can print the summary.
  
 
-    options(width = 120)
+    options(width=120)
     summary(l)
 
     Error: object 'l' not found
-
  
 And of course, we can include plots.
  
 
-    plot(l, centered = TRUE)
+    plot(l, centered=TRUE)
 
     ## Error: object 'l' not found
-
  
 #### Final Thoughts
  
