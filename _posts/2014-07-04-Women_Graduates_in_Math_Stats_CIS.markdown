@@ -22,7 +22,7 @@ First, this histogram depicts the total number of Baccalaureate Degrees awarded 
 The following figure shows the percentage of those Baccalaureate Degrees awarded to women. For comparison, I have included a line showing the total percentage of Baccalaureate Degrees awarded to women. The bad news, there is still a ways to go to shrink the gender gap. Math and statistics is doing better, but not as bad as CIS degrees. The worse news, it appears there is a downward trend in the percentage of Baccalaureate Degrees awarded to women in CIS.
 
 ![Percent of Female Percent of Female Baccalaureate Degrees Awarded\n',
-				   'by Year for CIS, Math, and Statistics Majors Degrees Awarded by Year for CIS, Math, and Statistics Majors](/images/ipeds-degrees-gender)
+				   'by Year for CIS, Math, and Statistics Majors Degrees Awarded by Year for CIS, Math, and Statistics Majors](/images/ipeds-degrees-gender.png)
 
 The source code is on [Gist](https://gist.github.com/jbryer/11ad6956dff589ec4f3c):
 
