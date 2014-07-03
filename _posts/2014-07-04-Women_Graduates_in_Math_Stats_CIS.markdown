@@ -9,7 +9,7 @@ status: publish
 
 One of the more interesting talks at this year's [useR! Conference](http://user2014.stat.ucla.edu/) was the [heR Panel](https://github.com/skoval/her2014) discussing the role of women in the R community. They estimate that fewer than 15% of package authors are women. One of the points brought up was that this is less than the percentage of women in statistics. Perhaps this is more related to the computer science aspect of R that that of statistics. By way of comparison, the [United States Department of Labor](http://www.dol.gov) estimates there are between 7.5% (computer network architects) and 39.5% (web developers) of computer related fields. This as compared to women holding 47% of all occupations ([source](http://www.dol.gov/wb/stats/Computer-information-technology.htm)). 
 
-<img src='https://raw.githubusercontent.com/skoval/her2014/master/women_represent.png' width='50%' alt='R Package Maintainers')
+<img src='https://raw.githubusercontent.com/skoval/her2014/master/women_represent.png' width='50%' alt='R Package Maintainers' />
 
 (Stephanie Kovalchik, https://github.com/skoval/her2014/blob/master/representation.R)
 
