@@ -31,6 +31,7 @@ The primary focus of this website is to provide documentation for R packages I m
 * [`TriMatch`](/TriMatch) Propensity score matching for non-binary treatments.
 * [`multilevelPSA`](/multilevelPSA) An R package for estimating and visualizing multilelel propensity score models.
 
+* [`DataCache`](/DataCache) An R package to manage data caching.
 * [`geocode`](https://github.com/jbryer/geocode) An R package to geocode IP addresses using GeoIP's database and street addresses using Google or Yahoo.
 * [`ipeds`](/ipeds) An R package to interface with the Integraded Postsecondary Education Data System.
 * [`irutils`](/irutils) An R package containing a collection of useful functions for Institutional Researchers.
