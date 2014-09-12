@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Jason.Bryer.org
-subtitle: R Packages and Resources by Jason Bryer
+subtitle: R Packages and Resources by Jason Bryer, Ph.D.
 submenu: none
 ---
 
