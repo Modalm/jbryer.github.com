@@ -25,14 +25,14 @@ __________
 
 ### Table of Contents ###
 
-The primary focus of this website is to provide documentation for R packages I maintain. These include:
+The primary focus of this website is to provide documentation for R packages I maintain. Not all packages are published on [CRAN](http://cran.r-project.org). For those, see the installation instructions on the corresponding [Github](https://github.com/jbryer) page.	
 
 Package                                        | Description                                  | Github Status      | CRAN Version
 -----------------------------------------------|----------------------------------------------|:------------------:|:-------------------:
 [`PSAboot`](/PSAboot)                          | Bootstrapping for Propensity Score Analysis. | ![Build Status](https://api.travis-ci.org/jbryer/PSAboot.svg) | [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/PSAboot)](http://cran.r-project.org/package=PSAboot) 
 [`TriMatch`](/TriMatch)                        | Propensity score matching for non-binary treatments. | ![Build Status](https://travis-ci.org/jbryer/TriMatch.svg)  | [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/TriMatch)](http://cran.r-project.org/package=TriMatch) 
 [`multilevelPSA`](/multilevelPSA)              | An R package for estimating and visualizing multilevel propensity score models. | ![Build Status](https://travis-ci.org/jbryer/multilevelPSA.svg)  | [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/multilevelPSA)](http://cran.r-project.org/package=multilevelPSA) 
-[`DataCache`](/DataCache)                      | An R package to manage data caching. |   | [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/DataCache)](http://cran.r-project.org/package=DataCache) 
+[`DataCache`](/DataCache)                      | An R package to manage data caching. |  ![Build Status](https://travis-ci.org/jbryer/DataCache.svg) | [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/DataCache)](http://cran.r-project.org/package=DataCache) 
 [`geocode`](https://github.com/jbryer/geocode) | An R package to geocode IP addresses using GeoIP's database and street addresses using Google or Yahoo. |   | [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/geocode)](http://cran.r-project.org/package=geocode) 
 [`ipeds`](/ipeds)                              | An R package to interface with the Integraded Postsecondary Education Data System. |   | [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/ipeds)](http://cran.r-project.org/package=ipeds) 
 [`likert`](/likert)                            | An R package to analyze and visualize Likert based items. | ![Build Status](https://api.travis-ci.org/jbryer/likert.svg) | [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/likert)](http://cran.r-project.org/package=likert) 
