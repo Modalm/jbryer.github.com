@@ -9,7 +9,7 @@ status: publish
 
 Consider a pool table of length one. An 8-ball is thrown such that the likelihood of its stopping point is uniform across the entire table (i.e. the table is perfectly level). The location of the 8-ball is recorded, but not known to the observer. Subsequent balls are thrown one at a time and all that is reported is whether the ball stopped to the left or right of the 8-ball. Given only this information, what is the position of the 8-ball? How does the estimate change as more balls are thrown and recorded?
 
-![Bayes Billiards Shiny App Screenshot](/images/BayesBilliardsShiny.png)
+<img src='/images/BayesBilliardsShiny.png' alt='Bayes Billiards Shiny App Screenshot' width='400' />
 
 You can run the app from RStudio's [shinyapps.io](https://jbryer.shinyapps.io/BayesBilliards/) service at [jbryer.shinyapps.io/BayesBilliards](https://jbryer.shinyapps.io/BayesBilliards).
 
