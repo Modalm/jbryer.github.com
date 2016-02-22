@@ -51,13 +51,13 @@ Next, we create an assessment by calling the `ShinyAssessment` function.
 
 ```
 test <- ShinyAssessment(input, output, session,
-						name = 'Statistics',
-						item.stems = math.items$Stem,
-						item.choices = math.items[,c(4:8)],
-						callback = saveResults,
-						start.label = 'Start the Statistics Assessment',
-						itemsPerPage = 1,
-						inline = FALSE)
+		name = 'Statistics',
+		item.stems = math.items$Stem,
+		item.choices = math.items[,c(4:8)],
+		callback = saveResults,
+		start.label = 'Start the Statistics Assessment',
+		itemsPerPage = 1,
+		inline = FALSE)
 ```
 
 The first three parameters, `input`, `output`, and `session` are simply passed from `shinyServer`. The other parameters you can set are:
