@@ -8,7 +8,6 @@ plugins:     ./_plugins
 future:      true
 lsi:         false
 pygments:    false
-markdown:    maruku
 permalink:   /posts/:year-:month-:day/:title.html
 
 name: Jason.Bryer.org Blog
