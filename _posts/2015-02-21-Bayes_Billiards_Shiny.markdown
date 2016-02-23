@@ -17,5 +17,5 @@ The Shiny App is included in the [`IS606`](https://github.com/jbryer/IS606) pack
 
 Or, run the app directly from Github using the `shiny::runGitHub('IS606', 'jbryer', subdir='inst/shiny/BayesBilliards')` function.
 
-Source code is located here: https://github.com/jbryer/IS606/tree/master/inst/shiny/BayesBilliards
+Source code is located here: [https://github.com/jbryer/IS606/tree/master/inst/shiny/BayesBilliards](https://github.com/jbryer/IS606/tree/master/inst/shiny/BayesBilliards)
 
