@@ -7,6 +7,16 @@ status: publish
 submenu: talks
 ---
  
+
+#### IS 606 - Statistics and Probability for Data Analytics 
+##### [CUNY School of Professional Studies](https://sps.cuny.edu/) - [Master of Science in Data Analytics](https://sps.cuny.edu/academics/graduate/master-science-data-analytics-ms)
+
+Course website: [github.com/jbryer/IS606Spring2016](https://github.com/jbryer/IS606Spring2016)
+
+This course covers basic techniques in probability and statistics that are important in the field of data analytics. Discrete probability models, sampling from infinite and finite populations, statistical distributions, basic Bayesian statistics, and non-parametric statistical techniques for categorical data are covered in this course. Each of these statistical concepts will be applied in a variety of real-world scenarios through the use of case studies and customized data sets.
+
+-------------------
+
 #### EPSY 887 Data Science Institute
 ##### Doctoral seminar at the [University at Albany](http://albany.edu) in the Fall 2014 semester.
 
@@ -14,9 +24,7 @@ Course website: [github.com/jbryer/EPSY887DataScience](https://github.com/jbryer
 
 Data Science is the intersection of statistics, computer science, and research. This seminar will introduce the key concepts of data science with an emphasis on data science in education. We will cover the important statistical and programming concepts necessary for conducting reproducible research on large datasets. The open source program R will be used throughout the course. No programming experience is required but at least two semesters of graduate statistics is highly recommended.
 
-
 -------------------
-
 
 #### EPSY 530 Statistics I
 ##### Graduate course at [University at Albany](http://albany.edu) in the Fall 2013, Summer 2014, and Fall 2014 semesters.
@@ -24,7 +32,6 @@ Data Science is the intersection of statistics, computer science, and research. 
 Course Website: [epsy530.bryer.org](http://epsy530.bryer.org)
 
 Descriptive statistics including measures of central tendency and variability, correlation and regression. Introduction to statistical inference, including sampling distributions, significance tests, confidence intervals, and power of tests of significance.
-
 
 -------------------
 
@@ -38,11 +45,10 @@ The proposed workshop will provide participants with a theoretical overview of p
 * [Full workshop description...](psaworkshop.html)
 * [Workshop Materials on Github](https://github.com/jbryer/psa)
 
-
 -------------------
 
 #### Introduction to R and LaTeX for Institutional Research
-##### Pre-Conference workshop at the 2011, 2012, and 2013 [NEAIR](http://neair.org) conferences.
+##### Pre-Conference workshop at the 2011, 2012, 2013, and 2015 [NEAIR](http://neair.org) conferences.
 
 This workshop will provide an overview as well as hands-on exercises for using R and LaTeX to perform data analysis and report generation. Participants will learn to perform basic statistical analyses in R and to generate reports with LaTeX in spreadsheet, presentation, and document formats.
 
@@ -50,7 +56,6 @@ This workshop will provide an overview as well as hands-on exercises for using R
 * [More here...](https://github.com/jbryer/IntroRandLaTeXforIR)
 
 -------------------
-
 
 #### EPSY 887 Computational Statistics
 ##### Doctoral seminar at the [University at Albany](http://albany.edu) in the Spring 2013 semester.
